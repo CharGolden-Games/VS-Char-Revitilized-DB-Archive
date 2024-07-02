@@ -81,6 +81,9 @@ class FreeplaySelectState extends MusicBeatState {
 
         openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized | Freeplay Catagory Select | ";
 
+        if (secretSound == null){ // because apparently it can become null????
+            secretSound = new FlxSound().loadEmbedded(Paths.sound('SecretSound'), true);
+        }
         secretSound.volume = 0.5;
         // So that it too has a randomized bg
         BG = new FlxSprite().loadGraphic(MainMenuState.randomizeBG());

@@ -10,6 +10,8 @@ class OptionsState extends MusicBeatState
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 	public static var onPlayState:Bool = false;
+	public static var reOpenSubstate:Bool = false;
+	public static var substateToReOpen:String;
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
@@ -85,6 +87,22 @@ class OptionsState extends MusicBeatState
     var saveResetText:FlxText;
     override function update(elapsed:Float) {
 		super.update(elapsed);
+		if (reOpenSubstate) {
+			switch (substateToReOpen.toLowerCase()) {
+			case 'note colors':
+				openSubState(new options.NotesSubState());
+			case 'controls':
+				openSubState(new options.ControlsSubState());
+			case 'graphics':
+				openSubState(new options.GraphicsSettingsSubState());
+			case 'visuals and ui':
+				openSubState(new options.VisualsUISubState());
+			case 'gameplay':
+				openSubState(new options.GameplaySettingsSubState());
+			case 'adjust delay and combo':
+				MusicBeatState.switchState(new options.NoteOffsetState());
+			}
+		}
         if (controls.RESET || FlxG.keys.pressed.R)
             {
                 nEWMessageWindowlmao = new FlxSprite().makeGraphic(300,300,0x860000);
