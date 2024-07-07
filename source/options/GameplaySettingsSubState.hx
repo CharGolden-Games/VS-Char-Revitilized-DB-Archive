@@ -32,7 +32,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Remove Perfect! Note Judgement',
+		var option:Option = new Option('Remove Perfect! Judgement',
 			'If checked, removes Perfect! judgement',
 			'removePerfects',
 			'bool');
