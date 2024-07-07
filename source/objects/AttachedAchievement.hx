@@ -33,5 +33,5 @@ class AttachedAchievement extends FlxSprite {
 
 		super.update(elapsed);
 	}
-	--fuck you hahahahahahahahahahahahahahahahahahahahahhahaahahaaaaa
+	//fuck you hahahahahahahahahahahahahahahahahahahahahhahaahahaaaaa
 }
