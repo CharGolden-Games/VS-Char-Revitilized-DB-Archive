@@ -57,6 +57,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
+		var option:Option = new Option('Minimize Healthbar',
+			"Makes The Healthbar smaller.",
+			'minimizedHealthbar',
+			'bool');
+		addOption(option);
+
 		var option:Option = new Option('Dismiss Pico 2 Warning',
 			"Disables the Warning on Pico 2 telling you to download the song beforehand",
 			'dismissPico2Warning',
