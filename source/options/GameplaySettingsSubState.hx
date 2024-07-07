@@ -32,7 +32,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Remove Perfect! Note Judgement',
+		var option:Option = new Option('Remove Perfect! Judgement',
 			'If checked, removes Perfect! judgement',
 			'removePerfects',
 			'bool');
@@ -54,6 +54,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		var option:Option = new Option('Revert Healthbar',
 			"Reverts Healthbar to Base FNF Style",
 			'baseFNFHealthBar',
+			'bool');
+		addOption(option);
+
+		var option:Option = new Option('Minimize Healthbar',
+			"Makes The Healthbar smaller.",
+			'minimizedHealthbar',
 			'bool');
 		addOption(option);
 
