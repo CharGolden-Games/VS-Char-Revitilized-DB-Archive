@@ -105,6 +105,7 @@
 	<assets path='art/readme.txt' rename='readme.txt' />
 	<assets path='changelogs/changelog.md' rename='changelog.md' />
 	<assets path='changelogs/chartChangelog.md' rename='chartChangelog.md' />
+	<assets path="assets/extra" rename="assets" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
