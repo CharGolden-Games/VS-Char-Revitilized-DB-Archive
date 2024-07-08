@@ -472,6 +472,8 @@ class PlayState extends MusicBeatState
 				new states.stages.CharSus(); // Defeat Mixes
 			case 'chair':
 				new states.stages.White(); // I HAVE THE HIGHGROUND BITCH. // HAHA "White" LMAO
+			case 'saloon':
+				new states.stages.Saloon(); // idk yet lmao.
 		}
 
 		if (isPixelStage)
