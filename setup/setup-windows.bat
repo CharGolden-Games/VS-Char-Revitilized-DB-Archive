@@ -9,7 +9,7 @@ haxelib set flixel-addons 3.0.2 --always
 haxelib set flixel-ui 2.5.0 --always
 haxelib set sscript 5.2.0 --always
 haxelib set hxcodec 2.6.1 --always
-haxelib set lime 8.0.2 --always
+haxelib set lime 8.0.1 --always
 haxelib --global git linc_luajit https://github.com/superpowers04/linc_luajit.git
 haxelib set openfl 9.2.1 --always
 haxelib set haxeui-core 1.7.0 --always
