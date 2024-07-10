@@ -12,6 +12,8 @@ class Saloon extends BaseStage
     var noobley:BGSprite; 
     var desa:BGSprite;
     var mcbf:BGSprite; // dont forget to make these a bopper object when i finish the sprites!
+    var odd:BGSprite;
+    var anny:BGSprite;
     override function create() {
         saloonBG = new BGSprite(path + 'Saloon_BG', 0, 0);
 
@@ -25,11 +27,22 @@ class Saloon extends BaseStage
 
         mcbf  = new BGSprite(bgCharPath + 'MCBF', 0, 0);
 
+        odd  = new BGSprite(bgCharPath + 'Odd', 0, 0);
+
+        anny = new BGSprite(bgCharPath + 'Anny', 0, 0);
+        anny.frames = Paths.getSparrowAtlas('mainstory/' + bgCharPath + 'Anny', 'week_assets');
+        anny.animation.addByPrefix('Idle', 'Idle');
+
         add(saloonBG);
         add(tablesLmao);
         add(sam);
         add(noobley);
         add(desa);
         add(mcbf);
+        add(odd);
+    }
+
+    override function createPost() {
+        add(anny);
     }
 }
