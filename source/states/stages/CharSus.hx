@@ -12,15 +12,15 @@ class CharSus extends BaseStage
 			
 
 			defeatBasicBG = new BGSprite('basicBG', -650, -400, 0.5, 0.5);
-			defeatBasicBG.setGraphicSize(Std.int(skyTrees.width * 1.75));
+			defeatBasicBG.setGraphicSize(Std.int(defeatBasicBG.width * 1.75));
 			defeatBasicBG.updateHitbox();
 					
 			LETTHEBODIESHITTHEFLOOR = new BGSprite('bgBodies', -650, -1300, 0.8, 0.8);
-			LETTHEBODIESHITTHEFLOOR.setGraphicSize(Std.int(treesFG.width * 1.75));
+			LETTHEBODIESHITTHEFLOOR.setGraphicSize(Std.int(LETTHEBODIESHITTHEFLOOR.width * 1.75));
 			LETTHEBODIESHITTHEFLOOR.updateHitbox();
 					
 			yoAssIsGrass = new BGSprite('fgBodies', -650, 120);
-			yoAssIsGrass.setGraphicSize(Std.int(grass.width * 1.75));
+			yoAssIsGrass.setGraphicSize(Std.int(yoAssIsGrass.width * 1.75));
 			yoAssIsGrass.updateHitbox();
 
 			add(defeatBasicBG);

@@ -17,12 +17,10 @@ class EngineOutdatedState extends MusicBeatState
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"Hey! this Engine is outta DATE!!! report this! \n
+			"Hey! this Engine is outta DATE!!! \n
 			(" + MainMenuState.charEngineVersion.trim() + "),\n
-			Its now at version " + TitleState.engineUpdateVersion.trim() + "!\n
-			Press ESCAPE to proceed anyway.\n
-			\n
-			@annyconducter on discord.",
+			Its now at version " + TitleState.engineUpdateVersion.trim() + "!
+			\nThere might be some features missing from this build!\nPress Enter/Esc to continue.",
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
@@ -34,8 +32,7 @@ class EngineOutdatedState extends MusicBeatState
 		if(!leftState) {
 			if (controls.ACCEPT) {
 				leftState = true;
-				CoolUtil.browserLoad("https://discord.gg/BuGUaYMtxR");
-				trace("Opening The Discord!");
+				trace("Skipped.");
 			}
 			else if(controls.BACK) {
 				leftState = true;

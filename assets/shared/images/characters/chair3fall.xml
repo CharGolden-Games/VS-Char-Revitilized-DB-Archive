@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="chair3fall.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Chair Fall0000" x="0" y="2347" width="618" height="941" frameX="-1039" frameY="-156" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0001" x="2749" y="5070" width="685" height="1027" frameX="-1032" frameY="-97" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0002" x="1330" y="4545" width="735" height="1086" frameX="-1027" frameY="-57" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0003" x="2553" y="2183" width="767" height="1122" frameX="-1024" frameY="-32" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0004" x="2940" y="3926" width="785" height="1143" frameX="-1023" frameY="-18" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0005" x="1761" y="2183" width="791" height="1152" frameX="-1023" frameY="-11" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0006" x="970" y="2146" width="790" height="1154" frameX="-1023" frameY="-9" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0007" x="7296" y="2932" width="785" height="1152" frameX="-1023" frameY="-10" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0008" x="3726" y="3941" width="780" height="1149" frameX="-1023" frameY="-11" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0009" x="4507" y="3941" width="777" height="1148" frameX="-1024" frameY="-11" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0010" x="3563" y="2143" width="809" height="1163" frameX="-1021" frameY="-6" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0011" x="7361" y="0" width="820" height="1167" frameX="-1021" frameY="-5" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0012" x="2066" y="4545" width="682" height="1100" frameX="-1032" frameY="-31" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0013" x="4865" y="2106" width="959" height="1215" frameX="-720" frameY="0" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0014" x="5825" y="2109" width="935" height="1059" frameX="-1027" frameY="-153" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0015" x="2443" y="1107" width="1119" height="1075" frameX="-1071" frameY="-223" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0016" x="1225" y="1121" width="1163" height="1024" frameX="-1100" frameY="-292" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0017" x="3673" y="1103" width="1191" height="1039" frameX="-1097" frameY="-279" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0018" x="6135" y="0" width="1210" height="1090" frameX="-1080" frameY="-225" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0019" x="1225" y="0" width="1217" height="1120" frameX="-1070" frameY="-192" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0020" x="0" y="1131" width="969" height="1215" frameX="-710" frameY="-3" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0021" x="3673" y="0" width="1229" height="1102" frameX="-389" frameY="-214" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0022" x="4903" y="1084" width="1228" height="1021" frameX="-362" frameY="-302" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0023" x="4903" y="0" width="1231" height="1083" frameX="-380" frameY="-235" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0024" x="0" y="0" width="1224" height="1130" frameX="-404" frameY="-182" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0025" x="2443" y="0" width="1229" height="1106" frameX="-390" frameY="-210" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0026" x="6132" y="1091" width="1228" height="1017" frameX="-361" frameY="-306" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0027" x="6761" y="2109" width="1169" height="822" frameX="-359" frameY="-497" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0028" x="6559" y="5026" width="1238" height="618" frameX="-232" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0029" x="6559" y="5026" width="1238" height="618" frameX="-232" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0030" x="5285" y="5026" width="1273" height="618" frameX="-197" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0031" x="5285" y="5026" width="1273" height="618" frameX="-197" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0032" x="0" y="4539" width="1329" height="618" frameX="-141" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0033" x="0" y="4539" width="1329" height="618" frameX="-141" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0034" x="6711" y="4407" width="1391" height="618" frameX="-79" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0035" x="6711" y="4407" width="1391" height="618" frameX="-79" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0036" x="5285" y="4407" width="1425" height="618" frameX="-45" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0037" x="5285" y="4407" width="1425" height="618" frameX="-45" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0038" x="0" y="3920" width="1469" height="618" frameX="-1" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0039" x="0" y="3920" width="1469" height="618" frameX="-1" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0040" x="1470" y="3926" width="1469" height="618" frameX="-1" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0041" x="5825" y="3169" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0042" x="5825" y="3169" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0043" x="5825" y="3169" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0044" x="5825" y="3169" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0045" x="5825" y="3169" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0046" x="5825" y="3169" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0047" x="5825" y="3169" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0048" x="5825" y="3169" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0049" x="0" y="3301" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0050" x="2553" y="3307" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0051" x="4024" y="3322" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0052" x="4024" y="3322" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0053" x="5495" y="3788" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0054" x="5495" y="3788" width="1470" height="618" frameX="0" frameY="-707" frameWidth="2290" frameHeight="1325"/>
+	<SubTexture name="Chair Fall0055" x="0" y="0" width="0" height="0" frameX="1379" frameY="-112" frameWidth="2290" frameHeight="1325"/>
+</TextureAtlas>

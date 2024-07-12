@@ -32,7 +32,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Remove Perfect! Note Judgement',
+		var option:Option = new Option('Remove Perfect! Judgement',
 			'If checked, removes Perfect! judgement',
 			'removePerfects',
 			'bool');
@@ -57,11 +57,25 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
+		var option:Option = new Option('Minimize Healthbar',
+			"Makes The Healthbar smaller.",
+			'minimizedHealthbar',
+			'bool');
+		addOption(option);
+
 		var option:Option = new Option('Dismiss Pico 2 Warning',
 			"Disables the Warning on Pico 2 telling you to download the song beforehand",
 			'dismissPico2Warning',
 			'bool');
 		addOption(option);
+
+		#if IS_LINUX
+		var option:Option = new Option('Dismiss Linux Video Warning',
+			"Disables the Warning telling you the linux build does not currently support videos\n(working on fixing that.)",
+			'dismissLinuxWarning',
+			'bool');
+		addOption(option);
+		#end
 
 		var option:Option = new Option('Icon Bop Style',
 			"How do you like your icons boppin?\n(Does not apply if 'Revert Healthbar' is enabled.)",

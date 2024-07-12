@@ -17,20 +17,22 @@
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
-	
+
 	<!-- ______________________ PSYCH ENGINE CUSTOMIZATION ______________________ -->
 
+	<define name="IS_LINUX" if="linux" />
 	<define name="MODS_ALLOWED" if="desktop" />
 	<define name="HSCRIPT_ALLOWED" if="desktop" />
 	<define name="LUA_ALLOWED" if="desktop" />
 	<define name="ACHIEVEMENTS_ALLOWED" />
-	<define name="VIDEOS_ALLOWED" if="windows || linux || android" unless="32bits"/>
+	<define name="VIDEOS_ALLOWED" if="windows || android" unless="32bits"/> <!-- vlc is being a fucking pest for me so as of rn linux does NOT support videos! if you wish to try and re-enable it simply change if="windows || android" to if="windows || linux || android"-->
 	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
 	<define name="TITLE_SCREEN_EASTER_EGG"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
 	<define name="IS_VS_CHAR"/> <!-- for disabling the engine update checker -->
 	<define name="IS_CHAR_ENGINE"/> <!-- for disabling vs char update checker -->
-	<define name="DEBUG_CUSTOM_TRACES"/> <!-- For showing the infos param of the custom Trace function.-->
+	<!-- <define name="SHOW_DONATE_OPTION"/> --> <!-- dunno why you'd wanna, but this is easier than modifying code -->
 	<!-- <define name="SHOW_BASE_CAT"/> --> <!-- for enabling showing of base catagory, pretty useless if you don't plan on showing base game songs -->
+	<define name="IS_DEBUG" if="debug" />
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
@@ -58,7 +60,7 @@
 	<classpath name="source" />
 
 	<!-- __________________________ Game Assets & Etc. __________________________ -->
-	
+
 	<!-- Turn on Crash Handler -->
 	<define name="CRASH_HANDLER" if="desktop release" />
 
@@ -70,10 +72,6 @@
 	<assets path="assets/preload" rename="assets" exclude="*.ogg || *.md" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3 || *.md"  unless="web"/>
 	<assets path="assets/fallbacks/images" library="image_backups" rename="assets/images/backups" />
-	<section if="TITLE_SCREEN_EASTER_EGG">
-		<assets path="assets/secrets" rename="assets" exclude="*.ogg" if="web"/>
-		<assets path="assets/secrets" rename="assets" exclude="*.mp3"  unless="web"/>
-	</section>
 
 	<define name="CHECK_FOR_UPDATES"/> <!-- add if="isOfficialBuild" if you don't want your version to check for updates-->
 
@@ -85,14 +83,14 @@
 		<library name="week_assets"   preload="true" />
 		<library name="image_backups" preload="true" />
 	</section>
-	
+
 	<section if="NO_PRELOAD_ALL">
 		<library name="songs"         preload="false" />
 		<library name="shared"        preload="false" />
 		<library name="week_assets"   preload="false" />
 		<library name="image_backups" preload="false" />
 	</section>
-	
+
 	<assets path="assets/videos"        library="videos"        exclude="*.md" if="VIDEOS_ALLOWED"/>
 	<assets path="assets/songs"         library="songs"         exclude="*.ogg || *.md" if="web"/>
 	<assets path="assets/songs"         library="songs"         exclude="*.mp3 || *.md" unless="web"/>
@@ -100,12 +98,14 @@
 	<assets path="assets/shared"        library="shared"        exclude="*.mp3 || *.md" unless="web"/>
 	<assets path="assets/week_assets"   library="week_assets"   rename="assets" exclude="*.ogg || *.md" if="web"/>
 	<assets path="assets/week_assets"   library="week_assets"   rename="assets" exclude="*.mp3 || *.md" unless="web"/>
-	
+
 	<section if="MODS_ALLOWED">
 		<assets path='example_mods' rename='mods' embed='false'/>
 	</section>
 	<assets path='art/readme.txt' rename='readme.txt' />
-	<assets path='art/changelog.md' rename='changelog.md' />
+	<assets path='changelogs/changelog.md' rename='changelog.md' />
+	<assets path='changelogs/chartChangelog.md' rename='chartChangelog.md' />
+	<assets path="assets/extra" rename="assets" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -130,7 +130,7 @@
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
-	
+
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<!--Enable the Flixel core recording system-->
@@ -156,22 +156,22 @@
 
 	<!--Disable the Flixel core focus lost screen-->
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
-	
+
 	<!-- Show debug traces for hxCodec -->
 	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
-	
+
 	<!--Disable the Flixel core debugger. Automatically gets set whenever you compile in release mode!-->
 	<haxedef name="FLX_NO_DEBUG" unless="debug"/> <!-- annoying, re-enable with unless="debug" -->
 
 	<!--Enable this for Nape release builds for a serious peformance improvement-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-	
+
 	<!--Used for Izzy Engine's crash handler-->
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_TRACE" if="CRASH_HANDLER" />
 	<haxedef name='no-deprecation-warnings' />
-	
+
 	<!--Macro fixes-->
 	<haxeflag name="--macro" value="allowPackage('flash')" />
 	<haxeflag name="--macro" value="include('my.pack')" />
@@ -179,7 +179,7 @@
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
-	
+
 	<icon path="art/icon/icon16-Debug.png" size='16' if="debug"/>
 	<icon path="art/icon/icon32-Debug.png" size='32' if="debug"/>
 	<icon path="art/icon/icon64-Debug.png" size='64' if="debug"/>

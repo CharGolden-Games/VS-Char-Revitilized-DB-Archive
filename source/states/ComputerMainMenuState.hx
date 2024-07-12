@@ -13,6 +13,7 @@ import flixel.input.keyboard.FlxKey;
 import lime.app.Application;
 
 import objects.AchievementPopup;
+import states.MainMenuState;
 import states.editors.MasterEditorMenu;
 import states.gallery.MasterGalleryMenu;
 import options.OptionsState;
@@ -25,23 +26,20 @@ import sys.io.File;
 
 class ComputerMainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = "0.7.1h | Funkin' 0.2.8"; // Just cause.
-	public static var charEngineVersion:String = '0.8.1h'; // now its ABOVE the psych engine string
-	public static var VSCharVersion:String = ' Alpha 1'; // Used for updating
+	public static var psychEngineVersion:String = MainMenuState.psychEngineVersion;
+	public static var charEngineVersion:String = MainMenuState.charEngineVersion; 
+	public static var vsCharVersion:String = MainMenuState.vsCharVersion;
 	public static var curSelected:Int = 0;
 	public var MenuOptionImage = new FlxSprite().loadGraphic(Paths.image('menuimage'));
-	public static var bgPaths:Array<String> = 
-	[
-		// REMAKE THESE FIRST!!!!
-		//'menuBG/Micheal',
-		//'menuBG/CharMenacing',
-		'menuBG/TheGangsAllHere',
-	];
     var computerShit:FlxTypedGroup<FlxSprite>;
     var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	public var justPressedDebugKey:Bool = false;
+    var psychVersionShit:FlxText;
+    var charEngineVersionShit:FlxText;
+    var vsCharVersionShit:FlxText;
+	var discordRPCString:String;
 	
 	var optionShit:Array<String> = [
 		'story_mode',
@@ -51,7 +49,7 @@ class ComputerMainMenuState extends MusicBeatState
 		'toolbox',
 		'gallery',
 		'credits',
-		//'donate', //in case you still want it
+		#if SHOW_DONATE_OPTION 'donate', #end //in case you still want it
 		'options'
 	];
 
@@ -84,7 +82,7 @@ class ComputerMainMenuState extends MusicBeatState
             persistentUpdate = persistentDraw = true;
     
             var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-            var bg:FlxSprite = new FlxSprite(-80).loadGraphic(randomizeBG());
+            var bg:FlxSprite = new FlxSprite(-80).loadGraphic(MainMenuState.randomizeBG());
             bg.scrollFactor.set(0, yScroll);
             bg.setGraphicSize(Std.int(bg.width * 1.175));
             bg.updateHitbox();
@@ -93,28 +91,28 @@ class ComputerMainMenuState extends MusicBeatState
             bg.color = 0xFFfde871;
             add(bg);
     
-                MenuOptionImage.frames = Paths.getSparrowAtlas('menuimage');
-                    MenuOptionImage.animation.addByPrefix('story_mode', "menu-storymode");
-                    MenuOptionImage.animation.addByPrefix('options', "menu-options");
-                    MenuOptionImage.animation.addByPrefix('gallery', "menu-gallery");
-                    MenuOptionImage.animation.addByPrefix('toolbox', "menu-toolbox");
-                    #if MODS_ALLOWED MenuOptionImage.animation.addByPrefix('mods', "menu-mods"); #end
-                    #if ACHIEVEMENTS_ALLOWED MenuOptionImage.animation.addByPrefix('awards', "menu-awards"); #end
-                    MenuOptionImage.animation.addByPrefix('credits', "menu-credits");
-                    MenuOptionImage.animation.addByPrefix('freeplay', "menu-freeplay");
-                    MenuOptionImage.animation.addByPrefix('donate', "menu-donate"); // Just in case you wanna show the donate option
-                    if(!ClientPrefs.data.lowQuality) {
-                    MenuOptionImage.antialiasing = ClientPrefs.data.antialiasing; // uhh it looks like shit without this lol.
-                    MenuOptionImage.setGraphicSize(Std.int(MenuOptionImage.width * 0.75));
-                    MenuOptionImage.scrollFactor.set(0, 0);
-                    MenuOptionImage.offset.set(-832, -273); 
-                    add(MenuOptionImage);	
+            MenuOptionImage.frames = Paths.getSparrowAtlas('menuimage');
+            MenuOptionImage.animation.addByPrefix('story_mode', "menu-storymode");
+            MenuOptionImage.animation.addByPrefix('options', "menu-options");
+            MenuOptionImage.animation.addByPrefix('gallery', "menu-gallery");
+            MenuOptionImage.animation.addByPrefix('toolbox', "menu-toolbox");
+            #if MODS_ALLOWED MenuOptionImage.animation.addByPrefix('mods', "menu-mods"); #end
+            #if ACHIEVEMENTS_ALLOWED MenuOptionImage.animation.addByPrefix('awards', "menu-awards"); #end
+            MenuOptionImage.animation.addByPrefix('credits', "menu-credits");
+            MenuOptionImage.animation.addByPrefix('freeplay', "menu-freeplay");
+            #if SHOW_DONATE_OPTION MenuOptionImage.animation.addByPrefix('donate', "menu-donate"); #end // Just in case you wanna show the donate option
+            if(!ClientPrefs.data.lowQuality) {
+            MenuOptionImage.antialiasing = ClientPrefs.data.antialiasing; // uhh it looks like shit without this lol.
+            MenuOptionImage.setGraphicSize(Std.int(MenuOptionImage.width * 0.75));
+            MenuOptionImage.scrollFactor.set(0, 0);
+            MenuOptionImage.offset.set(-832, -273); 
+            add(MenuOptionImage);	
         }
     
             camFollow = new FlxObject(0, 0, 1, 1);
             add(camFollow);
     
-            magenta = new FlxSprite().loadGraphic(randomizeBG());
+            magenta = new FlxSprite().loadGraphic(MainMenuState.randomizeBG());
             magenta.antialiasing = ClientPrefs.data.antialiasing;
             magenta.scrollFactor.set(0, yScroll);
             magenta.setGraphicSize(Std.int(magenta.width * 1.175));
@@ -155,25 +153,37 @@ class ComputerMainMenuState extends MusicBeatState
                 //menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
                 menuItem.updateHitbox();
             }
-            
+
             FlxG.camera.follow(camFollow, null, 0);
-            var psychVersionShit:FlxText = new FlxText(FlxG.width * 0.7, 4, 0, "Psych Engine v" + psychEngineVersion, 12);
-            psychVersionShit.scrollFactor.set();
-            psychVersionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-            psychVersionShit.x = FlxG.width - (psychVersionShit.width + 5);
-            add(psychVersionShit);
-            var charEngineVersionShit:FlxText = new FlxText(FlxG.width * 0.7, 24, 0, "Char Engine v" + charEngineVersion, 12);
-            charEngineVersionShit.scrollFactor.set();
-            charEngineVersionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-            charEngineVersionShit.x = FlxG.width - (charEngineVersionShit.width + 5);
-            add(charEngineVersionShit);
-            var vsCharVersionShit:FlxText = new FlxText(FlxG.width * 0.7, 44, 0, "VS Char Revitalized v" + VSCharVersion, 12);
-            vsCharVersionShit.scrollFactor.set();
-            vsCharVersionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-            vsCharVersionShit.x = FlxG.width - (vsCharVersionShit.width + 5);
-            add(vsCharVersionShit);
+        psychVersionShit = new FlxText(FlxG.width * 0.7, 44, 0, "Based on:" + psychEngineVersion, 12);
+		psychVersionShit.scrollFactor.set();
+		psychVersionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		psychVersionShit.x = FlxG.width - (psychVersionShit.width + 5);
+		add(psychVersionShit);
+		charEngineVersionShit = new FlxText(FlxG.width * 0.7, 24, 0, "Char Engine v" + charEngineVersion, 12);
+		charEngineVersionShit.scrollFactor.set();
+		charEngineVersionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		charEngineVersionShit.x = FlxG.width - (charEngineVersionShit.width + 5);
+		add(charEngineVersionShit);
+		if (StringTools.startsWith(vsCharVersion.toLowerCase(), 'alpha')) // so it auto does it lmao.
+			{
+				discordRPCString = "VS Char Revitalized " + vsCharVersion;
+			} else if (StringTools.startsWith(vsCharVersion.toLowerCase(), ' alpha')) {
+				discordRPCString = "VS Char Revitalized" + vsCharVersion;
+			} else {
+				discordRPCString = "VS Char Revitalized v" + vsCharVersion.trim();
+			}
+		vsCharVersionShit = new FlxText(FlxG.width * 0.7, 4, 0, discordRPCString, 12);
+		vsCharVersionShit.scrollFactor.set();
+		vsCharVersionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		vsCharVersionShit.x = FlxG.width - (vsCharVersionShit.width + 5);
+		add(vsCharVersionShit);
     
             // NG.core.calls.event.logEvent('swag').send();
+            if (!ClientPrefs.data.showBasedOnString) {
+                psychVersionShit.destroy();
+                charEngineVersionShit.destroy();
+            }
     
             changeItem();
     
@@ -371,11 +381,6 @@ class ComputerMainMenuState extends MusicBeatState
                 }
     
             }); 
-        }
-        public static function randomizeBG():flixel.system.FlxAssets.FlxGraphicAsset
-        {
-            var chance:Int = FlxG.random.int(0, bgPaths.length - 1);
-            return Paths.image(bgPaths[chance]);
         }
         function goToEditorMenu() 
             {

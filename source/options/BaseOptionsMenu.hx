@@ -248,15 +248,25 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	
 	function changeSelection(change:Int = 0)
 	{
+		var yToAdd:Int;
 		curSelected += change;
 		if (curSelected < 0)
 			curSelected = optionsArray.length - 1;
 		if (curSelected >= optionsArray.length)
 			curSelected = 0;
 
+		curOption = optionsArray[curSelected]; //shorter lol
+
 		descText.text = optionsArray[curSelected].description;
 		descText.screenCenter(Y);
-		descText.y += 270;
+		switch (Paths.formatToSongPath(curOption.name.toLowerCase()).trim())
+		{
+			default:
+				yToAdd = 270;
+			case 'combustible-lemons':
+				yToAdd = 210;
+		}
+		descText.y += yToAdd;
 
 		var bullShit:Int = 0;
 
@@ -280,7 +290,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
 
-		curOption = optionsArray[curSelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 

@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Lime",
+            "name": "Lime Build+Debug",
             "type": "lime",
             "request": "launch"
         }

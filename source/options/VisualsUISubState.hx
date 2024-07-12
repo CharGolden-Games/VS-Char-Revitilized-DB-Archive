@@ -12,6 +12,9 @@ class VisualsUISubState extends BaseOptionsMenu
 	var noteY:Float = 90;
 	public function new()
 	{
+		if (OptionsState.reOpenSubstate == true) OptionsState.reOpenSubstate = false;
+		if (OptionsState.substateToReOpen != null || OptionsState.substateToReOpen.length > 1 || OptionsState.substateToReOpen.trim() != '') OptionsState.substateToReOpen = '';
+
 		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
 
@@ -130,13 +133,20 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 
-		var option:Option = new Option('Enable Warning Screen',
+		var warnScreen:Option = new Option('Enable Warning Screen',
 		'Enables Cache State, telling you about the caching feature.\nif disable, will always cache in TitleState regardless.',
 		'enableAlphaWarning',
 		'bool');
-		addOption(option);
+		warnScreen.onChange = removeCacheOption;
+		addOption(warnScreen);
+
+		var option:Option = new Option('Show Engine Watermarks',
+		'Enables showing the strings that say "Based on:" and "Char Engine v"',
+		'showBasedOnString',
+		'bool');
+		addOption(option)
 		
-		#if CHECK_FOR_UPDATES
+		#if CHECK_FOR_UPDATES;
 		var option:Option = new Option('Check for Updates',
 			'On Non-Github builds, turn this on to check for updates when you start the game.',
 			'checkForUpdates',
@@ -144,14 +154,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		#end
 		
-		if (!ClientPrefs.data.enableAlphaWarning)
-			{
-		var option:Option = new Option('Enable Caching',
+		if (ClientPrefs.data.enableAlphaWarning){
+		var caching:Option = new Option('Enable Caching',
 			'Enables caching sounds and gitVersion.txt',
 			'enableCaching',
 			'bool');
-		addOption(option);
-			}
+		addOption(caching);
+		}
 
 		#if desktop
 		var option:Option = new Option('Discord Rich Presence',
@@ -187,6 +196,15 @@ class VisualsUISubState extends BaseOptionsMenu
 				notesTween[i] = FlxTween.tween(note, {y: -200}, Math.abs(note.y / (200 + noteY)) / 3, {ease: FlxEase.quadInOut});
 		}
 	}
+
+	function removeCacheOption()
+		{
+			ClientPrefs.saveSettings();
+			close();
+			OptionsState.substateToReOpen = 'visuals and ui';
+			OptionsState.reOpenSubstate = true;
+			
+		}
 
 	var changedMusic:Bool = false;
 	function onChangePauseMusic()

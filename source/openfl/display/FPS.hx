@@ -49,6 +49,8 @@ class FPS extends TextField
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
+		#if IS_DEBUG background = true;
+		backgroundColor = 0x506469; #end
 
 		cacheCount = 0;
 		currentTime = 0;

@@ -8,6 +8,8 @@ import states.TitleState;
 
 // Add a variable here and it will get automatically saved
 class SaveVariables {
+	public var minimizedHealthbar:Bool = false;
+	public var combustibleLemons:Bool = true; // DONT REMOVE THIS, ITS FOR JOKE BUILDS!!!!
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
@@ -58,6 +60,7 @@ class SaveVariables {
 	public var iconBop:String = 'Gapple';
 	public var removePerfects:Bool = false;
 	public var dismissPico2Warning:Bool = false;
+	#if IS_LINUX public var dismissLinuxWarning:Bool = false; #end
 	public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -88,6 +91,7 @@ class SaveVariables {
 	public var badWindow:Int = 135;
 	public var safeFrames:Float = 10;
 	public var discordRPC:Bool = true;
+	public var showBasedOnString:Bool = true;
 
 	public function new()
 	{

@@ -22,7 +22,6 @@ import backend.Conductor;
 import backend.BaseStage;
 import backend.Difficulty;
 import backend.Mods;
-// because i want it to be global lmao.
 import backend.CursorChangerShit;
 
 import objects.Alphabet;

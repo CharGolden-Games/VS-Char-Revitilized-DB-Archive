@@ -12,6 +12,7 @@ import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 import states.TitleState;
+import flixel.FlxG;
 
 //crash handler stuff
 #if CRASH_HANDLER
@@ -90,6 +91,9 @@ class Main extends Sprite
 		#if !mobile
 		fpsVar = new FPS(15, 0, 0xA2FFAE00);
 		addChild(fpsVar);
+		#if IS_DEBUG
+		fpsVar.x = FlxG.width - 150;
+		#end
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		if(fpsVar != null) {
@@ -163,7 +167,17 @@ class Main extends Sprite
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
 
-		File.saveContent(path, errMsg + "\n");
+		var randomTextAddition:String;
+		var random:Int = FlxG.random.int(1, 2);
+		switch (random)
+		{
+			default:
+				randomTextAddition = 'You have unlocked an achievement:\n I FUCKING DIED :D';
+			case 2:
+				randomTextAddition = 'You have unlocked an achievement: "OH GOD THE PAIN THE PAIN AAAAAAAAAAAAAAAAAAAAAAAAAAA"';
+		}
+
+		File.saveContent(path, errMsg + "\n" + randomTextAddition);
 
 		Sys.println(errMsg);
 

@@ -123,12 +123,12 @@
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/chair",
+	"image": "characters/chair1",
 	"position": [
 		0,
 		-160
 	],
-	"healthicon": "mcbfc",
+	"healthicon": "mcbfv1",
 	"flip_x": true,
 	"healthbar_colors": [
 		49,
