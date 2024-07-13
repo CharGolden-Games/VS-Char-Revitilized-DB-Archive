@@ -12,6 +12,8 @@ class VisualsUISubState extends BaseOptionsMenu
 	var noteY:Float = 90;
 	public function new()
 	{
+		StrumNote.is5Key = true;
+		Note.is5Key = true;
 		if (OptionsState.reOpenSubstate == true) OptionsState.reOpenSubstate = false;
 		if (OptionsState.substateToReOpen != null || OptionsState.substateToReOpen.length > 1 || OptionsState.substateToReOpen.trim() != '') OptionsState.substateToReOpen = '';
 

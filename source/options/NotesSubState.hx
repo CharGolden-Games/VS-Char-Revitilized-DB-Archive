@@ -50,6 +50,8 @@ class NotesSubState extends MusicBeatSubstate
 
 	public function new() {
 		super();
+		StrumNote.is5Key = true;
+		Note.is5Key = true;
 		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(states.MainMenuState.randomizeBG());
 		bg.color = 0xFFEA71FD;
@@ -240,6 +242,7 @@ class NotesSubState extends MusicBeatSubstate
 
 		if(FlxG.keys.justPressed.CONTROL)
 		{
+			if (curSelectedNote > 4) curSelectedNote = 4;
 			onPixel = !onPixel;
 			spawnNotes();
 			updateNotes(true);
@@ -469,7 +472,7 @@ class NotesSubState extends MusicBeatSubstate
 				for (i in 0...3)
 				{
 					var strumRGB:RGBShaderReference = myNotes.members[curSelectedNote].rgbShader;
-					var color:FlxColor = !onPixel ? ClientPrefs.defaultData.arrowRGB[curSelectedNote][i] :
+					var color:FlxColor = !onPixel ? ClientPrefs.defaultData.arrowRGB5Key[curSelectedNote][i] :
 													ClientPrefs.defaultData.arrowRGBPixel[curSelectedNote][i];
 					switch(i)
 					{
@@ -483,7 +486,7 @@ class NotesSubState extends MusicBeatSubstate
 					dataArray[curSelectedNote][i] = color;
 				}
 			}
-			setShaderColor(!onPixel ? ClientPrefs.defaultData.arrowRGB[curSelectedNote][curSelectedMode] : ClientPrefs.defaultData.arrowRGBPixel[curSelectedNote][curSelectedMode]);
+			setShaderColor(!onPixel ? ClientPrefs.defaultData.arrowRGB5Key[curSelectedNote][curSelectedMode] : ClientPrefs.defaultData.arrowRGBPixel[curSelectedNote][curSelectedMode]);
 			FlxG.sound.play(Paths.sound('cancelMenu'), 0.6);
 			updateColors();
 		}
@@ -572,7 +575,8 @@ class NotesSubState extends MusicBeatSubstate
 	var bigNote:Note;
 	public function spawnNotes()
 	{
-		dataArray = !onPixel ? ClientPrefs.data.arrowRGB : ClientPrefs.data.arrowRGBPixel;
+		dataArray = !onPixel ? ClientPrefs.data.arrowRGB5Key : ClientPrefs.data.arrowRGBPixel;
+		var notesToCheck:Int = !onPixel ? Note.colArray.length : 4;
 		if (onPixel) PlayState.stageUI = "pixel";
 
 		// clear groups
@@ -641,10 +645,10 @@ class NotesSubState extends MusicBeatSubstate
 		bigNote.updateHitbox();
 		bigNote.rgbShader.parent = Note.globalRgbShaders[curSelectedNote];
 		bigNote.shader = Note.globalRgbShaders[curSelectedNote].shader;
-		for (i in 0...Note.colArray.length)
+		for (i in 0...notesToCheck)
 		{
 			if(!onPixel) bigNote.animation.addByPrefix('note$i', Note.colArray[i] + '0', 24, true);
-			else bigNote.animation.add('note$i', [i + 4], 24, true);
+			else bigNote.animation.add('note$i', [i + 5], 24, true);
 		}
 		insert(members.indexOf(myNotes) + 1, bigNote);
 		_storedColor = getShaderColor();

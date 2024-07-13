@@ -49,9 +49,6 @@ class FPS extends TextField
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
-		#if IS_DEBUG background = true;
-		backgroundColor = 0x506469; #end
-
 		cacheCount = 0;
 		currentTime = 0;
 		times = [];
@@ -97,7 +94,7 @@ class FPS extends TextField
 				}
 			#end
 
-			textColor = 0xFFFF8800;
+			textColor = 0xFFFFFFFF;
 			if (Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1)) > 3 || currentFPS <= ClientPrefs.data.framerate / 1.5)
 			{
 				textColor = 0xFFFF5E00;

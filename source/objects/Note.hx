@@ -74,8 +74,11 @@ class Note extends FlxSprite
 
 	public static var SUSTAIN_SIZE:Int = 44;
 	public static var swagWidth:Float = 160 * 0.7;
-	public static var colArray:Array<String> = ['purple', 'blue', 'green', 'red'];
+	public static var colArray:Array<String> = ['purple', 'blue', 'ring', 'green', 'red'];
 	public static var defaultNoteSkin(default, never):String = 'noteSkins/NOTE_assets';
+	var ringColorArray:Array<FlxColor> = [0xFFFFCC33, 0xFFFFFFFF, 0xFFCC6600]; // laziness! yay!
+	static var RGB_SELECTION:Dynamic;
+	public static var is5Key = false;
 
 	public var noteSplashData:NoteSplashData = {
 		disabled: false,
@@ -142,7 +145,8 @@ class Note extends FlxSprite
 
 	public function defaultRGB()
 	{
-		var arr:Array<FlxColor> = ClientPrefs.data.arrowRGB[noteData];
+		if (is5Key) RGB_SELECTION = ClientPrefs.data.arrowRGB5Key; else RGB_SELECTION = ClientPrefs.data.arrowRGB;
+		var arr:Array<FlxColor> = RGB_SELECTION[noteData];
 		if(PlayState.isPixelStage) arr = ClientPrefs.data.arrowRGBPixel[noteData];
 
 		if (noteData > -1 && noteData <= arr.length)
@@ -159,6 +163,42 @@ class Note extends FlxSprite
 
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
+				case 'Static Note':
+					texture = 'mechanics/STATICNOTE_assets';
+					rgbShader.r = 0xFF0000;
+					rgbShader.g = 0xFFFF00;
+					rgbShader.b = 0xFFFFFF;
+					missHealth = 0.6;
+				case 'Bullet Note': // backwards compatibility
+					texture = 'mechanics/STATICNOTE_assets';
+					rgbShader.r = 0xFF0000;
+					rgbShader.g = 0xFFFF00;
+					rgbShader.b = 0xFFFFFF;
+					missHealth = 0.6;
+				case 'drainNote':
+					ignoreNote = mustPress;
+					// note colors
+					rgbShader.r = 0xFF101010;
+					rgbShader.g = 0xFFFF0000;
+					rgbShader.b = 0xFF990022;
+
+					// splash data and colors
+					noteSplashData.r = 0xFFFF0000;
+					noteSplashData.g = 0xFF101010;
+					noteSplashData.texture = 'noteSplashes/noteSplashes-electric';
+					hitCausesMiss = true;
+				case 'ring':
+					texture = 'noteSkins/NOTE_assets-ring';
+					ignoreNote = mustPress;
+					// note colors
+					rgbShader.r = ringColorArray[0];
+					rgbShader.g = ringColorArray[1];
+					rgbShader.b = ringColorArray[2];
+
+					// splash data and colors
+					noteSplashData.r = ringColorArray[0];
+					noteSplashData.g = ringColorArray[1];
+					noteSplashData.b = ringColorArray[2];
 				case 'Hurt Note':
 					ignoreNote = mustPress;
 					//reloadNote('HURTNOTE_assets');
@@ -199,6 +239,7 @@ class Note extends FlxSprite
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inEditor:Bool = false, ?createdFrom:Dynamic = null)
 	{
 		super();
+		//if (!is5Key) 
 
 		antialiasing = ClientPrefs.data.antialiasing;
 		if(createdFrom == null) createdFrom = PlayState.instance;
@@ -288,12 +329,13 @@ class Note extends FlxSprite
 
 	public static function initializeGlobalRGBShader(noteData:Int)
 	{
+		if (is5Key) RGB_SELECTION = ClientPrefs.data.arrowRGB5Key; else RGB_SELECTION = ClientPrefs.data.arrowRGB;
 		if(globalRgbShaders[noteData] == null)
 		{
 			var newRGB:RGBPalette = new RGBPalette();
 			globalRgbShaders[noteData] = newRGB;
 
-			var arr:Array<FlxColor> = (!PlayState.isPixelStage) ? ClientPrefs.data.arrowRGB[noteData] : ClientPrefs.data.arrowRGBPixel[noteData];
+			var arr:Array<FlxColor> = (!PlayState.isPixelStage) ? RGB_SELECTION[noteData] : ClientPrefs.data.arrowRGBPixel[noteData];
 			if (noteData > -1 && noteData <= arr.length)
 			{
 				newRGB.r = arr[0];

@@ -251,6 +251,7 @@ class PlayState extends MusicBeatState
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
+	public var camWatermark:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
 	public static var creditsData:CreditsFile;
@@ -323,11 +324,22 @@ class PlayState extends MusicBeatState
 	var hadGhostTapping:Bool = false;
 
 	public static var doShowCredits:Bool = true;
+	var ringSound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('ring'));
+	var blockInput:Bool = true;
 
 	override public function create()
 	{
 		isRing = SONG.isRing;
-		is5Key = SONG.is5Key;
+		is5Key = true; //SONG.is5Key;
+		/*if (!is5Key || !isRing) {
+			StrumNote.is5Key = false;
+			Note.is5Key = false;
+		} else {
+			StrumNote.is5Key = true;
+			Note.is5Key = true;
+		}*/
+		StrumNote.is5Key = true;
+		Note.is5Key = true;
 		doHealthDrain = false;
 		ringCount = 0;
 		CreditsData.isFreeplay = false; // just in case freeplay leaves this as "true"
@@ -350,7 +362,7 @@ class PlayState extends MusicBeatState
 		}
 		else if (is5Key) // triple trouble go brrr
 		{
-			keysArray = ['note_left', 'note_down', 'note_middle', 'note_up', 'note_right'];
+			keysArray = ['note_left', 'note_down', 'note_middle','note_up' 'note_right', ];
 		}
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -366,12 +378,15 @@ class PlayState extends MusicBeatState
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
+		camWatermark = new FlxCamera();
+		camWatermark.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camOther, false);
+		FlxG.cameras.add(camWatermark, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
@@ -559,14 +574,20 @@ class PlayState extends MusicBeatState
 		black2.y = -200;
 		black2.camera = camHUD;
 		add(black2);
-
+		
+		var isDisabled:Bool = false;
+		if (ClientPrefs.data.timeBarType == 'Disabled')
+		{
+			CustomTrace.trace('SHIT ITS DISABLED', 'err');
+			isDisabled = true;
+		}
 		Conductor.songPosition = -5000 / Conductor.songPosition;
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
 		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
-		timeTxt.visible = updateTime = (ClientPrefs.data.timeBarType != 'Disabled');
+		timeTxt.visible = updateTime = !isDisabled;
 		if (ClientPrefs.data.downScroll)
 			timeTxt.y = FlxG.height - 44;
 		if (ClientPrefs.data.timeBarType == 'Song Name')
@@ -576,7 +597,7 @@ class PlayState extends MusicBeatState
 		timeBar.scrollFactor.set();
 		timeBar.screenCenter(X);
 		timeBar.alpha = 0;
-		timeBar.visible = (ClientPrefs.data.timeBarType != 'Disabled');
+		timeBar.visible = !isDisabled;
 		add(timeBar);
 		add(timeTxt);
 
@@ -622,7 +643,7 @@ class PlayState extends MusicBeatState
 		healthBar.leftToRight = false;
 		healthBar.scrollFactor.set();
 		healthBar.visible = !ClientPrefs.data.hideHud;
-		healthBar.alpha = ClientPrefs.data.healthBarAlpha;
+		healthBar.alpha = 0;
 		reloadHealthBarColors();
 		add(healthBar);
 		if (ClientPrefs.data.minimizedHealthbar) {
@@ -640,7 +661,7 @@ class PlayState extends MusicBeatState
 			healthBarOverlay.blend = MULTIPLY;
 			healthBarOverlay.screenCenter(X);
 			add(healthBarOverlay);
-			healthBarOverlay.alpha = ClientPrefs.data.healthBarAlpha;
+			healthBarOverlay.alpha = 0;
 			if (ClientPrefs.data.downScroll)
 				healthBarOverlay.y = 0.11 * FlxG.height;
 		}
@@ -648,13 +669,13 @@ class PlayState extends MusicBeatState
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true, boyfriend.hasAnimatedIcon, boyfriend.normalIcon, boyfriend.losingIcon, boyfriend.winningIcon);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.data.hideHud;
-		iconP1.alpha = ClientPrefs.data.healthBarAlpha;
+		iconP1.alpha = 0;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false, dad.hasAnimatedIcon, dad.normalIcon, dad.losingIcon, dad.winningIcon);
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.data.hideHud;
-		iconP2.alpha = ClientPrefs.data.healthBarAlpha;
+		iconP2.alpha = 0;
 		add(iconP2);
 
 		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
@@ -837,7 +858,7 @@ class PlayState extends MusicBeatState
 		// lets see if i did this right lmao.
 
 		ringText = new FlxText(0, FlxG.height * 0.75, 0, 'Rings: ' + Std.string(ringCount), 20);
-		ringText.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		ringText.setFormat(Paths.font("sonic-the-hedgehog.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		ringText.alpha = 0;
 		ringText.camera = camHUD;
 		add(ringText);
@@ -848,6 +869,14 @@ class PlayState extends MusicBeatState
 			ringText.alpha = 1;
 		}
 		// why is it done like this? so i can be lazy and not have to worry about null errors lmao
+
+		blackWatermarkBG.camera = camWatermark;
+		ENGINE_WATERMARK.camera = camWatermark;
+		ENGINE_WATERMARK.alpha = 0.70;
+		if (!ClientPrefs.data.showBasedOnString) {
+			ENGINE_WATERMARK.alpha = 0;
+			blackWatermarkBG.alpha = 0;
+		}
 		super.create();
 		Paths.clearUnusedMemory();
 
@@ -1321,6 +1350,15 @@ class PlayState extends MusicBeatState
 			return false;
 		}
 
+		
+		FlxTween.tween(healthBar, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(healthBarOverlay, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(iconP1, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(iconP2, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
+		if (ClientPrefs.data.showBasedOnString) {
+			spawnWatermark();
+		}
+
 		seenCutscene = true;
 		inCutscene = false;
 		var ret:Dynamic = callOnScripts('onStartCountdown', null, true);
@@ -1333,8 +1371,22 @@ class PlayState extends MusicBeatState
 			generateStaticArrows(1);
 			for (i in 0...playerStrums.length)
 			{
+				trace('Cur playerStrums member number: $i');
 				setOnScripts('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnScripts('defaultPlayerStrumY' + i, playerStrums.members[i].y);
+				switch (i)
+				{
+					case 0: 
+						playerStrums.members[i].x = 0;
+					case 1: 
+						playerStrums.members[i].x = 150;
+					case 2:
+						playerStrums.members[i].x = 300;
+					case 3:
+						playerStrums.members[i].x = 450;
+					case 4:
+						playerStrums.members[i].x = 600;
+				}
 			}
 			for (i in 0...opponentStrums.length)
 			{
@@ -1421,6 +1473,10 @@ class PlayState extends MusicBeatState
 						countdownReady = createCountdownSprite(introAlts[0], antialias);
 						FlxG.sound.play(Paths.sound(introSoundsPrefix + 'intro2' + introSoundsSuffix), 0.6);
 						tick = TWO;
+						if (is5Key && !ClientPrefs.data.middleScroll) for (note in playerStrums.members)
+							{
+								FlxTween.tween(note, {x: note.x - 100}, 0.5, {ease: FlxEase.circOut});
+							}
 					case 2:
 						countdownSet = createCountdownSprite(introAlts[1], antialias);
 						FlxG.sound.play(Paths.sound(introSoundsPrefix + 'intro1' + introSoundsSuffix), 0.6);
@@ -1431,9 +1487,11 @@ class PlayState extends MusicBeatState
 						tick = GO;
 					case 4:
 						tick = START;
+						
 						if (doShowCredits)
 							showCredits(creditsSongName, creditsSongArtist, creditsArtist, creditsCharter, boxWidth,
 								timeShown); // so it doesn't even do anything if so
+						blockInput = false;
 				}
 
 				notes.forEachAlive(function(note:Note)
@@ -1929,8 +1987,23 @@ class PlayState extends MusicBeatState
 	{
 		var strumLineX:Float = ClientPrefs.data.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X;
 		var strumLineY:Float = ClientPrefs.data.downScroll ? (FlxG.height - 150) : 50;
-		for (i in 0...4)
+		var length:Int;
+		switch (player)
 		{
+			default:
+				if (is5Key) length = 5; else length = 5; //4;
+			case 0:
+				length = 4;
+		} 
+		for (i in 0...length)
+		{
+			if (length == 4) {
+				Note.is5Key = false; 
+				StrumNote.is5Key = false; 
+			} else {
+				Note.is5Key = true; 
+				StrumNote.is5Key = true;
+			}
 			// FlxG.log.add(i);
 			var targetAlpha:Float = 1;
 			if (player < 1)
@@ -1940,7 +2013,6 @@ class PlayState extends MusicBeatState
 				else if (ClientPrefs.data.middleScroll)
 					targetAlpha = 0.35;
 			}
-
 			var babyArrow:StrumNote = new StrumNote(strumLineX, strumLineY, i, player);
 			babyArrow.downScroll = ClientPrefs.data.downScroll;
 			if (!isStoryMode && !skipArrowStartTween)
@@ -3266,7 +3338,7 @@ class PlayState extends MusicBeatState
 
 	public var totalPlayed:Int = 0;
 	public var totalNotesHit:Float = 0.0;
-	public var showCombo:Bool = false;
+	public var showCombo:Bool = true;
 	public var showComboNum:Bool = true;
 	public var showRating:Bool = true;
 
@@ -3281,34 +3353,40 @@ class PlayState extends MusicBeatState
 
 	private function cachePopUpScore()
 	{
+		var sharedPath = 'assets/shared/images/';
+		var path = 'assets/images/';
 		var uiPrefix:String = '';
 		var uiSuffix:String = '';
 		switch (Paths.formatToSongPath(SONG.song).toLowerCase())
 		{
 			default:
-				uiPrefix = 'ratings/VSChar/';
 				if (stageUI != "normal")
 				{
-					uiPrefix = '${stageUI}UI/ratings/VSChar/';
+					uiPrefix = '${stageUI}UI/';
 					if (PlayState.isPixelStage)
 						uiSuffix = '-pixel';
 				}
-			case 'junkyard':
-				uiPrefix = "ratings/Vanilla/";
+			case 'triple-trouble':
+				uiPrefix = "ratings/VSChar/";
 			case 'high-ground':
 				uiPrefix = "ratings/VSChar_Old/";
 		} // thank you ShadowMario for letting me do this dumb shit 🙏
 
 		for (rating in ratingsData)
-			Paths.image(uiPrefix + rating.image + uiSuffix);
+			if (FileSystem.exists(sharedPath + uiPrefix + rating.image + uiSuffix + '.png')) Paths.image(uiPrefix + rating.image + uiSuffix); else Paths.image(rating.image);// so if a Rating can't be found it'll default to these!
+
 		for (i in 0...10)
-			Paths.image(uiPrefix + 'num' + i + uiSuffix);
+			if (FileSystem.exists(path + uiPrefix + 'num' + i + uiSuffix + '.png')) Paths.image(uiPrefix + 'num' + i + uiSuffix); else Paths.image('num' + i); // so if a numScore can't be found it'll default to these!
+
+		if (FileSystem.exists(sharedPath + uiPrefix + 'combo' + uiSuffix + '.png')) Paths.image(uiPrefix + 'combo' + uiSuffix); else Paths.image('combo'); // wanna re-add Combo to here :3
 	}
 
 	var delayTimer:FlxTimer = new FlxTimer();
 
 	private function popUpScore(note:Note = null):Void
 	{
+		var sharedPath = 'assets/shared/images/';
+		var path = 'assets/images/';
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.data.ratingOffset);
 		vocals.volume = 1;
 
@@ -3347,21 +3425,19 @@ class PlayState extends MusicBeatState
 		switch (Paths.formatToSongPath(SONG.song).toLowerCase())
 		{
 			default:
-				uiPrefix = 'ratings/VSChar/';
 				if (stageUI != "normal")
 				{
-					uiPrefix = '${stageUI}UI/ratings/VSChar/';
+					uiPrefix = '${stageUI}UI/';
 					if (PlayState.isPixelStage)
 						uiSuffix = '-pixel';
-					antialias = !isPixelStage;
 				}
-			case 'junkyard':
-				uiPrefix = "ratings/Vanilla/";
+			case 'triple-trouble':
+				uiPrefix = "ratings/VSChar/";
 			case 'high-ground':
 				uiPrefix = "ratings/VSChar_Old/";
 		} // thank you ShadowMario for letting me do this dumb shit 🙏
 
-		rating.loadGraphic(Paths.image(uiPrefix + daRating.image + uiSuffix));
+		if (FileSystem.exists(sharedPath + uiPrefix + daRating.image + uiSuffix + '.png')) rating.loadGraphic(Paths.image(uiPrefix + daRating.image + uiSuffix)); else rating.loadGraphic(Paths.image(daRating.image));
 		rating.cameras = [camHUD];
 		rating.screenCenter();
 		rating.x = placement - 40;
@@ -3374,7 +3450,10 @@ class PlayState extends MusicBeatState
 		rating.y -= ClientPrefs.data.comboOffset[1];
 		rating.antialiasing = antialias;
 
-		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(uiPrefix + 'combo' + uiSuffix));
+		var comboSpr:FlxSprite;
+		if (FileSystem.exists(sharedPath + uiPrefix + 'combo' + uiSuffix + '.png')) comboSpr = new FlxSprite().loadGraphic(Paths.image(uiPrefix + 'combo' + uiSuffix)); else comboSpr = new FlxSprite().loadGraphic(Paths.image('combo'));
+		comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.75));
+		comboSpr.updateHitbox();
 		comboSpr.cameras = [camHUD];
 		comboSpr.screenCenter();
 		comboSpr.x = placement;
@@ -3442,7 +3521,9 @@ class PlayState extends MusicBeatState
 		}
 		for (i in seperatedScore)
 		{
-			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(uiPrefix + 'num' + Std.int(i) + uiSuffix));
+			var path = 'assets/images/' + uiPrefix + 'num' + Std.int(i) + uiSuffix + '.png';
+			var numScore:FlxSprite;
+			if (FileSystem.exists(path)) numScore = new FlxSprite().loadGraphic(Paths.image(uiPrefix + 'num' + Std.int(i) + uiSuffix)); else numScore = new FlxSprite().loadGraphic(Paths.image('num' + Std.int(i)));
 			numScore.cameras = [camHUD];
 			numScore.screenCenter();
 			numScore.x = placement + (43 * daLoop) - 90 + ClientPrefs.data.comboOffset[2];
@@ -3739,12 +3820,14 @@ class PlayState extends MusicBeatState
 
 	function noteMissPress(direction:Int = 1):Void // You pressed a key when there was no notes to press for this key
 	{
+		if (!blockInput) {
 		if (ClientPrefs.data.ghostTapping)
 			return; // fuck it
 
 		noteMissCommon(direction);
 		FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 		callOnScripts('noteMissPress', [direction]);
+		}
 	}
 
 	var ringMisses:Int;
@@ -3847,7 +3930,7 @@ class PlayState extends MusicBeatState
 	function opponentNoteHit(note:Note):Void
 	{
 		healthDrain = (0.02 + addedDrain) * healthLoss;
-		trace("Cur Health Drain: " + healthDrain);
+		//trace("Cur Health Drain: " + healthDrain);
 
 		if (doHealthDrain)
 		{
@@ -3919,6 +4002,7 @@ class PlayState extends MusicBeatState
 		if (note.noteType == 'ring')
 		{
 			// trace('ring note hit');
+			FlxG.sound.play(Paths.sound('ring'));
 			ringCount += 1;
 			updateRings();
 		}

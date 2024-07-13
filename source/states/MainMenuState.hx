@@ -4,6 +4,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import substates.GameplayChangersSubstate;
 import backend.WeekData;
 import backend.Achievements;
+import backend.VersionStrings;
 
 import flixel.FlxObject;
 import flixel.addons.transition.FlxTransitionableState;
@@ -25,9 +26,9 @@ import sys.io.File;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = " Psych Engine v0.7.1h | Funkin' 0.2.8"; // Just cause. its fun to tell people im using an older version of psych, with some things from 0.7.3 i backported
-	public static var charEngineVersion:String = '0.9.1'; // Used for making sure im not an idiot, and properly update the engine version lmao.
-	public static var vsCharVersion:String = 'Alpha 1.1.5'; // Used for updating
+	public static var psychEngineVersion:String = VersionStrings.psychEngineVersion; // Just cause. its fun to tell people im using an older version of psych, with some things from 0.7.3 i backported
+	public static var charEngineVersion:String = VersionStrings.charEngineVersion; // Used for making sure im not an idiot, and properly update the engine version lmao.
+	public static var vsCharVersion:String = VersionStrings.vsCharVersion; // Used for updating
 	public static var discordRPCString:String;
 	public static var curSelected:Int = 0;
 	public var MenuOptionImage = new FlxSprite().loadGraphic(Paths.image('menuimage'));
@@ -191,6 +192,11 @@ class MainMenuState extends MusicBeatState
 		add(vsCharVersionShit);
 
 		// NG.core.calls.event.logEvent('swag').send();
+		if (!ClientPrefs.data.showBasedOnString)
+		{
+			charEngineVersionShit.destroy();
+			psychVersionShit.destroy();
+		}
 
 		changeItem();
 

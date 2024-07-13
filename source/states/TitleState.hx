@@ -142,6 +142,8 @@ class TitleState extends MusicBeatState
 		CustomTrace.trace('LINUX DOES NOT SUPPORT VIDEOS', 'warn');
 		#end
 
+		CustomTrace.trace('YO MAMA! HAHAHAHA', 'info');
+
 		var isCharEngine:Bool = true;
 		var isVSChar:Bool = true;
 		#if CHECK_FOR_UPDATES

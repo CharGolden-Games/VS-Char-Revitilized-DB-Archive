@@ -13,6 +13,7 @@ import openfl.display.StageScaleMode;
 import lime.app.Application;
 import states.TitleState;
 import flixel.FlxG;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 //crash handler stuff
 #if CRASH_HANDLER
@@ -89,11 +90,8 @@ class Main extends Sprite
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
 		#if !mobile
-		fpsVar = new FPS(15, 0, 0xA2FFAE00);
+		fpsVar = new FPS(15, 0, 0xFFFFFF);
 		addChild(fpsVar);
-		#if IS_DEBUG
-		fpsVar.x = FlxG.width - 150;
-		#end
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		if(fpsVar != null) {

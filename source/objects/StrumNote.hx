@@ -12,6 +12,7 @@ class StrumNote extends FlxSprite
 	public var downScroll:Bool = false;//plan on doing scroll directions soon -bb
 	public var sustainReduce:Bool = true;
 	private var player:Int;
+	public static var is5Key:Bool = false;
 	
 	public var texture(default, set):String = null;
 	private function set_texture(value:String):String {
@@ -28,7 +29,7 @@ class StrumNote extends FlxSprite
 		rgbShader.enabled = false;
 		if(PlayState.SONG != null && PlayState.SONG.disableNoteRGB) useRGBShader = false;
 		
-		var arr:Array<FlxColor> = ClientPrefs.data.arrowRGB[leData];
+		var arr:Array<FlxColor> = !is5Key ? ClientPrefs.data.arrowRGB[leData] : ClientPrefs.data.arrowRGB5Key[leData];
 		if(PlayState.isPixelStage) arr = ClientPrefs.data.arrowRGBPixel[leData];
 		
 		if(leData <= arr.length)
@@ -51,11 +52,7 @@ class StrumNote extends FlxSprite
 		else skin = Note.defaultNoteSkin;
 
 		var customSkin:String = skin + Note.getNoteSkinPostfix();
-		//if (!PlayState.is5Key || PlayState.isPixelStage) {
 			if(Paths.fileExists('images/$customSkin.png', IMAGE)) skin = customSkin;
-		/*} else {
-			if(Paths.fileExists('images/5key/$customSkin.png', IMAGE)) skin = customSkin;
-		}*/
 		texture = skin; //Load texture and anims
 		scrollFactor.set();
 	}
@@ -99,8 +96,7 @@ class StrumNote extends FlxSprite
 					animation.add('confirm', [15, 19], 24, false);
 			}
 		}
-		else // if (!PlayState.is5key)
-		{
+		else if (!is5Key) {
 			frames = Paths.getSparrowAtlas(texture);
 			animation.addByPrefix('green', 'arrowUP');
 			animation.addByPrefix('blue', 'arrowDOWN');
@@ -129,7 +125,7 @@ class StrumNote extends FlxSprite
 					animation.addByPrefix('pressed', 'right press', 24, false);
 					animation.addByPrefix('confirm', 'right confirm', 24, false);
 			}
-		} /*else if (PlayState.is5key)
+		} else if (is5Key)
 		{
 			frames = Paths.getSparrowAtlas(texture);
 			animation.addByPrefix('green', 'arrowUP');
@@ -151,7 +147,7 @@ class StrumNote extends FlxSprite
 					animation.addByPrefix('static', 'arrowDOWN');
 					animation.addByPrefix('pressed', 'down press', 24, false);
 					animation.addByPrefix('confirm', 'down confirm', 24, false);
-				case 2:
+				case 2: // 5 KEY TESTING, REVERT TO RING WHEN DONE.
 					animation.addByPrefix('static', 'arrowRING');
 					animation.addByPrefix('pressed', 'ring press', 24, false);
 					animation.addByPrefix('confirm', 'ring confirm', 24, false);
@@ -164,7 +160,7 @@ class StrumNote extends FlxSprite
 					animation.addByPrefix('pressed', 'right press', 24, false);
 					animation.addByPrefix('confirm', 'right confirm', 24, false);
 			}
-		}*/
+		}
 		updateHitbox();
 
 		if(lastAnim != null)
