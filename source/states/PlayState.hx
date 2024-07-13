@@ -362,7 +362,7 @@ class PlayState extends MusicBeatState
 		}
 		else if (is5Key) // triple trouble go brrr
 		{
-			keysArray = ['note_left', 'note_down', 'note_middle','note_up' 'note_right', ];
+			keysArray = ['note_left', 'note_down', 'note_middle', 'note_up', 'note_right' ];
 		}
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
