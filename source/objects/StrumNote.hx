@@ -130,9 +130,9 @@ class StrumNote extends FlxSprite
 			frames = Paths.getSparrowAtlas(texture);
 			animation.addByPrefix('green', 'arrowUP');
 			animation.addByPrefix('blue', 'arrowDOWN');
-			animation.addByPrefix('ring', 'arrowRING');
 			animation.addByPrefix('purple', 'arrowLEFT');
 			animation.addByPrefix('red', 'arrowRIGHT');
+			animation.addByPrefix('ring', 'arrowRING');
 
 			antialiasing = ClientPrefs.data.antialiasing;
 			setGraphicSize(Std.int(width * 0.7));
@@ -147,18 +147,18 @@ class StrumNote extends FlxSprite
 					animation.addByPrefix('static', 'arrowDOWN');
 					animation.addByPrefix('pressed', 'down press', 24, false);
 					animation.addByPrefix('confirm', 'down confirm', 24, false);
-				case 2: // 5 KEY TESTING, REVERT TO RING WHEN DONE.
-					animation.addByPrefix('static', 'arrowRING');
-					animation.addByPrefix('pressed', 'ring press', 24, false);
-					animation.addByPrefix('confirm', 'ring confirm', 24, false);
-				case 3:
+				case 2:
 					animation.addByPrefix('static', 'arrowUP');
 					animation.addByPrefix('pressed', 'up press', 24, false);
 					animation.addByPrefix('confirm', 'up confirm', 24, false);
-				case 4:
+				case 3:
 					animation.addByPrefix('static', 'arrowRIGHT');
 					animation.addByPrefix('pressed', 'right press', 24, false);
 					animation.addByPrefix('confirm', 'right confirm', 24, false);
+				case 4:
+					animation.addByPrefix('static', 'arrowRING');
+					animation.addByPrefix('pressed', 'ring press', 24, false);
+					animation.addByPrefix('confirm', 'ring confirm', 24, false);
 			}
 		}
 		updateHitbox();

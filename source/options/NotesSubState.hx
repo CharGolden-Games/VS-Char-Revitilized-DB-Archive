@@ -184,6 +184,10 @@ class NotesSubState extends MusicBeatSubstate
 		if (controls.BACK) {
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
+			for (i in 0...ClientPrefs.data.arrowRGB.length)
+			{
+				ClientPrefs.data.arrowRGB[i] = ClientPrefs.data.arrowRGB5Key[i]; // so that 4 Key RGB updates properly
+			}
 			close();
 			return;
 		}

@@ -41,14 +41,14 @@ class SaveVariables {
 	public var arrowRGB5Key:Array<Array<FlxColor>> = [
 		[0xFFFF9D00, 0xFFFFFFFF, 0xFF802B00],
 		[0xFF6D4FDC, 0xFFFFFFFF, 0xFF27195B],
-		[0xFFBE6081, 0xFFFFFFFF, 0xFF651038],
 		[0xFF034300, 0xFFFFFFFF, 0xFF0A4447],
+		[0xFFBE6081, 0xFFFFFFFF, 0xFF651038],
 		[0xFFFFCC33, 0xFFFFFFFF, 0xFFCC6600]];
 	public var arrowRGB5KeyPixel:Array<Array<FlxColor>> = [
 		[0xFFFF9D00, 0xFFFFFFFF, 0xFF802B00],
 		[0xFF6D4FDC, 0xFFFFFFFF, 0xFF27195B],
-		[0xFFBE6081, 0xFFFFFFFF, 0xFF651038],
 		[0xFF034300, 0xFFFFFFFF, 0xFF0A4447],
+		[0xFFBE6081, 0xFFFFFFFF, 0xFF651038],
 		[0xFFFFCC33, 0xFFFFFFFF, 0xFFCC6600]];
 	public var ghostTapping:Bool = true;
 	public var timeBarType:String = 'Time Left';

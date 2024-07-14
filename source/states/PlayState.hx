@@ -21,6 +21,7 @@ import backend.Section;
 import backend.Rating;
 import backend.CreditsData;
 import backend.TracePassThrough as CustomTrace;
+import backend.VersionStrings;
 
 import flixel.FlxBasic;
 import flixel.FlxObject;
@@ -362,7 +363,7 @@ class PlayState extends MusicBeatState
 		}
 		else if (is5Key) // triple trouble go brrr
 		{
-			keysArray = ['note_left', 'note_down', 'note_middle', 'note_up', 'note_right' ];
+			keysArray = ['note_left', 'note_down', 'note_up', 'note_right', 'note_middle' ];
 		}
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -1370,29 +1371,36 @@ class PlayState extends MusicBeatState
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 			for (i in 0...playerStrums.length)
-			{
-				trace('Cur playerStrums member number: $i');
-				setOnScripts('defaultPlayerStrumX' + i, playerStrums.members[i].x);
-				setOnScripts('defaultPlayerStrumY' + i, playerStrums.members[i].y);
+				{
+				if (is5Key) {
 				switch (i)
 				{
 					case 0: 
-						playerStrums.members[i].x = 0;
+						playerStrums.members[i].x = playerStrums.members[i].x - 50;
 					case 1: 
-						playerStrums.members[i].x = 150;
+						playerStrums.members[i].x = playerStrums.members[i].x - 50;
 					case 2:
-						playerStrums.members[i].x = 300;
+						playerStrums.members[i].x = playerStrums.members[i].x + 50;
 					case 3:
-						playerStrums.members[i].x = 450;
+						playerStrums.members[i].x = playerStrums.members[i].x + 50;
 					case 4:
-						playerStrums.members[i].x = 600;
+						playerStrums.members[i].x = playerStrums.members[1].x + 105;
 				}
+				}
+				setOnScripts('defaultPlayerStrumX' + i, playerStrums.members[i].x);
+				setOnScripts('defaultPlayerStrumY' + i, playerStrums.members[i].y); // put this afterwards so that scripts still affect it!
 			}
 			for (i in 0...opponentStrums.length)
 			{
 				setOnScripts('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
 				setOnScripts('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
 				// if(ClientPrefs.data.middleScroll) opponentStrums.members[i].visible = false;
+			}
+			for (i in 0...playerStrums.length) // why two?, this is to globally offset it lmao
+			{
+				if (is5Key) {
+				playerStrums.members[i].x = playerStrums.members[i].x - 20;
+				}
 			}
 
 			startedCountdown = true;
@@ -1473,10 +1481,6 @@ class PlayState extends MusicBeatState
 						countdownReady = createCountdownSprite(introAlts[0], antialias);
 						FlxG.sound.play(Paths.sound(introSoundsPrefix + 'intro2' + introSoundsSuffix), 0.6);
 						tick = TWO;
-						if (is5Key && !ClientPrefs.data.middleScroll) for (note in playerStrums.members)
-							{
-								FlxTween.tween(note, {x: note.x - 100}, 0.5, {ease: FlxEase.circOut});
-							}
 					case 2:
 						countdownSet = createCountdownSprite(introAlts[1], antialias);
 						FlxG.sound.play(Paths.sound(introSoundsPrefix + 'intro1' + introSoundsSuffix), 0.6);
@@ -1487,7 +1491,6 @@ class PlayState extends MusicBeatState
 						tick = GO;
 					case 4:
 						tick = START;
-						
 						if (doShowCredits)
 							showCredits(creditsSongName, creditsSongArtist, creditsArtist, creditsCharter, boxWidth,
 								timeShown); // so it doesn't even do anything if so
@@ -1809,7 +1812,7 @@ class PlayState extends MusicBeatState
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 				var gottaHitNote:Bool = section.mustHitSection;
 
-				if (songNotes[1] > 3)
+				if (songNotes[1] > 3 && songNotes < 8)
 				{
 					gottaHitNote = !section.mustHitSection;
 				}

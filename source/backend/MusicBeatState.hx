@@ -206,7 +206,7 @@ class MusicBeatState extends FlxUIState
 
 	function spawnWatermark()
 	{
-		var charEngineVer:String = VersionStrings.charEngineVersion;
+		var charEngineVer:String = VersionStrings.versionNumOnly('char-engine');
 		ENGINE_WATERMARK = new VersionShit(charEngineVer, 'Char Engine v', 0, 16, Paths.font('vcr.ttf'), 0xFFFFFF, #if SHOW_GITCOMMIT true #else false #end, 0, 0);
 		ENGINE_WATERMARK.scrollFactor.set(0, 0);
 		ENGINE_WATERMARK.borderStyle = OUTLINE;

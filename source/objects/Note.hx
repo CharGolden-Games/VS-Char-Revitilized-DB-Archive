@@ -74,7 +74,7 @@ class Note extends FlxSprite
 
 	public static var SUSTAIN_SIZE:Int = 44;
 	public static var swagWidth:Float = 160 * 0.7;
-	public static var colArray:Array<String> = ['purple', 'blue', 'ring', 'green', 'red'];
+	public static var colArray:Array<String> = ['purple', 'blue', 'green', 'red', 'ring'];
 	public static var defaultNoteSkin(default, never):String = 'noteSkins/NOTE_assets';
 	var ringColorArray:Array<FlxColor> = [0xFFFFCC33, 0xFFFFFFFF, 0xFFCC6600]; // laziness! yay!
 	static var RGB_SELECTION:Dynamic;
