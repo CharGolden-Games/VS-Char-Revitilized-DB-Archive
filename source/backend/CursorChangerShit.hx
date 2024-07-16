@@ -19,13 +19,13 @@ class CursorChangerShit
             if (cursorShown)
                 {
                     FlxG.mouse.visible = true;
-                    trace('Showing Cursor');
+                    //trace('Showing Cursor');
                     CursorChangerShit.cursorStyle = Default;
                 }
             else if (!cursorShown)
                 {
                     FlxG.mouse.visible = false;
-                    trace('Hiding Cursor');
+                    //trace('Hiding Cursor');
                     CursorChangerShit.cursorStyle = null;
                 }
         }
