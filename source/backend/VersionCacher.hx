@@ -10,14 +10,31 @@ import backend.TracePassThrough as CustomTrace;
 class VersionCacher {
     // thank god it ignores whitespace lmao, this'd be extremely long if i couldn't do that.
     // code that i'd rather just have in its own class cause its a lot lmao PLUS I GET TO PUT SHIT INTO THE THING
+    /**
+     * This function caches a version (or two) specified in the following variable(s)
+     * 
+     * @param updateVersion The Version it caches
+     * 
+     * @param cachePath The place you're caching the version to
+     * 
+     * @param saveOverReadme Whether to replace the readme file in the cachePath
+     * 
+     * @param bothVersionsPresent Whether to failsafe save over the previous caching
+     * 
+     * @param cacheFileName Filename of cached version
+     * 
+     * @param updateVerTmp Used in conjunctionn with bothVersionsPresent, Uses this to cache a second version
+     * 
+     * @param updateFileNameTmp Filename of 2nd Cached Version
+     */
     public static inline function cacheUpdate(
-        updateVersion:String, // The version its caching/comparing just passthrough the updateVersion variable
-        cachePath:String = 'assets/VersionCache', // the place you're caching the version to
-        saveOverReadme:Bool = true, // whether to save over the readme
-        bothVersionsPresent:Bool = false, // whether to failsafe save over the previous caching
-        cacheFileName:String = 'gitVersion', // the filename of the cached version
-        updateVerTmp:String = '', // Used in conjunction with bothVersionsPresent, simply feed it a previous version caching string like chaining Char Engine's update cacher, with the update version from VS Char's
-        updateFileNameTmp:String = '') // Used to passthrough the original update filename, in case they differ.
+        updateVersion:String,
+        cachePath:String = 'assets/VersionCache',
+        saveOverReadme:Bool = true,
+        bothVersionsPresent:Bool = false,
+        cacheFileName:String = 'gitVersion',
+        updateVerTmp:String = '',
+        updateFileNameTmp:String = '')
         {
             var folderPath:String = './' + cachePath + '/';
             cacheFileName = cacheFileName + 'Cache';

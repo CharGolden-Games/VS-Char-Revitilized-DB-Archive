@@ -2,11 +2,20 @@ package backend;
 
 import flixel.system.debug.log.LogStyle;
 
+/**
+ * simple, adds extra shiz yknow. formatting. also adds to the Haxe Core Debugger Log
+ */
 class TracePassThrough
 {
-// simple, adds extra shiz yknow. formatting. also adds to the Haxe Core Debugger Log
     static var txt:String;
     static var textLog:String;
+    /**
+     * Its a trace but more advanced
+     * @param v Same as the og trace, What the message is
+     * @param type Whether to append "WARN:", "INFO:", "ERR:", or "FATAL".
+     * @param isLUA Whether this trace originates from a LUA script (don't use LUA mode if not from a LUA Script)
+     * @param luaLine Which line the trace comes from (LUA Exclusive)
+     */
     public static function trace(v:Dynamic, type:String = 'default', ?infos:haxe.PosInfos, isLUA = false, luaLine:String = null)
         {
             if (!isLUA){

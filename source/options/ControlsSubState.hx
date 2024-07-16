@@ -43,7 +43,7 @@ class ControlsSubState extends MusicBeatSubstate
 		[false, 'DEBUG'],
 		[false, 'Key 1', 'debug_1', 'Debug Key #1'],
 		[false, 'Key 2', 'debug_2', 'Debug Key #2'],
-		[false, 'Key 3', 'iconSwap', 'Swap Icons']
+		[false, 'Key 3', 'debug_3', 'Swap Icons/Debug Key #3']
 	];
 	var curOptions:Array<Int>;
 	var curOptionsValid:Array<Int>;

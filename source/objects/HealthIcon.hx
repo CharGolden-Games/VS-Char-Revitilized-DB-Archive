@@ -15,7 +15,17 @@ class HealthIcon extends FlxSprite
 	private var losingIcon:String = ''; 
 	private var winningIcon:String = '';
 	private var char:String = '';
+	private var charOldString:String = '';
+	private var startingChar:String = '';
 
+	/**
+	 * @param char Name of the icon
+	 * @param isPlayer Should this icon's X be flipped
+	 * @param hasAnimatedIcon Is this icon animated?
+	 * @param normalIcon What is the idle anim called
+	 * @param losingIcon What is the losing anim called
+	 * @param winningIcon What is the winning anim called
+	 */
 	public function new(char:String = 'bf', 
 						isPlayer:Bool = false, 
 						hasAnimatedIcon:Bool = false, 
@@ -25,7 +35,8 @@ class HealthIcon extends FlxSprite
 						winningIcon:String = '')
 	{
 		super();
-		isOldIcon = (char == 'bf-old');
+		charOldString = char + '-old';
+		startingChar = char;
 		this.isPlayer = isPlayer;
 		this.hasAnimatedIcon = hasAnimatedIcon;
 		this.normalIcon = normalIcon;
@@ -43,71 +54,62 @@ class HealthIcon extends FlxSprite
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
 	}
 
+	/**
+	 * Swaps the icon to the current char but with "-old" attached
+	 */
 	public function swapOldIcon() {
-		if(!isOldIcon) 
-		changeIcon(char + '-old');
-		else changeIcon(char);
+		
+		if(!isOldIcon) {
+			changeIcon(charOldString);
+			//trace('New Icon: $charOldString');
+			}
+		else {
+			changeIcon(startingChar);
+			//trace('New Icon: $char');
+		}
+			isOldIcon = !isOldIcon;
+	}
+
+	public function updateInitialChar() { // for the swap character event.
+		startingChar = this.char;
 	}
 
 	private var iconOffsets:Array<Float> = [0, 0, 0];
+	/**
+	 * Changes the current icon to "char"
+	 * @param char the icon image to change to.
+	 */
 	public function changeIcon(char:String) {
 		if(this.char != char) {
-			/*if (!hasAnimatedIcon)
-				{
-					trace('has not animated icon');*/
 			var name:String = 'icons/' + char;
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
 			var file:Dynamic = Paths.image(name);
 
 			loadGraphic(file); //Load stupidly first for getting the file size
+			var amountOfFrames:Int = Math.round(width / height);
+			//trace('result of amount Of Frames for $name: $amountOfFrames');
 			var width2 = width;
-			if (width == 450) {
-				loadGraphic(file, true, Math.floor(width / 3), Math.floor(height)); //Then load it fr // winning icons go br
-				iconOffsets[0] = (width - 150) / 3;
-				iconOffsets[1] = (width - 150) / 3;
-				iconOffsets[2] = (width - 150) / 3;
-			} else {
-				loadGraphic(file, true, Math.floor(width / 2), Math.floor(height)); //Then load it fr // winning icons go br
-				iconOffsets[0] = (width - 150) / 2;
-				iconOffsets[1] = (width - 150) / 2;
+			loadGraphic(file, true, Math.floor(width / amountOfFrames), Math.floor(height)); // actually load it now.
+			var framesArray:Array<Int> = [];
+			for (i in 0...amountOfFrames)
+			{
+				iconOffsets[i] = (width - 150) / amountOfFrames;
+				framesArray.insert(Std.int(1 * i), i); // theoretically it'll do this, 1 * 0 = 0, 1 * 1 = 1, etc.
 			}
+			//trace('the frames array is: $framesArray');
 			
 			updateHitbox();
-			if (width2 == 450) {
-				animation.add(char, [0, 1, 2], 0, false, isPlayer);
-			} else {
-				animation.add(char, [0, 1], 0, false, isPlayer);
-			}
+			if (framesArray.length < 9){
+			animation.add(char, framesArray, 0, false, isPlayer);
 			animation.play(char);
+			} else {
+				animation.add(char, [0,3,6], 0, false, isPlayer); // freeplay menu and other things
+				animation.add('idle', [0,1,2], 12, true, isPlayer);
+				animation.add('losing', [3,4,5], 12, true, isPlayer);
+				animation.add('winning', [6,7,8], 12, true, isPlayer);
+			}
 			this.char = char;
-			/*} else {
-				trace('has animated icon');
-				var name:String = 'icons/' + char;
-				if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
-				if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
-				var file:Dynamic = Paths.image(name);
-				
-	
-				loadGraphic(file, true); //Load stupidly first for getting the file size
-				file.frames = Paths.getSparrowAtlas(file);
-
-				animation.addByPrefix('neutral', normalIcon);
-				if (losingIcon != '')
-					{
-				animation.addByPrefix('losing', losingIcon);
-					}
-					else {
-						animation.addByPrefix('losing', normalIcon);
-					}
-				if (winningIcon != '')
-					{
-						animation.addByPrefix('winning', winningIcon);
-					}
-					else {
-						animation.addByPrefix('winning', normalIcon);
-					}
-			}*/
 
 			if(char.endsWith('-pixel'))
 				antialiasing = false;

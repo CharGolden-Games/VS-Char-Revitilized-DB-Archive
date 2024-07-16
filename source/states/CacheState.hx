@@ -10,6 +10,7 @@ import lime.app.Application;
 import flixel.addons.transition.FlxTransitionableState;
 import backend.ClientPrefs;
 import backend.TracePassThrough as CustomTrace;
+import backend.WeekData;
 
 class CacheState extends MusicBeatState
 {
@@ -27,6 +28,8 @@ class CacheState extends MusicBeatState
     var trevorLoadRun:FlxSprite; // unused till the assets are done
     var loadBar:FlxSprite;
     public static var localEnableCache:Bool = true; // for calling via TitleState, if you skip the damn warning it will ALWAYS cache bitch.
+    var cacheText:FlxText;
+    var totalSongs:Int = 0;
 
 
     var curSelected:Int = 0;
@@ -42,6 +45,8 @@ class CacheState extends MusicBeatState
     override function create()
         {
             super.create(); // maybe?????
+
+            WeekData.reloadWeekFiles(true);
 
             var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBG/cacheBG'));
             bg.screenCenter();
@@ -211,7 +216,20 @@ class CacheState extends MusicBeatState
                             }});
                              // hopefully this fixes the animation bug??? Flixel is so annoying rn my god man.
                             
-                    } 
+                    }
+                    cacheText = new FlxText(0, 0, 0, 'Caching Songs');
+                    cacheText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+                    cacheText.screenCenter();
+                    cacheText.alpha = 0;
+                    add(cacheText);
+                    for (i in 0...WeekData.weeksList.length) {
+                        var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
+                        
+                        for (song in leWeek.songs)
+                        {
+                            totalSongs++;
+                        }
+                    }
         }
 
 
@@ -220,6 +238,8 @@ class CacheState extends MusicBeatState
         var resetWarningActive:Bool;
         var nEWMessageWindowlmao:FlxSprite;
         var saveResetText:FlxText;
+        var songsCached:Int = 0;
+        var cachingDone:Bool = false;
         override function update(elapsed:Float) {
              charLoadRun.animation.play('charLoadRun');
             plexiLoadRun.animation.play('plexiLoadRun');
@@ -351,15 +371,14 @@ class CacheState extends MusicBeatState
                     FlxTween.tween(messageButtonBG2, {alpha: 0}, 1);
                     FlxTween.tween(messageButtonTextOff, {alpha: 0}, 1);
                     FlxTween.tween(messageButtonTextOk, {alpha: 0}, 1);
+                    cacheText.alpha = 1;
 				    FlxTween.tween(messageText, {alpha: 0}, 1, {
 					onComplete: function (twn:FlxTween) {
-                        if (ClientPrefs.data.enableCaching)
+                        if (ClientPrefs.data.enableCaching && !isCached)
                             {
-                        secretSound = new FlxSound().loadEmbedded(Paths.sound('SecretSound'), true);
-                            } if (!timer.active)
-                                        {
-                                            timer.start(2, backToMenu);
-                                        }}});
+                                isCached = true;
+                                preCache();
+                            }}});
         } if (resetWarningActive && controls.ACCEPT) {
             FlxG.save.erase();
             FlxG.resetGame(); // because otherwise it might commit die lmao.
@@ -370,6 +389,45 @@ class CacheState extends MusicBeatState
         }
         super.update(elapsed); // WITH THIS SUPER COMMAND I FIXED CACHE STATE HAHAHAHAHHAHHA
     }
+
+        function preCache()
+        {
+            if (!cachingDone) {
+            var weeksLoaded:Array<String> = WeekData.weeksList;
+            secretSound = new FlxSound().loadEmbedded(Paths.sound('SecretSound'), true);
+            trace('weekdata weeksList: $weeksLoaded');
+                        trace('Total Songs: $totalSongs');
+                        for (i in 0...WeekData.weeksList.length) {
+                            var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
+                            var leSongs:Array<String> = [];
+                            var leChars:Array<String> = [];
+                
+                            for (j in 0...leWeek.songs.length)
+                            {
+                                leSongs.push(leWeek.songs[j][0]);
+                                leChars.push(leWeek.songs[j][1]);
+                            }
+                
+                            WeekData.setDirectoryFromWeek(leWeek);
+                            for (song in leWeek.songs)
+                            {
+                                var sound:FlxSound = new FlxSound().loadEmbedded(Paths.voices(Paths.formatToSongPath(song[0])));
+                                var sound:FlxSound = new FlxSound().loadEmbedded(Paths.inst(Paths.formatToSongPath(song[0]))); // cache the songs lmao
+                                trace('Caching: ' + song[0]);
+                                songsCached++;
+                            }
+                            trace('Cached Songs: $songsCached / $totalSongs');
+                        }
+                        }
+                        if (songsCached == totalSongs) {
+                            cachingDone = true;
+                            cacheText.text = 'Songs Cached!';
+                        }
+                        if (!timer.active && cachingDone)
+                            {
+                                timer.start(2, backToMenu);
+                            }
+        }
 
         function backToMenu(timer:FlxTimer){
             MusicBeatState.switchState(new TitleState());

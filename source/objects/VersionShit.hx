@@ -9,22 +9,32 @@ class VersionShit extends FlxText
     var GIT_HASH:String = GitVer.getGitComHash();
     var GIT_HASCHANGED:Bool = GitVer.getGitHasLocalChanges();
 
-    var versionString:String; // The actual version to use
-    var textString:String; // the text before the version string
-    var textWidth:Int; // how wide the text is
-    var textSize:Int; // how big the text is
-    var textFont:String; // what font to use if any
-    var textColor:FlxColor;
-    var isGitCommit:Bool;
-    var xPos:Int;
-    var yPos:Int;
+    var versionString:String = '';
+    var textString:String = '';
+    var textWidth:Int = 0;
+    var textSize:Int = 5;
+    var textFont:String= '';
+    var textColor:FlxColor = 0x000000;
+    var isGitCommit:Bool = false ;
 
+    /**
+     * Spawns a text string with Version info
+     * @param versionString The actual version to use
+     * @param textString the text before the version string
+     * @param textWidth how wide the text is
+     * @param textSize how big the text is
+     * @param textFont what font to use if any
+     * @param textColor The color of the Text
+     * @param isGitCommit Whether to show GitCommit Info
+     * @param xPos The X Position
+     * @param yPos The Y Position
+     */
     public function new(
-        versionString:String, // The actual version to use
-        textString:String, // the text before the version string
-        textWidth:Int, // how wide the text is
-        textSize:Int, // how big the text is
-        textFont:String, // what font to use if any
+        versionString:String,
+        textString:String,
+        textWidth:Int,
+        textSize:Int,
+        textFont:String,
         textColor:FlxColor,
         isGitCommit:Bool,
         xPos:Int,
@@ -39,23 +49,23 @@ class VersionShit extends FlxText
         this.textFont = textFont;
         this.textColor = textColor;
         this.isGitCommit = isGitCommit;
-        this.xPos = xPos;
-        this.yPos = yPos;
+        this.x = xPos;
+        this.y = yPos;
         createText();
     }
-
-    function createText()
+    /**
+     * Creates text with variables from VersionShit
+     */
+    private function createText()
     {
         var gitHasChanges:String = '';
         var gitText:String = '';
         if (GIT_HASCHANGED) gitHasChanges = ': MODIFIED';
-        if (isGitCommit) gitText = #if IS_DEBUG ' {Branch: $GIT_BRANCH | CommitHash: $GIT_HASH $gitHasChanges }' #else '{Branch: $GIT_BRANCH}' #end;
+        if (isGitCommit) gitText = #if IS_DEBUG ' {Branch: $GIT_BRANCH | CommitHash: $GIT_HASH $gitHasChanges}' #else '{Branch: $GIT_BRANCH}' #end;
         text = textString + versionString + gitText;
         fieldWidth = textWidth;
         size = textSize;
         font = textFont;
         color = textColor;
-        x = xPos;
-        y = yPos;
     }
 }

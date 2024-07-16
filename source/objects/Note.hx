@@ -145,7 +145,13 @@ class Note extends FlxSprite
 
 	public function defaultRGB()
 	{
-		if (is5Key) RGB_SELECTION = ClientPrefs.data.arrowRGB5Key; else RGB_SELECTION = ClientPrefs.data.arrowRGB;
+		if (is5Key) {
+			RGB_SELECTION = ClientPrefs.data.arrowRGB5Key; 
+		}
+		else {
+			RGB_SELECTION = ClientPrefs.data.arrowRGB;
+			colArray = ['purple', 'blue', 'green', 'red'];
+		}
 		var arr:Array<FlxColor> = RGB_SELECTION[noteData];
 		if(PlayState.isPixelStage) arr = ClientPrefs.data.arrowRGBPixel[noteData];
 
@@ -239,7 +245,6 @@ class Note extends FlxSprite
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inEditor:Bool = false, ?createdFrom:Dynamic = null)
 	{
 		super();
-		//if (!is5Key) 
 
 		antialiasing = ClientPrefs.data.antialiasing;
 		if(createdFrom == null) createdFrom = PlayState.instance;
@@ -329,7 +334,13 @@ class Note extends FlxSprite
 
 	public static function initializeGlobalRGBShader(noteData:Int)
 	{
-		if (is5Key) RGB_SELECTION = ClientPrefs.data.arrowRGB5Key; else RGB_SELECTION = ClientPrefs.data.arrowRGB;
+		if (is5Key) {
+			RGB_SELECTION = ClientPrefs.data.arrowRGB5Key; 
+		}
+		else {
+			RGB_SELECTION = ClientPrefs.data.arrowRGB;
+			colArray = ['purple', 'blue', 'green', 'red'];
+		}
 		if(globalRgbShaders[noteData] == null)
 		{
 			var newRGB:RGBPalette = new RGBPalette();

@@ -24,6 +24,12 @@ typedef CreditsFile =
 class CreditsData
 {
 	public static var isFreeplay:Bool = false;
+
+	/**
+	 * Returns a dummy list of credits info
+	 * @param song Used to set the songName field 
+	 * @return CreditsFile
+	 */
 	public static function dummy(song:String):CreditsFile
 	{
 		/*if (!isFreeplay) {
@@ -40,6 +46,11 @@ class CreditsData
 	}
     
     // stolen from StageData lmao
+    /**
+     * Stolen from StageData lmao, using a credits.json file in a song's data root grabs credits info.
+     * @param song Used to set the Song's directory
+     * @return CreditsFile
+     */
     public static function getCreditsFile(song:String):CreditsFile {
 		var rawJson:String = null;
 		var path:String = Paths.getPreloadPath('data/' + Paths.formatToSongPath(song) + '/credits.json');

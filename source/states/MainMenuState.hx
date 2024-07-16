@@ -4,7 +4,6 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import substates.GameplayChangersSubstate;
 import backend.WeekData;
 import backend.Achievements;
-import backend.VersionStrings;
 
 import flixel.FlxObject;
 import flixel.addons.transition.FlxTransitionableState;
@@ -26,9 +25,9 @@ import sys.io.File;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = VersionStrings.psychEngineVersion; // Just cause. its fun to tell people im using an older version of psych, with some things from 0.7.3 i backported
-	public static var charEngineVersion:String = VersionStrings.charEngineVersion; // Used for making sure im not an idiot, and properly update the engine version lmao.
-	public static var vsCharVersion:String = VersionStrings.vsCharVersion; // Used for updating
+	public static var psychEngineVersion:String = ReferenceStrings.psychEngineVersion;
+	public static var charEngineVersion:String = ReferenceStrings.charEngineVersion;
+	public static var vsCharVersion:String = ReferenceStrings.vsCharVersion;
 	public static var discordRPCString:String;
 	public static var curSelected:Int = 0;
 	public var MenuOptionImage = new FlxSprite().loadGraphic(Paths.image('menuimage'));
@@ -39,7 +38,7 @@ class MainMenuState extends MusicBeatState
 		// REMAKE THESE!!!!
 		'menuBG/Micheal',
 		'menuBG/CharMenacing',
-		'menuBG/TheGangsAllHere',
+		'menuBG/TheGangsAllHere', // this one's fine
 	];
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -399,6 +398,10 @@ class MainMenuState extends MusicBeatState
 
 		}); 
 	}
+	/**
+	 * Returns a random BG from 1 to how many are defined in bgPaths
+	 * @return An image that works with FlxSprite
+	 */
 	public static function randomizeBG():flixel.system.FlxAssets.FlxGraphicAsset
 	{
 		var chance:Int = FlxG.random.int(0, bgPaths.length - 1);

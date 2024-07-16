@@ -23,6 +23,7 @@ import backend.BaseStage;
 import backend.Difficulty;
 import backend.Mods;
 import backend.CursorChangerShit;
+import backend.ReferenceStrings;
 
 import objects.Alphabet;
 import objects.BGSprite;

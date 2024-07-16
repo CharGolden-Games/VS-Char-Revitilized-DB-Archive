@@ -119,7 +119,7 @@ class ClientPrefs {
 		'note_left'		=> [D, LEFT],
 		'note_down'		=> [F, DOWN],
 		'note_right'	=> [K, RIGHT],
-		'note_middle'	=> [SPACE,SPACE], // Triple Trouble go brrrrrrrrr
+		'note_middle'	=> [SPACE], // Triple Trouble go brrrrrrrrr
 		
 		'ui_up'			=> [W, UP],
 		'ui_left'		=> [A, LEFT],
@@ -137,7 +137,7 @@ class ClientPrefs {
 		
 		'debug_1'		=> [SEVEN],
 		'debug_2'		=> [EIGHT],
-		'iconSwap'		=> [NINE]
+		'debug_3'		=> [NINE]
 	];
 	public static var gamepadBinds:Map<String, Array<FlxGamepadInputID>> = [
 		'note_up'		=> [DPAD_UP, Y],

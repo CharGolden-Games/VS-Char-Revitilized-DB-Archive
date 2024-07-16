@@ -33,7 +33,7 @@
 	<!-- <define name="SHOW_DONATE_OPTION"/> --> <!-- dunno why you'd wanna, but this is easier than modifying code -->
 	<!-- <define name="SHOW_BASE_CAT"/> --> <!-- for enabling showing of base catagory, pretty useless if you don't plan on showing base game songs -->
 	<define name="IS_DEBUG" if="debug" />
-	<!-- <define name="SHOW_GITCOMMIT"/> -->
+	<define name="SHOW_GITCOMMIT"/>
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 

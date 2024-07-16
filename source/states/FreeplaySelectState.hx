@@ -178,12 +178,12 @@ class FreeplaySelectState extends MusicBeatState {
         }
 
         curCategory = curSelected;
-        if (FlxG.mouse.justPressed && FlxG.mouse.overlaps(modsFreeplayMenu))
+        if (FlxG.mouse.justPressed && FlxG.mouse.overlaps(modsFreeplayMenu) && !clicked)
         {
+            clicked = true;
             freeplayCats.insert(3, 'Mods');
             freeplayCatColor.insert(3, 0xf1ffffff);
-            trace('Clicked Mods');
-            clicked = true;
+            //trace('Clicked Mods');
             curSelected = 3;
             FlxG.sound.play(Paths.sound('confirmMenu'));
 

@@ -21,7 +21,6 @@ import backend.Section;
 import backend.Rating;
 import backend.CreditsData;
 import backend.TracePassThrough as CustomTrace;
-import backend.VersionStrings;
 
 import flixel.FlxBasic;
 import flixel.FlxObject;
@@ -249,6 +248,8 @@ class PlayState extends MusicBeatState
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
+	public var iconP3:HealthIcon; // Determined by the GF Slot
+	public var iconP4:HealthIcon; // Manually call with an icon name.
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
@@ -331,16 +332,17 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 		isRing = SONG.isRing;
-		is5Key = true; //SONG.is5Key;
-		/*if (!is5Key || !isRing) {
+		is5Key = SONG.is5Key;
+		if (!is5Key && Paths.formatToSongPath(SONG.song.toLowerCase()).trim() != 'triple-trouble' || !isRing && Paths.formatToSongPath(SONG.song.toLowerCase()).trim() != 'triple-trouble') {
 			StrumNote.is5Key = false;
 			Note.is5Key = false;
 		} else {
 			StrumNote.is5Key = true;
 			Note.is5Key = true;
-		}*/
-		StrumNote.is5Key = true;
-		Note.is5Key = true;
+			if (!is5Key) {
+			is5Key = true;
+			}
+		}
 		doHealthDrain = false;
 		ringCount = 0;
 		CreditsData.isFreeplay = false; // just in case freeplay leaves this as "true"
@@ -679,6 +681,19 @@ class PlayState extends MusicBeatState
 		iconP2.alpha = 0;
 		add(iconP2);
 
+		if (gf != null) {
+		iconP3 = new HealthIcon(gf.healthIcon, true, gf.hasAnimatedIcon, gf.normalIcon, gf.losingIcon, gf.winningIcon);
+		iconP3.visible = SONG.showThirdIcon;
+		iconP3.alpha = 0;
+		add(iconP3);
+		}
+		if (SONG.fourthIcon != null) {
+		iconP4 = new HealthIcon(SONG.fourthIcon, false, SONG.fourthIconAnimated, SONG.fourthIconNormal, SONG.fourthIconLosing, SONG.fourthIconWinning);
+		iconP4.visible = SONG.showFourthIcon;
+		iconP4.alpha = 0;
+		add(iconP4);
+		}
+
 		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
 		if (!ClientPrefs.data.baseFNFHealthBar)
 		{
@@ -729,6 +744,8 @@ class PlayState extends MusicBeatState
 
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
+		if(iconP3 != null) iconP3.cameras = [camHUD];
+		if(iconP4 != null) iconP4.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 
 		botplayTxt.cameras = [camHUD];
@@ -1356,6 +1373,8 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(healthBarOverlay, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(iconP1, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(iconP2, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
+		if(iconP3 != null) FlxTween.tween(iconP3, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
+		if(iconP4 != null) FlxTween.tween(iconP4, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		if (ClientPrefs.data.showBasedOnString) {
 			spawnWatermark();
 		}
@@ -1385,6 +1404,12 @@ class PlayState extends MusicBeatState
 						playerStrums.members[i].x = playerStrums.members[i].x + 50;
 					case 4:
 						playerStrums.members[i].x = playerStrums.members[1].x + 105;
+				}
+				} else {
+					switch (i)
+				{
+					case 4:
+						playerStrums.members[i].x = 4000; // you got some hidden talent! keep it hidden!
 				}
 				}
 				setOnScripts('defaultPlayerStrumX' + i, playerStrums.members[i].x);
@@ -2189,9 +2214,18 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		if (iconP3 != null) {
+			iconP3.y = iconP1.y - 50;
+			iconP3.x = iconP1.x + 75;
+		}
+		if (iconP4 != null) {
+		iconP4.y = -50;
+		iconP4.x = -75;
+		}
 		ringText.x = FlxG.width - (ringText.width + 5); // to fix weird bugs with going off screen
 		if (controls.justPressed('debug_3'))
 		{
+			trace('Pressed debug_3');
 			iconP1.swapOldIcon();
 		}
 		if (songName != null)
@@ -2291,7 +2325,7 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-		if (iconP1.animation.numFrames == 3)
+		if (iconP1.animation.numFrames >= 3 && iconP1.animation.numFrames != 9)
 		{
 			if (healthBar.percent < 20)
 				iconP1.animation.curAnim.curFrame = 1;
@@ -2300,14 +2334,48 @@ class PlayState extends MusicBeatState
 			else
 				iconP1.animation.curAnim.curFrame = 0;
 		}
-		else
+		else if (iconP1.animation.numFrames == 2)
 		{
 			if (healthBar.percent < 20)
 				iconP1.animation.curAnim.curFrame = 1;
 			else
 				iconP1.animation.curAnim.curFrame = 0;
+		} else {
+			if (healthBar.percent < 20)
+				iconP1.animation.play('losing');
+			else if (healthBar.percent > 80)
+				iconP1.animation.play('winning');
+			else
+				iconP1.animation.play('idle');
 		}
-		if (iconP2.animation.numFrames == 3)
+
+		if(iconP3 != null) {
+		if (iconP3.animation.numFrames >= 3 && iconP3.animation.numFrames != 9)
+			{
+				if (healthBar.percent < 20)
+					iconP3.animation.curAnim.curFrame = 1;
+				else if (healthBar.percent > 80)
+					iconP3.animation.curAnim.curFrame = 2;
+				else
+					iconP3.animation.curAnim.curFrame = 0;
+			}
+			else if (iconP3.animation.numFrames == 2)
+			{
+				if (healthBar.percent < 20)
+					iconP3.animation.curAnim.curFrame = 1;
+				else
+					iconP3.animation.curAnim.curFrame = 0;
+			} else {
+				if (healthBar.percent < 20)
+					iconP3.animation.play('losing');
+				else if (healthBar.percent > 80)
+					iconP3.animation.play('winning');
+				else
+					iconP3.animation.play('idle');
+			}
+			}
+		 
+		if (iconP2.animation.numFrames >= 3 && iconP2.animation.numFrames != 9)
 		{
 			if (healthBar.percent > 80)
 				iconP2.animation.curAnim.curFrame = 1;
@@ -2316,13 +2384,46 @@ class PlayState extends MusicBeatState
 			else
 				iconP2.animation.curAnim.curFrame = 0;
 		}
-		else
+		else if (iconP2.animation.numFrames == 2)
 		{
 			if (healthBar.percent > 80)
 				iconP2.animation.curAnim.curFrame = 1;
 			else
 				iconP2.animation.curAnim.curFrame = 0;
+		} else {
+			if (healthBar.percent < 20)
+				iconP2.animation.play('winning');
+			else if (healthBar.percent > 80)
+				iconP2.animation.play('losing');
+			else
+				iconP2.animation.play('idle');
 		}
+
+		if(iconP4 != null) {
+		if (iconP4.animation.numFrames >= 3 && iconP4.animation.numFrames != 9)
+			{
+				if (healthBar.percent > 80)
+					iconP4.animation.curAnim.curFrame = 1;
+				else if (healthBar.percent < 20)
+					iconP4.animation.curAnim.curFrame = 2;
+				else
+					iconP4.animation.curAnim.curFrame = 0;
+			}
+			else if (iconP4.animation.numFrames == 2)
+			{
+				if (healthBar.percent > 80)
+					iconP4.animation.curAnim.curFrame = 1;
+				else
+					iconP4.animation.curAnim.curFrame = 0;
+			} else {
+				if (healthBar.percent < 20)
+					iconP4.animation.play('winning');
+				else if (healthBar.percent > 80)
+					iconP4.animation.play('losing');
+				else
+					iconP4.animation.play('idle');
+			}
+			}
 
 		if (controls.justPressed('debug_2') && !endingSong && !inCutscene)
 			openCharacterEditor();
@@ -2503,8 +2604,12 @@ class PlayState extends MusicBeatState
 		{
 			iconP1.centerOffsets();
 			iconP2.centerOffsets();
+			if(iconP3 != null) iconP3.centerOffsets();
+			iconP4.centerOffsets();
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
+			if(iconP3 != null) iconP3.updateHitbox();
+			iconP4.updateHitbox();
 		}
 		else
 		{
@@ -2515,6 +2620,18 @@ class PlayState extends MusicBeatState
 			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, FlxMath.bound(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
+
+			if(iconP3 != null) {
+			var mult:Float = FlxMath.lerp(1, iconP3.scale.x, FlxMath.bound(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconP3.scale.set(mult, mult);
+			iconP3.updateHitbox();
+			}
+
+			if(iconP4 != null) {
+			var mult:Float = FlxMath.lerp(1, iconP4.scale.x, FlxMath.bound(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconP4.scale.set(mult, mult);
+			iconP4.updateHitbox();
+			}
 		}
 	}
 
@@ -2872,6 +2989,7 @@ class PlayState extends MusicBeatState
 							boyfriend = boyfriendMap.get(value2);
 							boyfriend.alpha = lastAlpha;
 							iconP1.changeIcon(boyfriend.healthIcon);
+							iconP1.updateInitialChar();
 						}
 						setOnScripts('boyfriendName', boyfriend.curCharacter);
 
@@ -2900,6 +3018,7 @@ class PlayState extends MusicBeatState
 							}
 							dad.alpha = lastAlpha;
 							iconP2.changeIcon(dad.healthIcon);
+							iconP2.updateInitialChar();
 						}
 						setOnScripts('dadName', dad.curCharacter);
 
@@ -3360,20 +3479,21 @@ class PlayState extends MusicBeatState
 		var path = 'assets/images/';
 		var uiPrefix:String = '';
 		var uiSuffix:String = '';
-		switch (Paths.formatToSongPath(SONG.song).toLowerCase())
+		if (stageUI != "normal")
 		{
-			default:
-				if (stageUI != "normal")
-				{
-					uiPrefix = '${stageUI}UI/';
-					if (PlayState.isPixelStage)
-						uiSuffix = '-pixel';
+			uiPrefix = '${stageUI}UI/';
+			if (PlayState.isPixelStage)
+				uiSuffix = '-pixel';
+		}
+		if (stageUI == 'normal')
+		{
+			for (song in ReferenceStrings.vsCharSongs)
+			{
+				if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
+					uiPrefix == 'ratings/VSChar/';
 				}
-			case 'triple-trouble':
-				uiPrefix = "ratings/VSChar/";
-			case 'high-ground':
-				uiPrefix = "ratings/VSChar_Old/";
-		} // thank you ShadowMario for letting me do this dumb shit 🙏
+			}
+		}
 
 		for (rating in ratingsData)
 			if (FileSystem.exists(sharedPath + uiPrefix + rating.image + uiSuffix + '.png')) Paths.image(uiPrefix + rating.image + uiSuffix); else Paths.image(rating.image);// so if a Rating can't be found it'll default to these!
@@ -3425,20 +3545,22 @@ class PlayState extends MusicBeatState
 		var uiSuffix:String = '';
 		var antialias:Bool = ClientPrefs.data.antialiasing;
 
-		switch (Paths.formatToSongPath(SONG.song).toLowerCase())
-		{
-			default:
-				if (stageUI != "normal")
+		if (stageUI != "normal")
+			{
+				uiPrefix = '${stageUI}UI/';
+				if (PlayState.isPixelStage)
+					uiSuffix = '-pixel';
+			}
+			if (stageUI == 'normal')
+			{
+				for (song in ReferenceStrings.vsCharSongs)
 				{
-					uiPrefix = '${stageUI}UI/';
-					if (PlayState.isPixelStage)
-						uiSuffix = '-pixel';
+					if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
+						uiPrefix = 'ratings/VSChar';
+						if (song == 'high-ground') uiPrefix += '_Old/'; else uiPrefix += '/';
+					}
 				}
-			case 'triple-trouble':
-				uiPrefix = "ratings/VSChar/";
-			case 'high-ground':
-				uiPrefix = "ratings/VSChar_Old/";
-		} // thank you ShadowMario for letting me do this dumb shit 🙏
+			}
 
 		if (FileSystem.exists(sharedPath + uiPrefix + daRating.image + uiSuffix + '.png')) rating.loadGraphic(Paths.image(uiPrefix + daRating.image + uiSuffix)); else rating.loadGraphic(Paths.image(daRating.image));
 		rating.cameras = [camHUD];
@@ -4248,28 +4370,42 @@ class PlayState extends MusicBeatState
 				curBeat % (gfSpeed * 2) == 0 ? {
 					iconP1.scale.set(1.1, 0.8);
 					iconP2.scale.set(1.1, 1.3);
+					if(iconP3 != null) iconP3.scale.set(1.1, 0.8);
+					if(iconP4 != null) iconP4.scale.set(1.1, 1.3);
 
 					FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 					FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP3, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP4, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 				} : {
 					iconP1.scale.set(1.1, 1.3);
 					iconP2.scale.set(1.1, 0.8);
+					if(iconP3 != null) iconP3.scale.set(1.1, 1.3);
+					if(iconP4 != null)iconP4.scale.set(1.1, 0.8);
 
 					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 					FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					if(iconP3 != null) FlxTween.angle(iconP3, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					if(iconP4 != null) FlxTween.angle(iconP4, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 					}
 
 				FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
 				FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				if(iconP3 != null) FlxTween.tween(iconP3, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				if(iconP4 != null) FlxTween.tween(iconP4, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
 			}
 		}
 		else if (ClientPrefs.data.iconBop == 'OS')
 		{
 			iconP1.scale.set(1.2, 1.2);
 			iconP2.scale.set(1.2, 1.2);
+			if(iconP3 != null) iconP3.scale.set(1.2, 1.2);
+			if(iconP4 != null) iconP4.scale.set(1.2, 1.2);
 
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
+			if(iconP3 != null) iconP3.updateHitbox();
+			if(iconP4 != null)iconP4.updateHitbox();
 
 			if (dancingLeft)
 			{
@@ -4283,6 +4419,8 @@ class PlayState extends MusicBeatState
 					}
 				});
 				FlxTween.tween(iconP2, {angle: 8}, gfSpeed / 2);
+				if(iconP3 != null) FlxTween.tween(iconP3, {angle: 8}, gfSpeed / 2);
+				if(iconP4 != null) FlxTween.tween(iconP4, {angle: 8}, gfSpeed / 2);
 			}
 			else
 			{
@@ -4293,15 +4431,21 @@ class PlayState extends MusicBeatState
 					}
 				});
 				FlxTween.tween(iconP2, {angle: -8}, gfSpeed / 2);
+				if(iconP3 != null) FlxTween.tween(iconP3, {angle: -8}, gfSpeed / 2);
+				if(iconP4 != null) FlxTween.tween(iconP4, {angle: -8}, gfSpeed / 2);
 			}
 		}
 		else
 		{
 			iconP1.scale.set(1.2, 1.2);
 			iconP2.scale.set(1.2, 1.2);
+			if(iconP3 != null) iconP3.scale.set(1.2, 1.2);
+			if(iconP4 != null) iconP4.scale.set(1.2, 1.2);
 
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
+			if(iconP3 != null) iconP3.updateHitbox();
+			if(iconP4 != null) iconP4.updateHitbox();
 		}
 
 		if (gf != null

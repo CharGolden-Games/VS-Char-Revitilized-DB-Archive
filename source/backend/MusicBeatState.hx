@@ -4,7 +4,6 @@ import flixel.addons.ui.FlxUIState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxState;
 import objects.VersionShit;
-import backend.VersionStrings;
 
 class MusicBeatState extends FlxUIState
 {
@@ -204,14 +203,17 @@ class MusicBeatState extends FlxUIState
 	public var blackWatermarkBG:FlxSprite = null;
 	public var ENGINE_WATERMARK:VersionShit = null;
 
+	/**
+	 * Spawns The engine watermark
+	 */
 	function spawnWatermark()
 	{
-		var charEngineVer:String = VersionStrings.versionNumOnly('char-engine');
+		var charEngineVer:String = ReferenceStrings.versionNumOnly('char-engine');
 		ENGINE_WATERMARK = new VersionShit(charEngineVer, 'Char Engine v', 0, 16, Paths.font('vcr.ttf'), 0xFFFFFF, #if SHOW_GITCOMMIT true #else false #end, 0, 0);
 		ENGINE_WATERMARK.scrollFactor.set(0, 0);
 		ENGINE_WATERMARK.borderStyle = OUTLINE;
 		ENGINE_WATERMARK.borderColor = 0x000000;
-		ENGINE_WATERMARK.y = FlxG.height - (ENGINE_WATERMARK.height + 5);
+		ENGINE_WATERMARK.y = 20;
 		add(ENGINE_WATERMARK);
 		blackWatermarkBG = new FlxSprite().makeGraphic(Std.int(ENGINE_WATERMARK.width), Std.int(ENGINE_WATERMARK.height), 0xBA5C4D4D);
 		blackWatermarkBG.scrollFactor.set(0,0);

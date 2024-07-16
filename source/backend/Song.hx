@@ -57,6 +57,13 @@ class Song
 	public var stage:String;
 	public var player1:String = 'bf';
 	public var player2:String = 'dad';
+	public var showThirdIcon:Bool = false;
+	public var showFourthIcon:Bool = false;
+	public var fourthIcon:String = 'pico';
+	public var fourthIconAnimated:Bool = false;
+	public var fourthIconNormal:String = 'Idle';
+	public var fourthIconLosing:String = "Losing";
+	public var fourthIconWinning:String = "Winning";
 	public var gfVersion:String = 'gf';
 
 	private static function onLoadJson(songJson:Dynamic) // Convert old charts to newest format

@@ -72,7 +72,7 @@ class GitVer
 
     public static macro function getGitHasLocalChanges():haxe.macro.Expr.ExprOf<Bool>
       {
-        /*#if !display
+        #if !display
         // Get the current line number.
         var pos = haxe.macro.Context.currentPos();
         var branchProcess = new sys.io.Process('git', ['status', '--porcelain']);
@@ -108,9 +108,7 @@ class GitVer
         #else
         // `#if display` is used for code completion. In this case we just assume true.
         return macro $v{true};
-        #end*/
-        trace('modification checker broken! defaulting to false!');
-        return macro $v{false};
+        #end
       }
 }
 #end

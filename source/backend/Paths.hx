@@ -44,6 +44,7 @@ class Paths
 		'assets/music/freakyMenu.$SOUND_EXT',
 		'assets/shared/music/breakfast.$SOUND_EXT',
 		'assets/shared/music/tea-time.$SOUND_EXT',
+		'assets/shared/music/shop.$SOUND_EXT'
 	];
 	/// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory() {
@@ -97,7 +98,7 @@ class Paths
 		}
 		// flags everything to be cleared out next unused memory clear
 		localTrackedAssets = [];
-		#if !html5 openfl.Assets.cache.clear("songs"); #end
+		//#if !html5 openfl.Assets.cache.clear("songs"); #end
 	}
 
 	static public var currentLevel:String;
@@ -106,6 +107,14 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
+	/**
+	 * Gets the path of a given file
+	 * @param file The file to grab without the extension
+	 * @param type the Asset Type, i actually dunno what this is for
+	 * @param library Where in the assets folder the file is (E.G. week_assets)
+	 * @param modsAllowed Whether to look in the mods folder as well
+	 * @return String of path
+	 */
 	public static function getPath(file:String, ?type:AssetType = TEXT, ?library:Null<String> = null, ?modsAllowed:Bool = false):String
 	{
 		#if MODS_ALLOWED
@@ -148,39 +157,79 @@ class Paths
 		return returnPath;
 	}
 
+	/**
+	 * @param file The File to get the path of
+	 * @return Returns 'assets/file'
+	 */
 	inline public static function getPreloadPath(file:String = '')
 	{
 		return 'assets/$file';
 	}
 
+	/**
+	 * returns a TXT file
+	 * @param key The file
+	 * @param library where in the assets folder (E.G. week_assets)
+	 */
 	inline static public function txt(key:String, ?library:String)
 	{
 		return getPath('data/$key.txt', TEXT, library);
 	}
 
+	/**
+	 * Returns an XML File
+	 * @param key The file
+	 * @param library where in the assets folder (E.G. week_assets) 
+	 */
 	inline static public function xml(key:String, ?library:String)
 	{
 		return getPath('data/$key.xml', TEXT, library);
 	}
 
+	/**
+	 * Returns a JSON
+	 * @param key The file
+	 * @param library where in the assets folder (E.G. week_assets)
+	 */
 	inline static public function json(key:String, ?library:String)
 	{
 		return getPath('data/$key.json', TEXT, library);
 	}
 
+	/**
+	 * Returns a Shader FRAG File
+	 * @param key The file
+	 * @param library where in the assets folder (E.G. week_assets)
+	 */
 	inline static public function shaderFragment(key:String, ?library:String)
 	{
 		return getPath('shaders/$key.frag', TEXT, library);
 	}
+
+	/**
+	 * Returns a Shader VERT File
+	 * @param key The file
+	 * @param library where in the assets folder (E.G. week_assets)
+	 */
 	inline static public function shaderVertex(key:String, ?library:String)
 	{
 		return getPath('shaders/$key.vert', TEXT, library);
 	}
+
+	/**
+	 * Returns a LUA File
+	 * @param key The file
+	 * @param library where in the assets folder (E.G. week_assets)
+	 */
 	inline static public function lua(key:String, ?library:String)
 	{
 		return getPath('$key.lua', TEXT, library);
 	}
 
+	/**
+	 * Returns an MP4
+	 * @param key The file 
+	 */
 	static public function video(key:String)
 	{
 		#if MODS_ALLOWED
@@ -191,24 +240,48 @@ class Paths
 		#end
 		return 'assets/videos/$key.$VIDEO_EXT';
 	}
-
+	/**
+	 * Returns a sound
+	 * @param key The file
+	 * @param library where in the assets folder (E.G. week_assets) 
+	 * @return Sound
+	 */
 	static public function sound(key:String, ?library:String):Sound
 	{
 		var sound:Sound = returnSound('sounds', key, library);
 		return sound;
 	}
 
+	/**
+	 * Returns a random audio file from min(int) to max(int) (E.G. badNoise0-4)
+	 * @param key The File
+	 * @param min The minimum number (E.G. 0)
+	 * @param max The maximum number (E.G. 4)
+	 * @param library where in the assets folder (E.G. week_assets) 
+	 */
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
 	{
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
+	/**
+	 * Returns a music file
+	 * @param key The file
+	 * @param library where in the assets folder (E.G. week_assets)  
+	 * @return Sound
+	 */
 	inline static public function music(key:String, ?library:String):Sound
 	{
 		var file:Sound = returnSound('music', key, library);
 		return file;
 	}
 
+	/**
+	 * Returns a file from a song's folder
+	 * @param song The name of the song
+	 * @param postfix the end of the song (E.G Player, bf)
+	 * @return Any
+	 */
 	inline static public function voices(song:String, postfix:String = null):Any
 		{
 			var songKey:String = '${formatToSongPath(song)}/Voices';
@@ -218,6 +291,11 @@ class Paths
 			return voices;
 		}
 
+		/**
+		 * Returns a song's Inst
+		 * @param song the name of the song
+		 * @return Any
+		 */
 		inline static public function inst(song:String):Any
 			{
 				var songKey:String = '${formatToSongPath(song)}/Inst';

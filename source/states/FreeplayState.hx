@@ -85,7 +85,7 @@ class FreeplayState extends MusicBeatState
 
 		openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized | Freeplay | ";
 
-		trace('curCatagory = ' + FreeplaySelectState.freeplayCats[FreeplaySelectState.curCategory].toLowerCase());
+		//trace('curCatagory = ' + FreeplaySelectState.freeplayCats[FreeplaySelectState.curCategory].toLowerCase());
 		if (FreeplaySelectState.freeplayCats[FreeplaySelectState.curCategory].toLowerCase() != 'mods')
 			{
 		curCatStorage = FreeplaySelectState.curCategory;
@@ -93,7 +93,7 @@ class FreeplayState extends MusicBeatState
 				// because i don't want the mods thingie fucking up the shit lmao.
 				curCatStorage = 5;
 			}
-			trace('curCatStorage: ' + curCatStorage);
+			//trace('curCatStorage: ' + curCatStorage);
 		//Paths.clearStoredMemory();
 		//Paths.clearUnusedMemory();
 		
@@ -680,15 +680,15 @@ class FreeplayState extends MusicBeatState
 		var curChar:String = '';
 
 		if (!FileSystem.exists(path) && !FileSystem.exists(path2)) {
-			CustomTrace.trace('NEITHER "' + path + '" NOR "' + path2 + '" FOUND.', 'fatal');
+			//CustomTrace.trace('NEITHER "' + path + '" NOR "' + path2 + '" FOUND.', 'fatal');
 			curChar = 'MissingPortrait'; 
 		}
 		else {
 			if (FileSystem.exists(path)) {
-				CustomTrace.trace('"' + path + '" Was found.', 'info');
+				//CustomTrace.trace('"' + path + '" Was found.', 'info');
 				curChar = char.char + 'Portrait';
 			} else if (FileSystem.exists(path2)) {
-				CustomTrace.trace('"' + path2 + '" Was found.', 'info');
+				//CustomTrace.trace('"' + path2 + '" Was found.', 'info');
 				curChar = char.char;
 			}
 		}
