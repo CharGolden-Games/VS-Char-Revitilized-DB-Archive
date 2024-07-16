@@ -219,7 +219,8 @@ class CacheState extends MusicBeatState
                     }
                     cacheText = new FlxText(0, 0, 0, 'Caching Songs');
                     cacheText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
-                    cacheText.screenCenter();
+                    cacheText.screenCenter(Y);
+                    cacheText.x = FlxG.width * 0.3;
                     cacheText.alpha = 0;
                     add(cacheText);
                     for (i in 0...WeekData.weeksList.length) {
@@ -240,6 +241,7 @@ class CacheState extends MusicBeatState
         var saveResetText:FlxText;
         var songsCached:Int = 0;
         var cachingDone:Bool = false;
+        var isCached:Bool = false;
         override function update(elapsed:Float) {
              charLoadRun.animation.play('charLoadRun');
             plexiLoadRun.animation.play('plexiLoadRun');
@@ -366,7 +368,6 @@ class CacheState extends MusicBeatState
                             messageButtonBG2.animation.play('pressed');
                     }
                     */
-                    var isCached:Bool = false;
                     FlxTween.tween(messageWindow, {alpha: 0}, 1);
                     FlxTween.tween(messageButtonBG, {alpha: 0}, 1);
                     FlxTween.tween(messageButtonBG2, {alpha: 0}, 1);
@@ -377,9 +378,13 @@ class CacheState extends MusicBeatState
 					onComplete: function (twn:FlxTween) {
                         if (ClientPrefs.data.enableCaching && !isCached)
                             {
-                                isCached = true;
                                 preCache();
+                                
                             }}});
+                            if (!timer.active && cachingDone)
+                                {
+                                    timer.start(2, backToMenu);
+                                }
         } if (resetWarningActive && controls.ACCEPT) {
             FlxG.save.erase();
             FlxG.resetGame(); // because otherwise it might commit die lmao.
@@ -391,13 +396,36 @@ class CacheState extends MusicBeatState
         super.update(elapsed); // WITH THIS SUPER COMMAND I FIXED CACHE STATE HAHAHAHAHHAHHA
     }
 
+        var failsafeTimer:FlxTimer = new FlxTimer();
+        var failsafeTimer2:FlxTimer = new FlxTimer();
+        inline function startTimer(tmr:Int)
+        {
+            switch (tmr)
+            {
+                case 1:
+                    failsafeTimer.start(20, function(tmr:FlxTimer){
+                    if (!cachingDone && songsCached == totalSongs) {
+                        trace('Got Stuck on not done!');
+                        backToMenu(failsafeTimer);
+                    } else {
+                        trace('running a new timer, $songsCached != $totalSongs');
+                        startTimer(2);
+                    }
+                });
+                case 2:
+                    failsafeTimer2.start(10, function(tmr:FlxTimer){
+                        trace('Got Stuck! Skipping!!!');
+                            backToMenu(failsafeTimer2);
+                    });
+            }
+        }
         function preCache()
         {
+            startTimer(1);
             if (!cachingDone) {
+                isCached = true;
             var weeksLoaded:Array<String> = WeekData.weeksList;
             secretSound = new FlxSound().loadEmbedded(Paths.sound('SecretSound'), true);
-            trace('weekdata weeksList: $weeksLoaded');
-                        trace('Total Songs: $totalSongs');
                         for (i in 0...WeekData.weeksList.length) {
                             var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
                             var leSongs:Array<String> = [];
@@ -408,26 +436,42 @@ class CacheState extends MusicBeatState
                                 leSongs.push(leWeek.songs[j][0]);
                                 leChars.push(leWeek.songs[j][1]);
                             }
-                
+
+                            var int:Array<Int> = [];
+                            var pos:Int = 0;
+                            for (i in 0...totalSongs) {
+                                int.insert(Std.int(((i * 1) + 1)), i); //theoretically it'll go like this (0 * 1) + 1 = 1, (1 * 1) + 1 = 2, etc.
+                            }
                             WeekData.setDirectoryFromWeek(leWeek);
                             for (song in leWeek.songs)
-                            {
-                                var sound:FlxSound = new FlxSound().loadEmbedded(Paths.voices(Paths.formatToSongPath(song[0])));
-                                var sound:FlxSound = new FlxSound().loadEmbedded(Paths.inst(Paths.formatToSongPath(song[0]))); // cache the songs lmao
-                                trace('Caching: ' + song[0]);
-                                songsCached++;
+                            {   pos++;
+                                pos = pos - 1; //because of 0 being treated as 1 and so on
+                                var delayTimer:FlxTimer = new FlxTimer().start(4 * int[pos], function(tmr:FlxTimer){ // let the text catch up lmao
+                                    var sound:FlxSound = new FlxSound().loadEmbedded(Paths.voices(Paths.formatToSongPath(song[0])));
+                                    var sound:FlxSound = new FlxSound().loadEmbedded(Paths.inst(Paths.formatToSongPath(song[0]))); // cache the songs lmao
+                                    songsCached++;
+                                    cacheText.text = 'Songs Cached: $songsCached / $totalSongs\nif it seems stuck at $totalSongs / $totalSongs report it as a bug!';
+                                    //trace('Cached Songs: $songsCached / $totalSongs');
+                                    checkCacheStatus(); // because this function keeps fucking breaking, imma call this specific if statement for each damn song. >:(
+                                });
+                                
                             }
-                            trace('Cached Songs: $songsCached / $totalSongs');
                         }
+                        var timer:FlxTimer = new FlxTimer().start(2, function(tmr:FlxTimer){
+                            checkCacheStatus(); // for good measures call it one final time!!!!
+                        });
                         }
-                        if (songsCached == totalSongs) {
-                            cachingDone = true;
-                            cacheText.text = 'Songs Cached!';
-                        }
-                        if (!timer.active && cachingDone)
-                            {
-                                timer.start(2, backToMenu);
-                            }
+        }
+
+        inline function checkCacheStatus()
+        {
+            if (songsCached == totalSongs)
+                {
+                    //trace('all of them cached!');
+                    cacheText.text = 'Songs Cached!';
+                    cachingDone = true;
+                    FlxTween.tween(cacheText, {alpha: 0}, 1);
+                }
         }
 
         function backToMenu(timer:FlxTimer){
@@ -447,17 +491,17 @@ class CacheState extends MusicBeatState
                 {
                     // just in case
                     default:
-                        messageButtonTextOff.destroy();
-                        messageButtonTextOk.destroy();
+                        //messageButtonTextOff.destroy();
+                        //messageButtonTextOk.destroy();
 
-                        messageButtonTextOk = new FlxText(FlxG.width * 0.25, FlxG.height - 160, FlxG.width * 0.2,
-                            'Yes');
+                        //messageButtonTextOk = new FlxText(FlxG.width * 0.25, FlxG.height - 160, FlxG.width * 0.2,
+                        //    'Yes');
                         messageButtonTextOk.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-                        add(messageButtonTextOk);
-                        messageButtonTextOff = new FlxText(messageButtonTextOk.x + 400, FlxG.height - 160, FlxG.width * 0.2,
-                            'No');
+                        //add(messageButtonTextOk);
+                        //messageButtonTextOff = new FlxText(messageButtonTextOk.x + 400, FlxG.height - 160, FlxG.width * 0.2,
+                        //    'No');
                         messageButtonTextOff.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-                        add(messageButtonTextOff);
+                        //add(messageButtonTextOff);
                     case 0:
                         messageButtonTextOff.destroy();
                         messageButtonTextOk.destroy();

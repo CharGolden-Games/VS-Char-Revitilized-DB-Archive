@@ -1326,17 +1326,13 @@ class PlayState extends MusicBeatState
 	{
 		var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 		var uiSuffix:String = 'intro/';
-		switch (Paths.formatToSongPath(SONG.song.toLowerCase()))
-		{
-			default:
-				uiSuffix = '';
-			case 'defeat-char-mix':
-				uiSuffix = uiSuffix + 'VSChar/';
-			case 'defeat-odd-mix':
-				uiSuffix = uiSuffix + 'VSChar/';
-			case 'triple-trouble':
-				uiSuffix = uiSuffix + 'VSChar/';
-		}
+		for (song in ReferenceStrings.vsCharSongs)
+			{
+				if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
+					uiSuffix += 'VSChar/';
+					if (song == 'high-ground') uiSuffix = '';
+				}
+			}
 		var introImagesArray:Array<String> = switch (stageUI)
 		{
 			case "pixel": ['${stageUI}UI/ready-pixel', '${stageUI}UI/set-pixel', '${stageUI}UI/date-pixel'];
