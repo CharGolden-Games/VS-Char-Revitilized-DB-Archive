@@ -366,6 +366,7 @@ class CacheState extends MusicBeatState
                             messageButtonBG2.animation.play('pressed');
                     }
                     */
+                    var isCached:Bool = false;
                     FlxTween.tween(messageWindow, {alpha: 0}, 1);
                     FlxTween.tween(messageButtonBG, {alpha: 0}, 1);
                     FlxTween.tween(messageButtonBG2, {alpha: 0}, 1);
