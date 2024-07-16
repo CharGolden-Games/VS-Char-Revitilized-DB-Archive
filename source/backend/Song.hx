@@ -21,6 +21,13 @@ typedef SwagSong =
 
 	var player1:String;
 	var player2:String;
+	@:optional var showThirdIcon:Bool;
+	@:optional var showFourthIcon:Bool;
+	@:optional var fourthIcon:String;
+	@:optional var fourthIconAnimated:Bool;
+	@:optional var fourthIconNormal:String;
+	@:optional var fourthIconLosing:String;
+	@:optional var fourthIconWinning:String;
 	var gfVersion:String;
 	var stage:String;
 
