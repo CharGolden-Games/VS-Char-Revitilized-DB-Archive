@@ -1,0 +1,20 @@
+{
+	"image": "iconOG",
+	"icon": "icon",
+	"name": "VS Char Revitalized (New Mod Example)", // used for the mod switcher menu (NOT TO BE CONFUSED WITH THE BASE MODS MENU)
+	"description": "A "mod" for showing you how to use the new mod type! (Inspired by Yoshicrafter Engine)",
+	"titleBar": "VS Char Revitalized: New Mod Example"
+	"discordRPC": "1221361114177212426", // yes this is actually the discord Rich Presence ID of the mod
+	"introAnimation": true, // because this mod has an intro animation
+	"introText": {
+		"authors": ["Char", "Example Credit"],
+		"presents": ["Presents"],
+		"association": ["Funny how people actually", "Helped with this mod lmao."],
+		"ngImg": ["credits/char2", "credits/mc07", "credits/ethan"],
+		"modName": [
+		"VS Char",
+		"Revitalized",
+		"Alpha"
+		]
+	}
+}

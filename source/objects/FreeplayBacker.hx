@@ -4,8 +4,9 @@ import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset as SpriteAsset;
 import backend.TracePassThrough as CustomTrace;
 
-// because i need a way to track this with the other things and keep them seperate
-
+/**
+ * A Class so that i can track this sprite to another one
+ */
 class FreeplayBacker extends FlxSprite
 {
     public var sprTracker:FlxSprite;

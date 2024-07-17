@@ -136,7 +136,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.onChange = onChangePauseMusic;
 
 		var warnScreen:Option = new Option('Enable Warning Screen',
-		'Enables Cache State, telling you about the caching feature.\nif disable, will always cache in TitleState regardless.',
+		'Enables Cache State, telling you about the caching feature.\nif disabled, will skip straight to caching if caching is enabled',
 		'enableAlphaWarning',
 		'bool');
 		warnScreen.onChange = removeCacheOption;
@@ -156,13 +156,11 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		#end
 		
-		if (ClientPrefs.data.enableAlphaWarning){
 		var caching:Option = new Option('Enable Caching',
 			'Enables caching sounds and gitVersion.txt',
 			'enableCaching',
 			'bool');
 		addOption(caching);
-		}
 
 		#if desktop
 		var option:Option = new Option('Discord Rich Presence',

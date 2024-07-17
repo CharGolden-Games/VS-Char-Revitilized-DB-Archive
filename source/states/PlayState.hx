@@ -347,7 +347,9 @@ class PlayState extends MusicBeatState
 		ringCount = 0;
 		CreditsData.isFreeplay = false; // just in case freeplay leaves this as "true"
 		// trace('Playback Rate: ' + playbackRate);
+		if (!ClientPrefs.data.enableCaching) {
 		Paths.clearStoredMemory();
+		}
 
 		startCallback = startCountdown;
 		endCallback = endSong;
@@ -888,15 +890,16 @@ class PlayState extends MusicBeatState
 		}
 		// why is it done like this? so i can be lazy and not have to worry about null errors lmao
 
-		blackWatermarkBG.camera = camWatermark;
-		ENGINE_WATERMARK.camera = camWatermark;
-		ENGINE_WATERMARK.alpha = 0.70;
-		if (!ClientPrefs.data.showBasedOnString) {
-			ENGINE_WATERMARK.alpha = 0;
-			blackWatermarkBG.alpha = 0;
+		
+		if (ClientPrefs.data.showBasedOnString) {
+			blackWatermarkBG.camera = camWatermark;
+			ENGINE_WATERMARK.camera = camWatermark;
+			ENGINE_WATERMARK.alpha = 0.70;
 		}
 		super.create();
-		Paths.clearUnusedMemory();
+		if (!ClientPrefs.data.enableCaching) {
+			Paths.clearUnusedMemory();
+		}
 
 		CustomFadeTransition.nextCamera = camOther;
 		if (eventNotes.length < 1)
@@ -2601,11 +2604,11 @@ class PlayState extends MusicBeatState
 			iconP1.centerOffsets();
 			iconP2.centerOffsets();
 			if(iconP3 != null) iconP3.centerOffsets();
-			iconP4.centerOffsets();
+			if(iconP4 != null) iconP4.centerOffsets();
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
 			if(iconP3 != null) iconP3.updateHitbox();
-			iconP4.updateHitbox();
+			if(iconP4 != null) iconP4.updateHitbox();
 		}
 		else
 		{

@@ -26,10 +26,15 @@ class CacheState extends MusicBeatState
     var charLoadRun:FlxSprite; 
     var plexiLoadRun:FlxSprite;
     var trevorLoadRun:FlxSprite; // unused till the assets are done
+    /**
+     * The thing the characters run on lmao
+     */
     var loadBar:FlxSprite;
-    public static var localEnableCache:Bool = true; // for calling via TitleState, if you skip the damn warning it will ALWAYS cache bitch.
+    /**
+     * for calling via TitleState, if you skip the damn warning it will ALWAYS cache bitch.
+     */
+    public static var localEnableCache:Bool = true;
     var cacheText:FlxText;
-    var totalSongs:Int = 0;
 
 
     var curSelected:Int = 0;
@@ -39,8 +44,12 @@ class CacheState extends MusicBeatState
         'Off'
     ];
 
-    // Cached Sounds when you enable it
+    // Cached Stuff when you enable it
     public static var secretSound:FlxSound;
+    static var assetsToCache:Array<String> = ['null'];
+    var totalSongs:Int = 0;
+    var totalAssets:Int = 0;
+    var assetsCached:Int = 0;
 
     override function create()
         {
@@ -139,7 +148,6 @@ class CacheState extends MusicBeatState
 
             //FlxTween.tween(trevorLoadRun, {x: 0}, 4, {ease: FlxEase.cubeOut});
             
-            
             if (firstView)
                 {
                     ClientPrefs.data.noteSkin = 'Pop';
@@ -162,9 +170,8 @@ class CacheState extends MusicBeatState
                     {
                         openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized | Cache Option!";
                         messageText = new FlxText(FlxG.width * 0.3, FlxG.height * 0.1, FlxG.width * 0.5, 
-                            "Welcome to VS Char Revitalized Alpha 1!
-                            \nthis mod caches sounds to avoid states taking a while to load,\nDo you want to enable caching?
-                            \n(This also affects update caching)",32);
+                            "Do you wish to enable caching? While RAM heavy,\nIt does save on loading times!\n(this can be disabled later from settings) 
+                            \n\nthis Caches:\nSongs,\nAssets(not implemented yet!),\nGitHub Version",32);
                             messageText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
                             messageText.screenCenter(X);
                             add(messageText);
@@ -223,6 +230,8 @@ class CacheState extends MusicBeatState
                     cacheText.x = FlxG.width * 0.3;
                     cacheText.alpha = 0;
                     add(cacheText);
+                    assetsToCache = ReferenceStrings.getAssetsToCache();
+                    totalAssets = ReferenceStrings.totalAssetsToCache;
                     for (i in 0...WeekData.weeksList.length) {
                         var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
                         
@@ -245,7 +254,15 @@ class CacheState extends MusicBeatState
         override function update(elapsed:Float) {
              charLoadRun.animation.play('charLoadRun');
             plexiLoadRun.animation.play('plexiLoadRun');
-            
+            if (!ClientPrefs.data.enableAlphaWarning){
+                messageText.alpha = 0;
+                messageWindow.alpha = 0;
+                messageButtonBG.alpha = 0;
+                messageButtonBG2.alpha = 0;
+                messageButtonTextOff.alpha = 0;
+                messageButtonTextOk.alpha = 0;
+                leftState = true;
+            }
             if (controls.RESET && !resetWarningActive || FlxG.keys.pressed.R && !resetWarningActive)
                 {
                     nEWMessageWindowlmao = new FlxSprite().makeGraphic(300, 300, FlxColor.RED);
@@ -339,14 +356,17 @@ class CacheState extends MusicBeatState
                         {
                             //just in case
                             default:
+                                if (ClientPrefs.data.enableAlphaWarning) ClientPrefs.data.enableAlphaWarning = false;
                                 ClientPrefs.data.enableCaching = true;
                                 ClientPrefs.saveSettings();
                                 leftState = true;
                             case 0:
+                                if (ClientPrefs.data.enableAlphaWarning) ClientPrefs.data.enableAlphaWarning = false;
                                 ClientPrefs.data.enableCaching = true;
                                 ClientPrefs.saveSettings();
                                 leftState = true;
                             case 1:
+                                if (ClientPrefs.data.enableAlphaWarning) ClientPrefs.data.enableAlphaWarning = false;
                                 ClientPrefs.data.enableCaching = false;
                                 ClientPrefs.saveSettings();
                                 leftState = true;
@@ -357,7 +377,6 @@ class CacheState extends MusicBeatState
         }
             if (leftState)
                 {
-
 				    FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
                     /*
                     switch (curSelected)
@@ -379,8 +398,11 @@ class CacheState extends MusicBeatState
                         if (ClientPrefs.data.enableCaching && !isCached)
                             {
                                 preCache();
-                                
-                            }}});
+                            } else {
+                                backToMenu(timer);
+                                cacheText.alpha = 0;
+                            }
+                        }});
                             if (!timer.active && cachingDone)
                                 {
                                     timer.start(2, backToMenu);
@@ -424,8 +446,15 @@ class CacheState extends MusicBeatState
             startTimer(1);
             if (!cachingDone) {
                 isCached = true;
+                for (i in 0...assetsToCache.length){
+                    var file:String = assetsToCache[i];
+                    assetsCached++;
+                    trace('caching $file, $assetsCached / $totalAssets');
+                    var img:FlxSprite = new FlxSprite().loadGraphic(file);
+                    //img.alpha = 0.00000001;
+                    add(img);
+                }
             var weeksLoaded:Array<String> = WeekData.weeksList;
-            secretSound = new FlxSound().loadEmbedded(Paths.sound('SecretSound'), true);
                         for (i in 0...WeekData.weeksList.length) {
                             var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
                             var leSongs:Array<String> = [];
@@ -444,19 +473,20 @@ class CacheState extends MusicBeatState
                             }
                             WeekData.setDirectoryFromWeek(leWeek);
                             for (song in leWeek.songs)
-                            {   pos++;
+                            {
+                                pos++;
                                 pos = pos - 1; //because of 0 being treated as 1 and so on
-                                var delayTimer:FlxTimer = new FlxTimer().start(4 * int[pos], function(tmr:FlxTimer){ // let the text catch up lmao
+                                var delayTimer:FlxTimer = new FlxTimer().start(6 * int[pos], function(tmr:FlxTimer){ // let the text catch up lmao
                                     var sound:FlxSound = new FlxSound().loadEmbedded(Paths.voices(Paths.formatToSongPath(song[0])));
                                     var sound:FlxSound = new FlxSound().loadEmbedded(Paths.inst(Paths.formatToSongPath(song[0]))); // cache the songs lmao
                                     songsCached++;
                                     cacheText.text = 'Songs Cached: $songsCached / $totalSongs\nif it seems stuck at $totalSongs / $totalSongs report it as a bug!';
-                                    //trace('Cached Songs: $songsCached / $totalSongs');
-                                    checkCacheStatus(); // because this function keeps fucking breaking, imma call this specific if statement for each damn song. >:(
+                                    trace('Cached Songs: $songsCached / $totalSongs');
                                 });
                                 
                             }
                         }
+                        secretSound = new FlxSound().loadEmbedded(Paths.sound('SecretSound'), true);
                         var timer:FlxTimer = new FlxTimer().start(2, function(tmr:FlxTimer){
                             checkCacheStatus(); // for good measures call it one final time!!!!
                         });
@@ -465,7 +495,7 @@ class CacheState extends MusicBeatState
 
         inline function checkCacheStatus()
         {
-            if (songsCached == totalSongs)
+            if (songsCached == totalSongs /*&& assetsCached == totalAssets*/)
                 {
                     //trace('all of them cached!');
                     cacheText.text = 'Songs Cached!';

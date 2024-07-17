@@ -10,8 +10,7 @@ import openfl.display.BitmapData;
 import openfl.geom.Rectangle;
 
 /**
- * ...
- * @author 
+ * Basically i took Prompt.hx and made it fullscreen, however it causes it to look a lil broken lmao
  */
 class DebugPrompt extends MusicBeatSubstate
 {

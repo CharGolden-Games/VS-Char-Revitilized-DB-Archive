@@ -54,9 +54,6 @@ class HealthIcon extends FlxSprite
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
 	}
 
-	/**
-	 * Swaps the icon to the current char but with "-old" attached
-	 */
 	public function swapOldIcon() {
 		
 		if(!isOldIcon) {
@@ -75,10 +72,6 @@ class HealthIcon extends FlxSprite
 	}
 
 	private var iconOffsets:Array<Float> = [0, 0, 0];
-	/**
-	 * Changes the current icon to "char"
-	 * @param char the icon image to change to.
-	 */
 	public function changeIcon(char:String) {
 		if(this.char != char) {
 			var name:String = 'icons/' + char;

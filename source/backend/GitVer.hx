@@ -70,6 +70,7 @@ class GitVer
         #end
     }
 
+    static var hasChanges:Bool = false;
     public static macro function getGitHasLocalChanges():haxe.macro.Expr.ExprOf<Bool>
       {
         #if !display
@@ -101,7 +102,8 @@ class GitVer
             throw e;
           }
         }
-        trace('Git Status Output: ${output}');
+        if (output.length > 0) hasChanges = true;
+        trace('Git Status Output: $hasChanges');
     
         // Generates a string expression
         return macro $v{output.length > 0};

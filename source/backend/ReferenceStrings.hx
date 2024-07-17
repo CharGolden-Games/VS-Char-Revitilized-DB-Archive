@@ -1,9 +1,15 @@
 package backend;
+
+import sys.io.File;
+import sys.FileSystem;
+import backend.StageData;
+
 /**
  * a class that helps turn multiple statements into one, while also holding static variables referenced in multiple places (similar to Funkin 0.4's Constants class)
  */
 class ReferenceStrings
 {
+
     /**
      * Just cause. its fun to tell people im using an older version of psych, with some things from 0.7.3 i backported
      */
@@ -51,6 +57,8 @@ class ReferenceStrings
 		'tutorial' // planned mix
 	];
 
+	public static var assetPathsToCache:Array<String> = ['null'];
+
 	public static var songsThatForce5Key:Array<String> = [
 		'triple-trouble'
 	];
@@ -63,7 +71,7 @@ class ReferenceStrings
 	 * @param ACCEPTED_INPUT "psych", "funkin", "vs-char", "char-engine".
 	 * @return String
 	 */
-	public static function versionNumOnly(verToGrab:String):String
+	inline public static function versionNumOnly(verToGrab:String):String
 	{
 		switch (Paths.formatToSongPath(verToGrab.toLowerCase()))
 		{
@@ -90,9 +98,93 @@ class ReferenceStrings
 	 * @param filePath the path to the cached version file from assets "`folder`/`filename`"
 	 * @return String
 	 */
-	public static function getCachedVersion(filePath:String = "VersionCache/engineVersionCache"):String
+	inline public static function getCachedVersion(filePath:String = "VersionCache/engineVersionCache"):String
 	{
 		var cachedVersion:String = sys.io.File.getContent('./assets/$filePath.txt');
 		return cachedVersion;
+	}
+
+	public static var totalAssetsToCache:Int = 0;
+	inline public static function getAssetsToCache():Array<String>
+	{
+		assetPathsToCache = [];
+		var pos:Int = 0;
+		var path:String = 'assets/shared/images/characters/';
+		for (file in FileSystem.readDirectory(path)){
+			pos++;
+			if (StringTools.endsWith(file, '.png')) {
+				//trace('Pushing $path$file at pos $pos to assetPathsToCache');
+				if(FileSystem.exists(file)) assetPathsToCache.push(Std.string(path + file));
+			}
+		}
+		path = 'assets/stages/';
+		var stagePath:String = 'assets/images/backups/';
+		for (file in FileSystem.readDirectory(path)) {
+			if (!sys.FileSystem.isDirectory(file)) {
+				file = StringTools.replace(file, '.json', '');
+				var lastStagePath:String = 'assets/';
+				var stage:StageFile = StageData.getStageFile(file);
+				if (stage != null) {
+					if (stage.directory.trim() != '') stagePath = 'assets/' + stage.directory + '/images/';
+				}
+					if (FileSystem.exists(stagePath)) {
+					if (stagePath != lastStagePath) {
+					for (file in FileSystem.readDirectory(stagePath))
+					{
+							if (!sys.FileSystem.isDirectory(file)){
+								pos++;
+								if (StringTools.endsWith(file, '.png')) {
+									//trace('Pushing $stagePath$file at pos $pos to assetPathsToCache');
+									if(FileSystem.exists(file)) assetPathsToCache.push(Std.string(path + file));
+								}
+							} else {
+								stagePath = stagePath + file + '/';
+								for (file in FileSystem.readDirectory(stagePath))
+								{
+								if (!sys.FileSystem.isDirectory(file)){
+										pos++;
+										if (StringTools.endsWith(file, '.png')) {
+										//trace('Pushing $stagePath$file at pos $pos to assetPathsToCache');
+										if(FileSystem.exists(file)) assetPathsToCache.push(Std.string(path + file));
+										}
+								} else {
+									pos++;
+									trace('$stagePath$file at pos $pos is 2 Subdirectories deep! not continuing.');
+								}
+							}
+						}
+						if (lastStagePath != stagePath)
+						lastStagePath = stagePath;
+					}
+					} else {
+						trace('DUPLICATE PATH');
+					}
+				}
+			}
+		}
+		#if MODS_ALLOWED
+		var modFolders:Array<String> = [];
+		for (mod in Mods.getModDirectories())
+		{
+			modFolders.push(Paths.mods(mod + '/'));
+		}
+		modFolders.push('mods/');
+		//trace(modFolders);
+		for (folder in modFolders)
+		{
+			path = folder + 'images/characters/';
+			if (FileSystem.exists(path)){
+				for (file in FileSystem.readDirectory(path)){
+					pos++;
+					if (StringTools.endsWith(file, '.png')) {
+						//trace('Pushing $path$file at pos $pos to assetPathsToCache');
+						if(FileSystem.exists(file)) assetPathsToCache.push(Std.string(path + file));
+					}
+				}
+			}
+		}
+		#end
+		totalAssetsToCache = pos;
+		return assetPathsToCache;
 	}
 }

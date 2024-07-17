@@ -142,8 +142,6 @@ class TitleState extends MusicBeatState
 		CustomTrace.trace('LINUX DOES NOT SUPPORT VIDEOS', 'warn');
 		#end
 
-		CustomTrace.trace('YO MAMA! HAHAHAHA', 'info');
-
 		var isCharEngine:Bool = true;
 		var isVSChar:Bool = true;
 		#if CHECK_FOR_UPDATES
@@ -255,7 +253,7 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
-		if (FlxG.save.data.flashing == null && !CacheState.leftState || ClientPrefs.data.enableAlphaWarning && !CacheState.leftState){
+		if (!CacheState.leftState){
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new CacheState());

@@ -13,8 +13,11 @@ import psychlua.HScript; // uh maybe this has stuff i need lmao.
 import flixel.FlxBasic;
 import objects.Character;
 import backend.Mods;
-import new_mod_support.DetectNewMods;
+import new_mod_support.NewModSupport;
 
+/**
+ * a class for overwriting existing states, with modded states
+ */
 class CustomState extends MusicBeatState
 {
     public var hscriptAllowed:Bool = true;
@@ -29,6 +32,10 @@ class CustomState extends MusicBeatState
         }
 }
 #else
+/**
+ * HScript isnt allowed, so this cant be used. |
+ * a class for overwriting existing states, with modded states
+ */
 class CustomState extends MusicBeatState //DONT MESS WITH THIS, THIS IS SO CERTAIN VARIABLES DONT ERROR OUT.
 {
     override function create() {
