@@ -57,15 +57,26 @@ class ReferenceStrings
 		'tutorial' // planned mix
 	];
 
+	public static var vsCharLegacySongs:Array<String> = [
+		'free-movies',
+		'3-problems',
+		'slow-ass-mf',
+		'walk-bitch',
+		'mentally-deranged',
+		'infinite',
+		'shenanigans'
+	];
+
 	public static var assetPathsToCache:Array<String> = ['null'];
 
 	public static var songsThatForce5Key:Array<String> = [
-		'triple-trouble'
+		'triple-trouble',
+		'3-problems'
 	];
 
 	/**
-	 * Returns only the number of a given version as long as it fits this template with an exception, 
-	 * "Version Number | Text" (you must seperate it by " | "), If it is the Funkin' version, 
+	 * Returns only the number of a given version as long as it fits this template with an exception, | 
+	 * "Version Number | Text" (you must seperate it by " | "), If it is the Funkin' version, | 
 	 * the psychNumVerOnly string must go "Psych Ver | Funkin' Ver" if you for some fuckin reason change it lmao
 	 * @param verToGrab The version you wish to grab only the number of, For example psych returns "0.7.1h". 
 	 * @param ACCEPTED_INPUT "psych", "funkin", "vs-char", "char-engine".
