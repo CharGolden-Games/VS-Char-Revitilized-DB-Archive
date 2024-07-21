@@ -749,8 +749,8 @@ class PlayState extends MusicBeatState
 
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
-		if(iconP3 != null) iconP3.cameras = [camHUD];
-		if(iconP4 != null) iconP4.cameras = [camHUD];
+		//if(iconP3 != null) iconP3.cameras = [camHUD];
+		//if(iconP4 != null) iconP4.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 
 		botplayTxt.cameras = [camHUD];
@@ -4384,8 +4384,8 @@ class PlayState extends MusicBeatState
 				} : {
 					iconP1.scale.set(1.1, 1.3);
 					iconP2.scale.set(1.1, 0.8);
-					if(iconP3 != null) iconP3.scale.set(1.1, 1.3);
-					if(iconP4 != null)iconP4.scale.set(1.1, 0.8);
+					//if(iconP3 != null) iconP3.scale.set(1.1, 1.3);
+					//if(iconP4 != null)iconP4.scale.set(1.1, 0.8);
 
 					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 					FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
@@ -4395,8 +4395,8 @@ class PlayState extends MusicBeatState
 
 				FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
 				FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
-				if(iconP3 != null) FlxTween.tween(iconP3, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
-				if(iconP4 != null) FlxTween.tween(iconP4, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				//if(iconP3 != null) FlxTween.tween(iconP3, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				//if(iconP4 != null) FlxTween.tween(iconP4, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
 			}
 		}
 		else if (ClientPrefs.data.iconBop == 'OS')
@@ -4423,8 +4423,8 @@ class PlayState extends MusicBeatState
 					}
 				});
 				FlxTween.tween(iconP2, {angle: 8}, gfSpeed / 2);
-				if(iconP3 != null) FlxTween.tween(iconP3, {angle: 8}, gfSpeed / 2);
-				if(iconP4 != null) FlxTween.tween(iconP4, {angle: 8}, gfSpeed / 2);
+				//if(iconP3 != null) FlxTween.tween(iconP3, {angle: 8}, gfSpeed / 2);
+				//if(iconP4 != null) FlxTween.tween(iconP4, {angle: 8}, gfSpeed / 2);
 			}
 			else
 			{
@@ -4435,21 +4435,21 @@ class PlayState extends MusicBeatState
 					}
 				});
 				FlxTween.tween(iconP2, {angle: -8}, gfSpeed / 2);
-				if(iconP3 != null) FlxTween.tween(iconP3, {angle: -8}, gfSpeed / 2);
-				if(iconP4 != null) FlxTween.tween(iconP4, {angle: -8}, gfSpeed / 2);
+				//if(iconP3 != null) FlxTween.tween(iconP3, {angle: -8}, gfSpeed / 2);
+				//if(iconP4 != null) FlxTween.tween(iconP4, {angle: -8}, gfSpeed / 2);
 			}
 		}
 		else
 		{
 			iconP1.scale.set(1.2, 1.2);
 			iconP2.scale.set(1.2, 1.2);
-			if(iconP3 != null) iconP3.scale.set(1.2, 1.2);
-			if(iconP4 != null) iconP4.scale.set(1.2, 1.2);
+			//if(iconP3 != null) iconP3.scale.set(1.2, 1.2);
+			//if(iconP4 != null) iconP4.scale.set(1.2, 1.2);
 
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
-			if(iconP3 != null) iconP3.updateHitbox();
-			if(iconP4 != null) iconP4.updateHitbox();
+			//if(iconP3 != null) iconP3.updateHitbox();
+			//if(iconP4 != null) iconP4.updateHitbox();
 		}
 
 		if (gf != null
