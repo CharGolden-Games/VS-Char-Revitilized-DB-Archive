@@ -24,7 +24,7 @@ class SaveVariables {
 	public var lowQuality:Bool = false;
 	public var shaders:Bool = true;
 	public var cacheOnGPU:Bool = #if !switch false #else true #end; //From Stilic
-	public var framerate:Int = 240;
+	public var framerate:Int = 60;
 	public var camZooms:Bool = true;
 	public var hideHud:Bool = false;
 	public var noteOffset:Int = 0;
@@ -68,6 +68,7 @@ class SaveVariables {
 	public var removePerfects:Bool = false;
 	public var dismissPico2Warning:Bool = false;
 	#if IS_LINUX public var dismissLinuxWarning:Bool = false; #end
+	public var firstLegacyWarn:Bool = true;
 	public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 

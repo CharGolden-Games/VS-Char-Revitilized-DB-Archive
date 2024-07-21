@@ -2,6 +2,7 @@ package objects;
 
 import shaders.RGBPalette;
 import shaders.RGBPalette.RGBShaderReference;
+import backend.TracePassThrough as CustomTrace;
 
 class StrumNote extends FlxSprite
 {
@@ -162,6 +163,46 @@ class StrumNote extends FlxSprite
 			}
 		}
 		updateHitbox();
+		if (!animation.exists('static')) {
+			switch(Math.abs(noteData) % 5) {
+				case 0:
+					texture = 'noteSkins/NOTE_assets';
+					frames = Paths.getSparrowAtlas(texture);
+					animation.addByPrefix('purple', 'arrowLEFT');
+					animation.addByPrefix('static', 'arrowLEFT');
+					animation.addByPrefix('pressed', 'left press', 24, false);
+					animation.addByPrefix('confirm', 'left confirm', 24, false);
+				case 1:
+					texture = 'noteSkins/NOTE_assets';
+					frames = Paths.getSparrowAtlas(texture);
+					animation.addByPrefix('blue', 'arrowDOWN');
+					animation.addByPrefix('static', 'arrowDOWN');
+					animation.addByPrefix('pressed', 'down press', 24, false);
+					animation.addByPrefix('confirm', 'down confirm', 24, false);
+				case 2:
+					texture = 'noteSkins/NOTE_assets';
+					frames = Paths.getSparrowAtlas(texture);
+					animation.addByPrefix('green', 'arrowUP');
+					animation.addByPrefix('static', 'arrowUP');
+					animation.addByPrefix('pressed', 'up press', 24, false);
+					animation.addByPrefix('confirm', 'up confirm', 24, false);
+				case 3:
+					texture = 'noteSkins/NOTE_assets';
+					frames = Paths.getSparrowAtlas(texture);
+					animation.addByPrefix('red', 'arrowRIGHT');
+					animation.addByPrefix('static', 'arrowRIGHT');
+					animation.addByPrefix('pressed', 'right press', 24, false);
+					animation.addByPrefix('confirm', 'right confirm', 24, false);
+				case 4:
+					texture = 'noteSkins/NOTE_assets';
+					frames = Paths.getSparrowAtlas(texture);
+					animation.addByPrefix('ring', 'arrowRING');
+					animation.addByPrefix('static', 'arrowRING');
+					animation.addByPrefix('pressed', 'ring press', 24, false);
+					animation.addByPrefix('confirm', 'ring confirm', 24, false);
+			}
+			FlxG.log.warn('SHIT THAT "Static($direction)" DOESNT EXIST. the texture is: $texture, using default!!!');
+		}
 
 		if(lastAnim != null)
 		{

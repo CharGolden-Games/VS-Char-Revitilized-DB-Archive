@@ -31,12 +31,14 @@ class StoryGalleryState extends MusicBeatState
         \nEver since they first met,
         \nMicheal has been trying to get back at
         \nChar after he beat him several years ago.",
-        "Micheal (Origins Design) 
-        \nWIP NAME
-        \nChar's First encounter with Micheal 
-        \nlooked very different compared to his 
+        "Char Grilled Cheese (Origin Design):
+        \nWhen he was so much of a cocky dumba-
+        \nHe didnt notice that one of the people\nhe fought against wasn't even human...",
+        "Micheal (Origin Design):
+        \nChar's First encounter with Micheal\nafter he re-encountered char,\nand had decided to mess with him.
+        \nhe looks very different compared to his 
         \nmore recent events.",
-        "Plexi Fake/Clone
+        "Plexi Fake/Clone:
         \nThis is a curious case.
         \nOriginally, Plexi Clone and Plexi Fake
         \nwere seperated instead of how they are
@@ -56,19 +58,26 @@ class StoryGalleryState extends MusicBeatState
         \nhis desired results.",
         "Char Clone:
         \nOriginally was going to be part of
-        \nthe story but has been retconned."
+        \nthe story but has been retconned.",
+        "Plexi Clone (Classic):
+        \nOriginally were going to be seperate\nbut thats been retconned.",
+        "Plexi Fake (Classic):
+        \nOriginally were going to be seperate\nbut thats been retconned."
     ];
     var galleryImages:Array<String> = [
-        'Char',
-        'Trevor',
-        'Plexi',
-        'Micheal',
-        'MichealOrigin',
-        'PlexiFC',
-        'TrevorC',
-        'TrevorF',
-        'Zavi',
-        'CharC'
+        'Char_modern',
+        'Trevor_modern',
+        'Plexi_ingame',
+        'Micheal_modern',
+        'Char_origin',
+        'Micheal_origin',
+        'PlexiFC_modern',
+        'TrevorC_classic',
+        'TrevorF_classic',
+        'Zavi_modern',
+        'CharC_classic',
+        'PlexiC_classic',
+        'PlexiF_classic'
     ];
     private var curSelected = 0;
 
@@ -167,33 +176,30 @@ class StoryGalleryState extends MusicBeatState
                 trace(path + galleryImages[curSelected] + '.png Not found! oops. check the path again. if it is correct, CHECK THE FILE NAME');
                 galleryImage = new FlxSprite().loadGraphic(Paths.image('gallery/missing'));
             }
-
-            switch (galleryImages[curSelected].toLowerCase())
-            {
-            case 'char':
-            galleryImage.x = (FlxG.width * 0.06);
-            galleryImage.y = (FlxG.height * 0.15);
-            case 'michealorigin':
-            galleryImage.x = (FlxG.width * 0.05);
-            galleryImage.y = (FlxG.height * 0.15);
-            galleryImage.flipX = true;
-            case 'micheal':
-            galleryImage.setGraphicSize(511);
-            galleryImage.x = (FlxG.width * 0.05);
-            galleryImage.y = (FlxG.height * 0.05);
-            case 'plexi':
-            galleryImage.setGraphicSize(512);
-            galleryImage.x = (FlxG.width * 0.05);
-            galleryImage.y = (FlxG.height * 0.15);
-            case 'trevor':
-            galleryImage.setGraphicSize(384);
-            galleryImage.x = (FlxG.width * 0.07);
-            galleryImage.y = (FlxG.height * 0.15);
-            default:
-            galleryImage.x = (FlxG.width * 0.05);
-            galleryImage.y = (FlxG.height * 0.25);
+            var is512:Bool = true;
+            if(galleryImage.width != 512 || galleryImage.height != 512) {
+                if (galleryImage.width != 256 || galleryImage.height != 256) {
+                    if (galleryImage.width / galleryImage.height == 1){
+                    galleryImage.setGraphicSize(512, 512);
+                    } else if (galleryImage.width != 512) {
+                        galleryImage.setGraphicSize(512);
+                    } else {
+                    galleryImage.setGraphicSize(Std.int(galleryImage.width), 512);
+                    }
+                } else {
+                    is512 = false;
+                    if (galleryImage.width / galleryImage.height == 1){
+                    galleryImage.setGraphicSize(256, 256);
+                    } else if (galleryImage.width != 256) {
+                        galleryImage.setGraphicSize(256);
+                    } else {
+                    galleryImage.setGraphicSize(Std.int(galleryImage.width), 256);
+                    }
+                }
             }
             galleryImage.updateHitbox();
+            galleryImage.x = FlxG.width / 2;
+            galleryImage.y = FlxG.height / 2;
             switch (galleryImages[curSelected].toLowerCase())
             {
                 default:

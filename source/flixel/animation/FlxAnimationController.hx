@@ -193,6 +193,17 @@ class FlxAnimationController implements IFlxDestroyable
 		_animations = new Map<String, FlxAnimation>();
 		_curAnim = null;
 	}
+	
+	/**
+	 * Checks if an animation exists by it's name.
+	 * @param name The animation name.
+	 * @since 4.11.0
+	 */
+	 public function exists(name:String):Bool
+		{
+			//trace('exists ran!!!');
+			return _animations.exists(name);
+		}
 
 	/**
 	 * Adds a new animation to the sprite.

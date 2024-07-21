@@ -58,11 +58,11 @@ class ReferenceStrings
 	];
 
 	public static var vsCharLegacySongs:Array<String> = [
-		'free-movies',
+		'free-movies-free',
 		'3-problems',
-		'slow-ass-mf',
-		'walk-bitch',
-		'mentally-deranged',
+		'slow',
+		'you-can-walk',
+		'vesania',
 		'infinite',
 		'shenanigans'
 	];
