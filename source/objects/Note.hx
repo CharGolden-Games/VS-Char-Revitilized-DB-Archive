@@ -76,7 +76,7 @@ class Note extends FlxSprite
 	public static var swagWidth:Float = 160 * 0.7;
 	public static var colArray:Array<String> = ['purple', 'blue', 'green', 'red', 'ring'];
 	public static var defaultNoteSkin(default, never):String = 'noteSkins/NOTE_assets';
-	var ringColorArray:Array<FlxColor> = [0xFFFFCC33, 0xFFFFFFFF, 0xFFCC6600]; // laziness! yay!
+	var ringColorArray:Array<FlxColor> = (ClientPrefs.data.arrowRGB5Key[4]); // While i figure out how to add a ring note to a chart that actually goes on the ring strum, this should work.
 	static var RGB_SELECTION:Dynamic;
 	public static var is5Key = false;
 

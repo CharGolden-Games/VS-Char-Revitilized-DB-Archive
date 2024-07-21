@@ -198,8 +198,8 @@ class StoryGalleryState extends MusicBeatState
                 }
             }
             galleryImage.updateHitbox();
-            galleryImage.x = FlxG.width / 2;
-            galleryImage.y = FlxG.height / 2;
+            galleryImage.x = 200;
+            galleryImage.y = 150;
             switch (galleryImages[curSelected].toLowerCase())
             {
                 default:

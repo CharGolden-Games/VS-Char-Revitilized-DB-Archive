@@ -156,6 +156,11 @@ class NotesSubState extends MusicBeatSubstate
 		add(tipTxt);
 		updateTip();
 
+		var warningTxt:FlxText = new FlxText(tipX, tipY - 70, 0, 'The Ring note may display incorrectly when selected. \nthis is due to a NoteSkin not having a ring note in their spritesheet. \nI am working on fixing it!');
+		warningTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		warningTxt.borderSize = 2;
+		add(warningTxt);
+
 		controllerPointer = new FlxShapeCircle(0, 0, 20, {thickness: 0}, FlxColor.WHITE);
 		controllerPointer.offset.set(20, 20);
 		controllerPointer.screenCenter();
@@ -635,7 +640,7 @@ class NotesSubState extends MusicBeatSubstate
 		for (i in 0...dataArray.length)
 		{
 			Note.initializeGlobalRGBShader(i);
-			var newNote:StrumNote = new StrumNote(150 + (480 / dataArray.length * i), 200, i, 0);
+			var newNote:StrumNote = new StrumNote(140 + (480 / dataArray.length * i), 200, i, 0);
 			newNote.useRGBShader = true;
 			newNote.setGraphicSize(102);
 			newNote.updateHitbox();
@@ -670,6 +675,12 @@ class NotesSubState extends MusicBeatSubstate
 			note.alpha = (curSelectedNote == note.ID) ? 1 : 0.6;
 			if(note.animation.curAnim == null || note.animation.curAnim.name != newAnim) note.playAnim(newAnim, true);
 			if(instant) note.animation.curAnim.finish();
+		}
+		if (curSelectedNote == 4) { // for some reason i have to manually initialize the RGB shader for notes after the originals
+			var ringColorArray:Array<FlxColor> = ClientPrefs.data.arrowRGB5Key[4];
+			bigNote.rgbShader.r = (ringColorArray[0]);
+			bigNote.rgbShader.g = (ringColorArray[1]);
+			bigNote.rgbShader.b = (ringColorArray[2]);
 		}
 		bigNote.animation.play('note$curSelectedNote', true);
 		updateColors();

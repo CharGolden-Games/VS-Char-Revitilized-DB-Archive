@@ -3,6 +3,9 @@ package objects;
 import shaders.RGBPalette;
 import shaders.RGBPalette.RGBShaderReference;
 import backend.TracePassThrough as CustomTrace;
+import states.PlayState;
+
+using StringTools;
 
 class StrumNote extends FlxSprite
 {
@@ -164,6 +167,12 @@ class StrumNote extends FlxSprite
 		}
 		updateHitbox();
 		if (!animation.exists('static')) {
+			if (PlayState.instance != null) {
+				PlayState.fixRingOffset = true;
+				PlayState.noteSkintoFix = StringTools.replace(texture, 'noteSkins/', '');
+				var traceThing:String = StringTools.replace(texture, 'noteSkins/', '');
+				trace('final texture output to PlayState: $traceThing');
+			}
 			switch(Math.abs(noteData) % 5) {
 				case 0:
 					texture = 'noteSkins/NOTE_assets';
@@ -202,6 +211,15 @@ class StrumNote extends FlxSprite
 					animation.addByPrefix('confirm', 'ring confirm', 24, false);
 			}
 			FlxG.log.warn('SHIT THAT "Static($direction)" DOESNT EXIST. the texture is: $texture, using default!!!');
+		}
+		if(useRGBShader) {
+		switch(Math.abs(noteData) % 5) {
+			case 4: // for some reason i have to manually initialize the RGB shader for notes after the originals
+				var ringColorArray:Array<FlxColor> = ClientPrefs.data.arrowRGB5Key[4];
+				rgbShader.r = (ringColorArray[0]);
+				rgbShader.g = (ringColorArray[1]);
+				rgbShader.b = (ringColorArray[2]);
+		}
 		}
 
 		if(lastAnim != null)
