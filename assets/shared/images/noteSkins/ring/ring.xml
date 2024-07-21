@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="ring.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="arrowRING0000" x="0" y="0" width="158" height="158"/>
+	<SubTexture name="ring confirm0000" x="163" y="0" width="232" height="234"/>
+	<SubTexture name="ring confirm0001" x="400" y="0" width="228" height="228" frameX="0" frameY="0" frameWidth="232" frameHeight="234"/>
+	<SubTexture name="ring confirm0002" x="633" y="0" width="208" height="208" frameX="-11" frameY="-12" frameWidth="232" frameHeight="234"/>
+	<SubTexture name="ring confirm0003" x="633" y="0" width="208" height="208" frameX="-11" frameY="-12" frameWidth="232" frameHeight="234"/>
+	<SubTexture name="ring hold end0000" x="846" y="0" width="51" height="65"/>
+	<SubTexture name="ring hold piece0000" x="902" y="0" width="51" height="44"/>
+	<SubTexture name="ring0000" x="0" y="239" width="157" height="156"/>
+	<SubTexture name="ring press0000" x="162" y="239" width="142" height="142" frameX="-4" frameY="-4" frameWidth="149" frameHeight="149"/>
+	<SubTexture name="ring press0001" x="162" y="239" width="142" height="142" frameX="-4" frameY="-4" frameWidth="149" frameHeight="149"/>
+	<SubTexture name="ring press0002" x="309" y="239" width="149" height="149"/>
+	<SubTexture name="ring press0003" x="309" y="239" width="149" height="149"/>
+</TextureAtlas>

@@ -1407,7 +1407,7 @@ class PlayState extends MusicBeatState
 					case 4:
 						playerStrums.members[i].y = playerStrums.members[1].y;
 						if (!fixRingOffset) playerStrums.members[i].x = playerStrums.members[1].x + 105;
-						if (fixRingOffset) playerStrums.members[i].x = playerStrums.members[1].x + 80;
+						if (fixRingOffset) playerStrums.members[i].x = playerStrums.members[1].x + 80; playerStrums.members[i].y - 100;
 				}
 				} else {
 					switch (i)

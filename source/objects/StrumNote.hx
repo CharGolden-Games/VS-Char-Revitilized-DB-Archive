@@ -203,7 +203,7 @@ class StrumNote extends FlxSprite
 					animation.addByPrefix('pressed', 'right press', 24, false);
 					animation.addByPrefix('confirm', 'right confirm', 24, false);
 				case 4:
-					texture = 'noteSkins/NOTE_assets';
+					texture = 'noteSkins/ring/ring';
 					frames = Paths.getSparrowAtlas(texture);
 					animation.addByPrefix('ring', 'arrowRING');
 					animation.addByPrefix('static', 'arrowRING');
