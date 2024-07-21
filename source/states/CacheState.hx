@@ -224,12 +224,12 @@ class CacheState extends MusicBeatState
                              // hopefully this fixes the animation bug??? Flixel is so annoying rn my god man.
                             
                     }
-                    cacheText = new FlxText(0, 0, 0, 'Caching Songs');
-                    cacheText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
-                    cacheText.screenCenter(Y);
-                    cacheText.x = FlxG.width * 0.3;
-                    cacheText.alpha = 0;
-                    add(cacheText);
+                    if(!ClientPrefs.data.enableCaching)cacheText = new FlxText(0, 0, 0, 'Caching Songs');
+                    if(!ClientPrefs.data.enableCaching)cacheText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+                    if(!ClientPrefs.data.enableCaching)cacheText.screenCenter(Y);
+                    if(!ClientPrefs.data.enableCaching)cacheText.x = FlxG.width * 0.3;
+                    if(!ClientPrefs.data.enableCaching)cacheText.alpha = 0;
+                    if(!ClientPrefs.data.enableCaching)add(cacheText);
                     assetsToCache = ReferenceStrings.getAssetsToCache();
                     totalAssets = ReferenceStrings.totalAssetsToCache;
                     for (i in 0...WeekData.weeksList.length) {
@@ -498,9 +498,9 @@ class CacheState extends MusicBeatState
             if (songsCached == totalSongs /*&& assetsCached == totalAssets*/)
                 {
                     //trace('all of them cached!');
-                    cacheText.text = 'Songs Cached!';
+                    if(!ClientPrefs.data.enableCaching)cacheText.text = 'Songs Cached!';
                     cachingDone = true;
-                    FlxTween.tween(cacheText, {alpha: 0}, 1);
+                    if(!ClientPrefs.data.enableCaching)FlxTween.tween(cacheText, {alpha: 0}, 1);
                 }
         }
 
