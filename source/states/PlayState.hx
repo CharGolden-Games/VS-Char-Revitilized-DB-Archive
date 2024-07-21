@@ -248,8 +248,8 @@ class PlayState extends MusicBeatState
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
-	public var iconP3:HealthIcon; // Determined by the GF Slot
-	public var iconP4:HealthIcon; // Manually call with an icon name.
+	//public var iconP3:HealthIcon; // Determined by the GF Slot
+	//public var iconP4:HealthIcon; // Manually call with an icon name.
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
@@ -686,7 +686,7 @@ class PlayState extends MusicBeatState
 		iconP2.alpha = 0;
 		add(iconP2);
 
-		if (gf != null) {
+		/*if (gf != null) {
 		iconP3 = new HealthIcon(gf.healthIcon, true, gf.hasAnimatedIcon, gf.normalIcon, gf.losingIcon, gf.winningIcon);
 		iconP3.visible = SONG.showThirdIcon;
 		iconP3.alpha = 0;
@@ -697,7 +697,7 @@ class PlayState extends MusicBeatState
 		iconP4.visible = SONG.showFourthIcon;
 		iconP4.alpha = 0;
 		add(iconP4);
-		}
+		}*/
 
 		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
 		if (!ClientPrefs.data.baseFNFHealthBar)
@@ -1375,8 +1375,8 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(healthBarOverlay, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(iconP1, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(iconP2, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
-		if(iconP3 != null) FlxTween.tween(iconP3, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
-		if(iconP4 != null) FlxTween.tween(iconP4, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
+		//if(iconP3 != null) FlxTween.tween(iconP3, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
+		//if(iconP4 != null) FlxTween.tween(iconP4, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		if (ClientPrefs.data.showBasedOnString) {
 			spawnWatermark();
 		}
@@ -2218,14 +2218,14 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		if (iconP3 != null) {
+		/*if (iconP3 != null) {
 			iconP3.y = iconP1.y - 50;
 			iconP3.x = iconP1.x + 75;
 		}
 		if (iconP4 != null) {
 		iconP4.y = -50;
 		iconP4.x = -75;
-		}
+		}*/
 		ringText.x = FlxG.width - (ringText.width + 5); // to fix weird bugs with going off screen
 		if (controls.justPressed('debug_3'))
 		{
@@ -2353,7 +2353,7 @@ class PlayState extends MusicBeatState
 				iconP1.animation.play('idle');
 		}
 
-		if(iconP3 != null) {
+		/*if(iconP3 != null) {
 		if (iconP3.animation.numFrames >= 3 && iconP3.animation.numFrames != 9)
 			{
 				if (healthBar.percent < 20)
@@ -2377,7 +2377,7 @@ class PlayState extends MusicBeatState
 				else
 					iconP3.animation.play('idle');
 			}
-			}
+			}*/
 		 
 		if (iconP2.animation.numFrames >= 3 && iconP2.animation.numFrames != 9)
 		{
@@ -2403,7 +2403,7 @@ class PlayState extends MusicBeatState
 				iconP2.animation.play('idle');
 		}
 
-		if(iconP4 != null) {
+		/*if(iconP4 != null) {
 		if (iconP4.animation.numFrames >= 3 && iconP4.animation.numFrames != 9)
 			{
 				if (healthBar.percent > 80)
@@ -2427,7 +2427,7 @@ class PlayState extends MusicBeatState
 				else
 					iconP4.animation.play('idle');
 			}
-			}
+			}*/
 
 		if (controls.justPressed('debug_2') && !endingSong && !inCutscene)
 			openCharacterEditor();
@@ -2608,12 +2608,12 @@ class PlayState extends MusicBeatState
 		{
 			iconP1.centerOffsets();
 			iconP2.centerOffsets();
-			if(iconP3 != null) iconP3.centerOffsets();
-			if(iconP4 != null) iconP4.centerOffsets();
+			//if(iconP3 != null) iconP3.centerOffsets();
+			//if(iconP4 != null) iconP4.centerOffsets();
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
-			if(iconP3 != null) iconP3.updateHitbox();
-			if(iconP4 != null) iconP4.updateHitbox();
+			//if(iconP3 != null) iconP3.updateHitbox();
+			//if(iconP4 != null) iconP4.updateHitbox();
 		}
 		else
 		{
@@ -2625,7 +2625,7 @@ class PlayState extends MusicBeatState
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
 
-			if(iconP3 != null) {
+			/*if(iconP3 != null) {
 			var mult:Float = FlxMath.lerp(1, iconP3.scale.x, FlxMath.bound(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP3.scale.set(mult, mult);
 			iconP3.updateHitbox();
@@ -2635,7 +2635,7 @@ class PlayState extends MusicBeatState
 			var mult:Float = FlxMath.lerp(1, iconP4.scale.x, FlxMath.bound(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP4.scale.set(mult, mult);
 			iconP4.updateHitbox();
-			}
+			}*/
 		}
 	}
 
@@ -4374,8 +4374,8 @@ class PlayState extends MusicBeatState
 				curBeat % (gfSpeed * 2) == 0 ? {
 					iconP1.scale.set(1.1, 0.8);
 					iconP2.scale.set(1.1, 1.3);
-					if(iconP3 != null) iconP3.scale.set(1.1, 0.8);
-					if(iconP4 != null) iconP4.scale.set(1.1, 1.3);
+					//if(iconP3 != null) iconP3.scale.set(1.1, 0.8);
+					//if(iconP4 != null) iconP4.scale.set(1.1, 1.3);
 
 					FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 					FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
@@ -4389,8 +4389,8 @@ class PlayState extends MusicBeatState
 
 					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 					FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-					if(iconP3 != null) FlxTween.angle(iconP3, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-					if(iconP4 != null) FlxTween.angle(iconP4, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					//if(iconP3 != null) FlxTween.angle(iconP3, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					//if(iconP4 != null) FlxTween.angle(iconP4, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 					}
 
 				FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
@@ -4403,13 +4403,13 @@ class PlayState extends MusicBeatState
 		{
 			iconP1.scale.set(1.2, 1.2);
 			iconP2.scale.set(1.2, 1.2);
-			if(iconP3 != null) iconP3.scale.set(1.2, 1.2);
-			if(iconP4 != null) iconP4.scale.set(1.2, 1.2);
+			//if(iconP3 != null) iconP3.scale.set(1.2, 1.2);
+			//if(iconP4 != null) iconP4.scale.set(1.2, 1.2);
 
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
-			if(iconP3 != null) iconP3.updateHitbox();
-			if(iconP4 != null)iconP4.updateHitbox();
+			//if(iconP3 != null) iconP3.updateHitbox();
+			//if(iconP4 != null)iconP4.updateHitbox();
 
 			if (dancingLeft)
 			{
