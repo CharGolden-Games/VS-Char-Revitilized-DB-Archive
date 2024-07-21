@@ -392,7 +392,7 @@ class CacheState extends MusicBeatState
                     FlxTween.tween(messageButtonBG2, {alpha: 0}, 1);
                     FlxTween.tween(messageButtonTextOff, {alpha: 0}, 1);
                     FlxTween.tween(messageButtonTextOk, {alpha: 0}, 1);
-                    cacheText.alpha = 1;
+                    if(!ClientPrefs.data.enableCaching) cacheText.alpha = 1;
 				    FlxTween.tween(messageText, {alpha: 0}, 1, {
 					onComplete: function (twn:FlxTween) {
                         if (ClientPrefs.data.enableCaching && !isCached)
