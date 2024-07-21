@@ -1405,14 +1405,9 @@ class PlayState extends MusicBeatState
 					case 3:
 						playerStrums.members[i].x = playerStrums.members[i].x + 50;
 					case 4:
+						playerStrums.members[i].y = playerStrums.members[1].y;
 						if (!fixRingOffset) playerStrums.members[i].x = playerStrums.members[1].x + 105;
-						if (fixRingOffset) playerStrums.members[i].x = playerStrums.members[1].x + 80; playerStrums.members[i].y = playerStrums.members[i].y - 20;
-						/*if (!SONG.disableNoteRGB) { // Maybe i have to force it to load?
-							var ringColorArray:Array<FlxColor> = ClientPrefs.data.arrowRGB5Key[4];
-							playerStrums.members[i].rgbShader.r = (ringColorArray[0]);
-							playerStrums.members[i].rgbShader.g = (ringColorArray[1]);
-							playerStrums.members[i].rgbShader.b = (ringColorArray[2]);
-						}*/
+						if (fixRingOffset) playerStrums.members[i].x = playerStrums.members[1].x + 80;
 				}
 				} else {
 					switch (i)
