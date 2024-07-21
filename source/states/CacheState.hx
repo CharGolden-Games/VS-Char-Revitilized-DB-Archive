@@ -229,7 +229,7 @@ class CacheState extends MusicBeatState
                     if(!ClientPrefs.data.enableCaching)cacheText.screenCenter(Y);
                     if(!ClientPrefs.data.enableCaching)cacheText.x = FlxG.width * 0.3;
                     if(!ClientPrefs.data.enableCaching)cacheText.alpha = 0;
-                    if(!ClientPrefs.data.enableCaching)add(cacheText);
+                    if(!ClientPrefs.data.enableCaching) add(cacheText);
                     assetsToCache = ReferenceStrings.getAssetsToCache();
                     totalAssets = ReferenceStrings.totalAssetsToCache;
                     for (i in 0...WeekData.weeksList.length) {
@@ -400,7 +400,7 @@ class CacheState extends MusicBeatState
                                 preCache();
                             } else {
                                 backToMenu(timer);
-                                cacheText.alpha = 0;
+                                if(!ClientPrefs.data.enableCaching) cacheText.alpha = 0;
                             }
                         }});
                             if (!timer.active && cachingDone)
@@ -480,7 +480,7 @@ class CacheState extends MusicBeatState
                                     var sound:FlxSound = new FlxSound().loadEmbedded(Paths.voices(Paths.formatToSongPath(song[0])));
                                     var sound:FlxSound = new FlxSound().loadEmbedded(Paths.inst(Paths.formatToSongPath(song[0]))); // cache the songs lmao
                                     songsCached++;
-                                    cacheText.text = 'Songs Cached: $songsCached / $totalSongs\nif it seems stuck at $totalSongs / $totalSongs report it as a bug!';
+                                    if(!ClientPrefs.data.enableCaching) cacheText.text = 'Songs Cached: $songsCached / $totalSongs\nif it seems stuck at $totalSongs / $totalSongs report it as a bug!';
                                     trace('Cached Songs: $songsCached / $totalSongs');
                                 });
                                 
