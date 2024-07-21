@@ -3580,7 +3580,8 @@ class PlayState extends MusicBeatState
 		rating.antialiasing = antialias;
 
 		var comboSpr:FlxSprite;
-		if (FileSystem.exists(sharedPath + uiPrefix + 'combo' + uiSuffix + '.png')) comboSpr = new FlxSprite().loadGraphic(Paths.image(uiPrefix + 'combo' + uiSuffix)); else comboSpr = new FlxSprite().loadGraphic(Paths.image('combo'));
+		if (ClientPrefs.data.cmbo) comboSpr = new FlxSprite().loadGraphic(Paths.image('cmbo'));
+		else if (!ClientPrefs.data.cmbo) if (FileSystem.exists(sharedPath + uiPrefix + 'combo' + uiSuffix + '.png')) comboSpr = new FlxSprite().loadGraphic(Paths.image(uiPrefix + 'combo' + uiSuffix)); else comboSpr = new FlxSprite().loadGraphic(Paths.image('combo'));
 		comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.75));
 		comboSpr.updateHitbox();
 		comboSpr.cameras = [camHUD];

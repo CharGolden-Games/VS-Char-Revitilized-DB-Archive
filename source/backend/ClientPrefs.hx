@@ -10,6 +10,7 @@ import states.TitleState;
 class SaveVariables {
 	public var useClassicStoryModeMenu:Bool = false; // i plan on implementing a custom story mode menu.
 	public var minimizedHealthbar:Bool = false;
+	public var cmbo:Bool = false;
 	public var combustibleLemons:Bool = true; // DONT REMOVE THIS, ITS FOR JOKE BUILDS/JOKE MECHANIC!!!!
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
