@@ -1410,11 +1410,7 @@ class PlayState extends MusicBeatState
 						if (fixRingOffset) playerStrums.members[i].x = playerStrums.members[1].x + 80; playerStrums.members[i].y - 100;
 				}
 				} else {
-					switch (i)
-				{
-					case 4:
-						playerStrums.members[i].x = 4000; // you got some hidden talent! keep it hidden!
-				}
+					playerStrums.members[4].x = 4000; // you got some hidden talent! keep it hidden!
 				}
 				setOnScripts('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnScripts('defaultPlayerStrumY' + i, playerStrums.members[i].y); // put this afterwards so that scripts still affect it!
@@ -3580,8 +3576,10 @@ class PlayState extends MusicBeatState
 		rating.antialiasing = antialias;
 
 		var comboSpr:FlxSprite;
-		if (ClientPrefs.data.cmbo) comboSpr = new FlxSprite().loadGraphic(Paths.image('cmbo'));
-		else if (!ClientPrefs.data.cmbo) if (FileSystem.exists(sharedPath + uiPrefix + 'combo' + uiSuffix + '.png')) comboSpr = new FlxSprite().loadGraphic(Paths.image(uiPrefix + 'combo' + uiSuffix)); else comboSpr = new FlxSprite().loadGraphic(Paths.image('combo'));
+		if (FileSystem.exists(sharedPath + uiPrefix + 'combo' + uiSuffix + '.png')) comboSpr = new FlxSprite().loadGraphic(Paths.image(uiPrefix + 'combo' + uiSuffix)); else comboSpr = new FlxSprite().loadGraphic(Paths.image('combo'));
+		if (ClientPrefs.data.cmbo) {
+			comboSpr = new FlxSprite().loadGraphic(Paths.image('cmbo')); 
+		} 
 		comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.75));
 		comboSpr.updateHitbox();
 		comboSpr.cameras = [camHUD];
