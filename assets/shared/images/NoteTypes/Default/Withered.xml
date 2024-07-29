@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Drain.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="blue0000" x="0" y="0" width="198" height="194"/>
+	<SubTexture name="gold0000" x="583" y="0" width="188" height="189"/>
+	<SubTexture name="green0000" x="772" y="0" width="185" height="181"/>
+	<SubTexture name="purple0000" x="393" y="0" width="189" height="191"/>
+	<SubTexture name="red0000" x="199" y="0" width="193" height="196"/>
+</TextureAtlas>

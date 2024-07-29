@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Withered.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="blue0000" x="0" y="597" width="198" height="197"/>
+	<SubTexture name="gold0000" x="0" y="0" width="198" height="198"/>
+	<SubTexture name="green0000" x="0" y="398" width="198" height="198"/>
+	<SubTexture name="purple0000" x="0" y="795" width="197" height="197"/>
+	<SubTexture name="red0000" x="0" y="199" width="198" height="198"/>
+</TextureAtlas>
