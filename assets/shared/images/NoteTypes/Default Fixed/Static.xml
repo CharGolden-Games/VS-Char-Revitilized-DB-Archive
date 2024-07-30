@@ -2,124 +2,364 @@
 <TextureAtlas imagePath="Static.png">
 	<!-- Created with Adobe Animate version 22.0.5.191 -->
 	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="blue hold end0000" x="1956" y="0" width="59" height="27"/>
+	<SubTexture name="blue hold end0001" x="1956" y="28" width="59" height="27"/>
+	<SubTexture name="blue hold end0002" x="1956" y="56" width="59" height="27"/>
+	<SubTexture name="blue hold end0003" x="1956" y="84" width="59" height="27"/>
+	<SubTexture name="blue hold end0004" x="1956" y="112" width="59" height="27"/>
+	<SubTexture name="blue hold end0005" x="1956" y="140" width="59" height="27"/>
+	<SubTexture name="blue hold end0006" x="1956" y="168" width="59" height="27"/>
+	<SubTexture name="blue hold end0007" x="1956" y="196" width="59" height="27"/>
+	<SubTexture name="blue hold end0008" x="1956" y="224" width="59" height="27"/>
+	<SubTexture name="blue hold end0009" x="1956" y="252" width="59" height="27"/>
+	<SubTexture name="blue hold end0010" x="1956" y="280" width="59" height="27"/>
+	<SubTexture name="blue hold end0011" x="1956" y="308" width="59" height="27"/>
+	<SubTexture name="blue hold end0012" x="1932" y="336" width="59" height="27"/>
+	<SubTexture name="blue hold end0013" x="1932" y="364" width="59" height="27"/>
+	<SubTexture name="blue hold end0014" x="1932" y="392" width="59" height="27"/>
+	<SubTexture name="blue hold end0015" x="1932" y="420" width="59" height="27"/>
+	<SubTexture name="blue hold end0016" x="1932" y="448" width="59" height="27"/>
+	<SubTexture name="blue hold end0017" x="1932" y="476" width="59" height="27"/>
+	<SubTexture name="blue hold end0018" x="1932" y="504" width="59" height="27"/>
+	<SubTexture name="blue hold end0019" x="1932" y="532" width="59" height="27"/>
+	<SubTexture name="blue hold end0020" x="1932" y="560" width="59" height="27"/>
+	<SubTexture name="blue hold end0021" x="1932" y="588" width="59" height="27"/>
+	<SubTexture name="blue hold end0022" x="1932" y="616" width="59" height="27"/>
+	<SubTexture name="blue hold end0023" x="1956" y="644" width="59" height="27"/>
+	<SubTexture name="blue hold piece0000" x="1979" y="1148" width="59" height="25"/>
+	<SubTexture name="blue hold piece0001" x="1979" y="1174" width="59" height="25"/>
+	<SubTexture name="blue hold piece0002" x="1920" y="1200" width="59" height="25"/>
+	<SubTexture name="blue hold piece0003" x="1980" y="1200" width="59" height="25"/>
+	<SubTexture name="blue hold piece0004" x="1920" y="1226" width="59" height="25"/>
+	<SubTexture name="blue hold piece0005" x="1980" y="1226" width="59" height="25"/>
+	<SubTexture name="blue hold piece0006" x="1920" y="1252" width="59" height="25"/>
+	<SubTexture name="blue hold piece0007" x="1980" y="1252" width="59" height="25"/>
+	<SubTexture name="blue hold piece0008" x="1920" y="1278" width="59" height="25"/>
+	<SubTexture name="blue hold piece0009" x="1980" y="1278" width="59" height="25"/>
+	<SubTexture name="blue hold piece0010" x="1908" y="1304" width="59" height="25"/>
+	<SubTexture name="blue hold piece0011" x="1968" y="1304" width="59" height="25"/>
+	<SubTexture name="blue hold piece0012" x="1908" y="1330" width="59" height="25"/>
+	<SubTexture name="blue hold piece0013" x="1968" y="1330" width="59" height="25"/>
+	<SubTexture name="blue hold piece0014" x="1908" y="1356" width="59" height="25"/>
+	<SubTexture name="blue hold piece0015" x="1968" y="1356" width="59" height="25"/>
+	<SubTexture name="blue hold piece0016" x="1908" y="1382" width="59" height="25"/>
+	<SubTexture name="blue hold piece0017" x="1968" y="1382" width="59" height="25"/>
+	<SubTexture name="blue hold piece0018" x="1908" y="1408" width="59" height="25"/>
+	<SubTexture name="blue hold piece0019" x="1968" y="1408" width="59" height="25"/>
+	<SubTexture name="blue hold piece0020" x="1908" y="1434" width="59" height="25"/>
+	<SubTexture name="blue hold piece0021" x="1968" y="1434" width="59" height="25"/>
+	<SubTexture name="blue hold piece0022" x="1908" y="1460" width="59" height="25"/>
+	<SubTexture name="blue hold piece0023" x="1968" y="1460" width="59" height="25"/>
 	<SubTexture name="blue0000" x="0" y="0" width="162" height="160"/>
-	<SubTexture name="blue0001" x="0" y="161" width="162" height="160"/>
-	<SubTexture name="blue0002" x="0" y="322" width="162" height="160"/>
-	<SubTexture name="blue0003" x="0" y="483" width="162" height="160"/>
-	<SubTexture name="blue0004" x="0" y="644" width="162" height="160"/>
-	<SubTexture name="blue0005" x="0" y="805" width="162" height="160"/>
-	<SubTexture name="blue0006" x="0" y="966" width="162" height="160"/>
-	<SubTexture name="blue0007" x="0" y="1127" width="162" height="160"/>
-	<SubTexture name="blue0008" x="0" y="1288" width="162" height="160"/>
-	<SubTexture name="blue0009" x="0" y="1449" width="162" height="160"/>
-	<SubTexture name="blue0010" x="0" y="1610" width="162" height="160"/>
-	<SubTexture name="blue0011" x="0" y="1771" width="162" height="160"/>
-	<SubTexture name="blue0012" x="163" y="0" width="162" height="160"/>
+	<SubTexture name="blue0001" x="163" y="0" width="162" height="160"/>
+	<SubTexture name="blue0002" x="326" y="0" width="162" height="160"/>
+	<SubTexture name="blue0003" x="489" y="0" width="162" height="160"/>
+	<SubTexture name="blue0004" x="652" y="0" width="162" height="160"/>
+	<SubTexture name="blue0005" x="815" y="0" width="162" height="160"/>
+	<SubTexture name="blue0006" x="978" y="0" width="162" height="160"/>
+	<SubTexture name="blue0007" x="1141" y="0" width="162" height="160"/>
+	<SubTexture name="blue0008" x="1304" y="0" width="162" height="160"/>
+	<SubTexture name="blue0009" x="1467" y="0" width="162" height="160"/>
+	<SubTexture name="blue0010" x="1630" y="0" width="162" height="160"/>
+	<SubTexture name="blue0011" x="1793" y="0" width="162" height="160"/>
+	<SubTexture name="blue0012" x="0" y="161" width="162" height="160"/>
 	<SubTexture name="blue0013" x="163" y="161" width="162" height="160"/>
-	<SubTexture name="blue0014" x="163" y="322" width="162" height="160"/>
-	<SubTexture name="blue0015" x="163" y="483" width="162" height="160"/>
-	<SubTexture name="blue0016" x="163" y="644" width="162" height="160"/>
-	<SubTexture name="blue0017" x="163" y="805" width="162" height="160"/>
-	<SubTexture name="blue0018" x="163" y="966" width="162" height="160"/>
-	<SubTexture name="blue0019" x="163" y="1127" width="162" height="160"/>
-	<SubTexture name="blue0020" x="163" y="1288" width="162" height="160"/>
-	<SubTexture name="blue0021" x="163" y="1449" width="162" height="160"/>
-	<SubTexture name="blue0022" x="163" y="1610" width="162" height="160"/>
-	<SubTexture name="blue0023" x="163" y="1771" width="162" height="160"/>
-	<SubTexture name="gold0000" x="1294" y="0" width="158" height="158"/>
-	<SubTexture name="gold0001" x="1294" y="159" width="158" height="158"/>
-	<SubTexture name="gold0002" x="1294" y="318" width="158" height="158"/>
-	<SubTexture name="gold0003" x="1294" y="477" width="158" height="158"/>
-	<SubTexture name="gold0004" x="1294" y="636" width="158" height="158"/>
-	<SubTexture name="gold0005" x="1294" y="795" width="158" height="158"/>
-	<SubTexture name="gold0006" x="1294" y="954" width="158" height="158"/>
-	<SubTexture name="gold0007" x="1294" y="1113" width="158" height="158"/>
-	<SubTexture name="gold0008" x="1294" y="1272" width="158" height="158"/>
-	<SubTexture name="gold0009" x="1294" y="1431" width="158" height="158"/>
-	<SubTexture name="gold0010" x="1294" y="1590" width="158" height="158"/>
-	<SubTexture name="gold0011" x="1294" y="1749" width="158" height="158"/>
-	<SubTexture name="gold0012" x="1453" y="0" width="158" height="158"/>
-	<SubTexture name="gold0013" x="1453" y="159" width="158" height="158"/>
-	<SubTexture name="gold0014" x="1453" y="318" width="158" height="158"/>
-	<SubTexture name="gold0015" x="1453" y="477" width="158" height="158"/>
-	<SubTexture name="gold0016" x="1453" y="636" width="158" height="158"/>
-	<SubTexture name="gold0017" x="1453" y="795" width="158" height="158"/>
-	<SubTexture name="gold0018" x="1453" y="954" width="158" height="158"/>
-	<SubTexture name="gold0019" x="1453" y="1113" width="158" height="158"/>
-	<SubTexture name="gold0020" x="1453" y="1272" width="158" height="158"/>
-	<SubTexture name="gold0021" x="1453" y="1431" width="158" height="158"/>
-	<SubTexture name="gold0022" x="1453" y="1590" width="158" height="158"/>
-	<SubTexture name="gold0023" x="1453" y="1749" width="158" height="158"/>
-	<SubTexture name="green0000" x="648" y="0" width="162" height="159"/>
-	<SubTexture name="green0001" x="648" y="160" width="162" height="159"/>
-	<SubTexture name="green0002" x="648" y="320" width="162" height="159"/>
-	<SubTexture name="green0003" x="648" y="480" width="162" height="159"/>
-	<SubTexture name="green0004" x="648" y="640" width="162" height="159"/>
-	<SubTexture name="green0005" x="648" y="800" width="162" height="159"/>
-	<SubTexture name="green0006" x="648" y="960" width="162" height="159"/>
-	<SubTexture name="green0007" x="648" y="1120" width="162" height="159"/>
-	<SubTexture name="green0008" x="648" y="1280" width="162" height="159"/>
-	<SubTexture name="green0009" x="648" y="1440" width="162" height="159"/>
-	<SubTexture name="green0010" x="648" y="1600" width="162" height="159"/>
-	<SubTexture name="green0011" x="648" y="1760" width="162" height="159"/>
-	<SubTexture name="green0012" x="811" y="0" width="162" height="159"/>
-	<SubTexture name="green0013" x="811" y="160" width="162" height="159"/>
-	<SubTexture name="green0014" x="811" y="320" width="162" height="159"/>
-	<SubTexture name="green0015" x="811" y="480" width="162" height="159"/>
-	<SubTexture name="green0016" x="811" y="640" width="162" height="159"/>
-	<SubTexture name="green0017" x="811" y="800" width="162" height="159"/>
-	<SubTexture name="green0018" x="811" y="960" width="162" height="159"/>
-	<SubTexture name="green0019" x="811" y="1120" width="162" height="159"/>
-	<SubTexture name="green0020" x="811" y="1280" width="162" height="159"/>
-	<SubTexture name="green0021" x="811" y="1440" width="162" height="159"/>
-	<SubTexture name="green0022" x="811" y="1600" width="162" height="159"/>
-	<SubTexture name="green0023" x="811" y="1760" width="162" height="159"/>
-	<SubTexture name="purple0000" x="974" y="0" width="159" height="162"/>
-	<SubTexture name="purple0001" x="974" y="163" width="159" height="162"/>
-	<SubTexture name="purple0002" x="974" y="326" width="159" height="162"/>
-	<SubTexture name="purple0003" x="974" y="489" width="159" height="162"/>
-	<SubTexture name="purple0004" x="974" y="652" width="159" height="162"/>
-	<SubTexture name="purple0005" x="974" y="815" width="159" height="162"/>
-	<SubTexture name="purple0006" x="974" y="978" width="159" height="162"/>
-	<SubTexture name="purple0007" x="974" y="1141" width="159" height="162"/>
-	<SubTexture name="purple0008" x="974" y="1304" width="159" height="162"/>
-	<SubTexture name="purple0009" x="974" y="1467" width="159" height="162"/>
-	<SubTexture name="purple0010" x="974" y="1630" width="159" height="162"/>
-	<SubTexture name="purple0011" x="974" y="1793" width="159" height="162"/>
-	<SubTexture name="purple0012" x="1134" y="0" width="159" height="162"/>
-	<SubTexture name="purple0013" x="1134" y="163" width="159" height="162"/>
-	<SubTexture name="purple0014" x="1134" y="326" width="159" height="162"/>
-	<SubTexture name="purple0015" x="1134" y="489" width="159" height="162"/>
-	<SubTexture name="purple0016" x="1134" y="652" width="159" height="162"/>
-	<SubTexture name="purple0017" x="1134" y="815" width="159" height="162"/>
-	<SubTexture name="purple0018" x="1134" y="978" width="159" height="162"/>
-	<SubTexture name="purple0019" x="1134" y="1141" width="159" height="162"/>
-	<SubTexture name="purple0020" x="1134" y="1304" width="159" height="162"/>
-	<SubTexture name="purple0021" x="1134" y="1467" width="159" height="162"/>
-	<SubTexture name="purple0022" x="1134" y="1630" width="159" height="162"/>
-	<SubTexture name="purple0023" x="1134" y="1793" width="159" height="162"/>
-	<SubTexture name="red0000" x="326" y="0" width="160" height="162"/>
-	<SubTexture name="red0001" x="326" y="163" width="160" height="162"/>
-	<SubTexture name="red0002" x="326" y="326" width="160" height="162"/>
-	<SubTexture name="red0003" x="326" y="489" width="160" height="162"/>
-	<SubTexture name="red0004" x="326" y="652" width="160" height="162"/>
-	<SubTexture name="red0005" x="326" y="815" width="160" height="162"/>
-	<SubTexture name="red0006" x="326" y="978" width="160" height="162"/>
-	<SubTexture name="red0007" x="326" y="1141" width="160" height="162"/>
-	<SubTexture name="red0008" x="326" y="1304" width="160" height="162"/>
-	<SubTexture name="red0009" x="326" y="1467" width="160" height="162"/>
-	<SubTexture name="red0010" x="326" y="1630" width="160" height="162"/>
-	<SubTexture name="red0011" x="326" y="1793" width="160" height="162"/>
-	<SubTexture name="red0012" x="487" y="0" width="160" height="162"/>
-	<SubTexture name="red0013" x="487" y="163" width="160" height="162"/>
-	<SubTexture name="red0014" x="487" y="326" width="160" height="162"/>
-	<SubTexture name="red0015" x="487" y="489" width="160" height="162"/>
-	<SubTexture name="red0016" x="487" y="652" width="160" height="162"/>
-	<SubTexture name="red0017" x="487" y="815" width="160" height="162"/>
-	<SubTexture name="red0018" x="487" y="978" width="160" height="162"/>
-	<SubTexture name="red0019" x="487" y="1141" width="160" height="162"/>
-	<SubTexture name="red0020" x="487" y="1304" width="160" height="162"/>
-	<SubTexture name="red0021" x="487" y="1467" width="160" height="162"/>
-	<SubTexture name="red0022" x="487" y="1630" width="160" height="162"/>
-	<SubTexture name="red0023" x="487" y="1793" width="160" height="162"/>
+	<SubTexture name="blue0014" x="326" y="161" width="162" height="160"/>
+	<SubTexture name="blue0015" x="489" y="161" width="162" height="160"/>
+	<SubTexture name="blue0016" x="652" y="161" width="162" height="160"/>
+	<SubTexture name="blue0017" x="815" y="161" width="162" height="160"/>
+	<SubTexture name="blue0018" x="978" y="161" width="162" height="160"/>
+	<SubTexture name="blue0019" x="1141" y="161" width="162" height="160"/>
+	<SubTexture name="blue0020" x="1304" y="161" width="162" height="160"/>
+	<SubTexture name="blue0021" x="1467" y="161" width="162" height="160"/>
+	<SubTexture name="blue0022" x="1630" y="161" width="162" height="160"/>
+	<SubTexture name="blue0023" x="1793" y="161" width="162" height="160"/>
+	<SubTexture name="gold hold end0000" x="1956" y="672" width="58" height="27"/>
+	<SubTexture name="gold hold end0001" x="1956" y="700" width="58" height="27"/>
+	<SubTexture name="gold hold end0002" x="1956" y="728" width="58" height="27"/>
+	<SubTexture name="gold hold end0003" x="1956" y="756" width="58" height="27"/>
+	<SubTexture name="gold hold end0004" x="1956" y="784" width="58" height="27"/>
+	<SubTexture name="gold hold end0005" x="1956" y="812" width="58" height="27"/>
+	<SubTexture name="gold hold end0006" x="1956" y="840" width="58" height="27"/>
+	<SubTexture name="gold hold end0007" x="1956" y="868" width="58" height="27"/>
+	<SubTexture name="gold hold end0008" x="1956" y="896" width="58" height="27"/>
+	<SubTexture name="gold hold end0009" x="1956" y="924" width="58" height="27"/>
+	<SubTexture name="gold hold end0010" x="1956" y="952" width="58" height="27"/>
+	<SubTexture name="gold hold end0011" x="1920" y="980" width="58" height="27"/>
+	<SubTexture name="gold hold end0012" x="1979" y="980" width="58" height="27"/>
+	<SubTexture name="gold hold end0013" x="1920" y="1008" width="58" height="27"/>
+	<SubTexture name="gold hold end0014" x="1979" y="1008" width="58" height="27"/>
+	<SubTexture name="gold hold end0015" x="1920" y="1036" width="58" height="27"/>
+	<SubTexture name="gold hold end0016" x="1979" y="1036" width="58" height="27"/>
+	<SubTexture name="gold hold end0017" x="1920" y="1064" width="58" height="27"/>
+	<SubTexture name="gold hold end0018" x="1979" y="1064" width="58" height="27"/>
+	<SubTexture name="gold hold end0019" x="1920" y="1092" width="58" height="27"/>
+	<SubTexture name="gold hold end0020" x="1979" y="1092" width="58" height="27"/>
+	<SubTexture name="gold hold end0021" x="1920" y="1120" width="58" height="27"/>
+	<SubTexture name="gold hold end0022" x="1979" y="1120" width="58" height="27"/>
+	<SubTexture name="gold hold end0023" x="1920" y="1148" width="58" height="27"/>
+	<SubTexture name="gold hold piece0000" x="1908" y="1486" width="58" height="25"/>
+	<SubTexture name="gold hold piece0001" x="1967" y="1486" width="58" height="25"/>
+	<SubTexture name="gold hold piece0002" x="1908" y="1512" width="58" height="25"/>
+	<SubTexture name="gold hold piece0003" x="1967" y="1512" width="58" height="25"/>
+	<SubTexture name="gold hold piece0004" x="1908" y="1538" width="58" height="25"/>
+	<SubTexture name="gold hold piece0005" x="1967" y="1538" width="58" height="25"/>
+	<SubTexture name="gold hold piece0006" x="1908" y="1564" width="58" height="25"/>
+	<SubTexture name="gold hold piece0007" x="1967" y="1564" width="58" height="25"/>
+	<SubTexture name="gold hold piece0008" x="1908" y="1590" width="58" height="25"/>
+	<SubTexture name="gold hold piece0009" x="1967" y="1590" width="58" height="25"/>
+	<SubTexture name="gold hold piece0010" x="0" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0011" x="59" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0012" x="118" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0013" x="177" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0014" x="236" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0015" x="295" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0016" x="354" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0017" x="413" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0018" x="472" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0019" x="531" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0020" x="590" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0021" x="649" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0022" x="708" y="1612" width="58" height="25"/>
+	<SubTexture name="gold hold piece0023" x="767" y="1612" width="58" height="25"/>
+	<SubTexture name="gold0000" x="0" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0001" x="159" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0002" x="318" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0003" x="477" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0004" x="636" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0005" x="795" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0006" x="954" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0007" x="1113" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0008" x="1272" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0009" x="1431" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0010" x="1590" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0011" x="1749" y="1294" width="158" height="158"/>
+	<SubTexture name="gold0012" x="0" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0013" x="159" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0014" x="318" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0015" x="477" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0016" x="636" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0017" x="795" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0018" x="954" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0019" x="1113" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0020" x="1272" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0021" x="1431" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0022" x="1590" y="1453" width="158" height="158"/>
+	<SubTexture name="gold0023" x="1749" y="1453" width="158" height="158"/>
+	<SubTexture name="green hold end0000" x="1956" y="672" width="58" height="27"/>
+	<SubTexture name="green hold end0001" x="1956" y="700" width="58" height="27"/>
+	<SubTexture name="green hold end0002" x="1956" y="728" width="58" height="27"/>
+	<SubTexture name="green hold end0003" x="1956" y="756" width="58" height="27"/>
+	<SubTexture name="green hold end0004" x="1956" y="784" width="58" height="27"/>
+	<SubTexture name="green hold end0005" x="1956" y="812" width="58" height="27"/>
+	<SubTexture name="green hold end0006" x="1956" y="840" width="58" height="27"/>
+	<SubTexture name="green hold end0007" x="1956" y="868" width="58" height="27"/>
+	<SubTexture name="green hold end0008" x="1956" y="896" width="58" height="27"/>
+	<SubTexture name="green hold end0009" x="1956" y="924" width="58" height="27"/>
+	<SubTexture name="green hold end0010" x="1956" y="952" width="58" height="27"/>
+	<SubTexture name="green hold end0011" x="1920" y="980" width="58" height="27"/>
+	<SubTexture name="green hold end0012" x="1979" y="980" width="58" height="27"/>
+	<SubTexture name="green hold end0013" x="1920" y="1008" width="58" height="27"/>
+	<SubTexture name="green hold end0014" x="1979" y="1008" width="58" height="27"/>
+	<SubTexture name="green hold end0015" x="1920" y="1036" width="58" height="27"/>
+	<SubTexture name="green hold end0016" x="1979" y="1036" width="58" height="27"/>
+	<SubTexture name="green hold end0017" x="1920" y="1064" width="58" height="27"/>
+	<SubTexture name="green hold end0018" x="1979" y="1064" width="58" height="27"/>
+	<SubTexture name="green hold end0019" x="1920" y="1092" width="58" height="27"/>
+	<SubTexture name="green hold end0020" x="1979" y="1092" width="58" height="27"/>
+	<SubTexture name="green hold end0021" x="1920" y="1120" width="58" height="27"/>
+	<SubTexture name="green hold end0022" x="1979" y="1120" width="58" height="27"/>
+	<SubTexture name="green hold end0023" x="1920" y="1148" width="58" height="27"/>
+	<SubTexture name="green hold piece0000" x="1908" y="1486" width="58" height="25"/>
+	<SubTexture name="green hold piece0001" x="1967" y="1486" width="58" height="25"/>
+	<SubTexture name="green hold piece0002" x="1908" y="1512" width="58" height="25"/>
+	<SubTexture name="green hold piece0003" x="1967" y="1512" width="58" height="25"/>
+	<SubTexture name="green hold piece0004" x="1908" y="1538" width="58" height="25"/>
+	<SubTexture name="green hold piece0005" x="1967" y="1538" width="58" height="25"/>
+	<SubTexture name="green hold piece0006" x="1908" y="1564" width="58" height="25"/>
+	<SubTexture name="green hold piece0007" x="1967" y="1564" width="58" height="25"/>
+	<SubTexture name="green hold piece0008" x="1908" y="1590" width="58" height="25"/>
+	<SubTexture name="green hold piece0009" x="1967" y="1590" width="58" height="25"/>
+	<SubTexture name="green hold piece0010" x="0" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0011" x="59" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0012" x="118" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0013" x="177" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0014" x="236" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0015" x="295" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0016" x="354" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0017" x="413" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0018" x="472" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0019" x="531" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0020" x="590" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0021" x="649" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0022" x="708" y="1612" width="58" height="25"/>
+	<SubTexture name="green hold piece0023" x="767" y="1612" width="58" height="25"/>
+	<SubTexture name="green0000" x="0" y="648" width="162" height="159"/>
+	<SubTexture name="green0001" x="163" y="648" width="162" height="159"/>
+	<SubTexture name="green0002" x="326" y="648" width="162" height="159"/>
+	<SubTexture name="green0003" x="489" y="648" width="162" height="159"/>
+	<SubTexture name="green0004" x="652" y="648" width="162" height="159"/>
+	<SubTexture name="green0005" x="815" y="648" width="162" height="159"/>
+	<SubTexture name="green0006" x="978" y="648" width="162" height="159"/>
+	<SubTexture name="green0007" x="1141" y="648" width="162" height="159"/>
+	<SubTexture name="green0008" x="1304" y="648" width="162" height="159"/>
+	<SubTexture name="green0009" x="1467" y="648" width="162" height="159"/>
+	<SubTexture name="green0010" x="1630" y="648" width="162" height="159"/>
+	<SubTexture name="green0011" x="1793" y="648" width="162" height="159"/>
+	<SubTexture name="green0012" x="0" y="808" width="162" height="159"/>
+	<SubTexture name="green0013" x="163" y="808" width="162" height="159"/>
+	<SubTexture name="green0014" x="326" y="808" width="162" height="159"/>
+	<SubTexture name="green0015" x="489" y="808" width="162" height="159"/>
+	<SubTexture name="green0016" x="652" y="808" width="162" height="159"/>
+	<SubTexture name="green0017" x="815" y="808" width="162" height="159"/>
+	<SubTexture name="green0018" x="978" y="808" width="162" height="159"/>
+	<SubTexture name="green0019" x="1141" y="808" width="162" height="159"/>
+	<SubTexture name="green0020" x="1304" y="808" width="162" height="159"/>
+	<SubTexture name="green0021" x="1467" y="808" width="162" height="159"/>
+	<SubTexture name="green0022" x="1630" y="808" width="162" height="159"/>
+	<SubTexture name="green0023" x="1793" y="808" width="162" height="159"/>
+	<SubTexture name="pruple end hold0000" x="1956" y="672" width="58" height="27"/>
+	<SubTexture name="pruple end hold0001" x="1956" y="700" width="58" height="27"/>
+	<SubTexture name="pruple end hold0002" x="1956" y="728" width="58" height="27"/>
+	<SubTexture name="pruple end hold0003" x="1956" y="756" width="58" height="27"/>
+	<SubTexture name="pruple end hold0004" x="1956" y="784" width="58" height="27"/>
+	<SubTexture name="pruple end hold0005" x="1956" y="812" width="58" height="27"/>
+	<SubTexture name="pruple end hold0006" x="1956" y="840" width="58" height="27"/>
+	<SubTexture name="pruple end hold0007" x="1956" y="868" width="58" height="27"/>
+	<SubTexture name="pruple end hold0008" x="1956" y="896" width="58" height="27"/>
+	<SubTexture name="pruple end hold0009" x="1956" y="924" width="58" height="27"/>
+	<SubTexture name="pruple end hold0010" x="1956" y="952" width="58" height="27"/>
+	<SubTexture name="pruple end hold0011" x="1920" y="980" width="58" height="27"/>
+	<SubTexture name="pruple end hold0012" x="1979" y="980" width="58" height="27"/>
+	<SubTexture name="pruple end hold0013" x="1920" y="1008" width="58" height="27"/>
+	<SubTexture name="pruple end hold0014" x="1979" y="1008" width="58" height="27"/>
+	<SubTexture name="pruple end hold0015" x="1920" y="1036" width="58" height="27"/>
+	<SubTexture name="pruple end hold0016" x="1979" y="1036" width="58" height="27"/>
+	<SubTexture name="pruple end hold0017" x="1920" y="1064" width="58" height="27"/>
+	<SubTexture name="pruple end hold0018" x="1979" y="1064" width="58" height="27"/>
+	<SubTexture name="pruple end hold0019" x="1920" y="1092" width="58" height="27"/>
+	<SubTexture name="pruple end hold0020" x="1979" y="1092" width="58" height="27"/>
+	<SubTexture name="pruple end hold0021" x="1920" y="1120" width="58" height="27"/>
+	<SubTexture name="pruple end hold0022" x="1979" y="1120" width="58" height="27"/>
+	<SubTexture name="pruple end hold0023" x="1920" y="1148" width="58" height="27"/>
+	<SubTexture name="purple hold piece0000" x="1908" y="1486" width="58" height="25"/>
+	<SubTexture name="purple hold piece0001" x="1967" y="1486" width="58" height="25"/>
+	<SubTexture name="purple hold piece0002" x="1908" y="1512" width="58" height="25"/>
+	<SubTexture name="purple hold piece0003" x="1967" y="1512" width="58" height="25"/>
+	<SubTexture name="purple hold piece0004" x="1908" y="1538" width="58" height="25"/>
+	<SubTexture name="purple hold piece0005" x="1967" y="1538" width="58" height="25"/>
+	<SubTexture name="purple hold piece0006" x="1908" y="1564" width="58" height="25"/>
+	<SubTexture name="purple hold piece0007" x="1967" y="1564" width="58" height="25"/>
+	<SubTexture name="purple hold piece0008" x="1908" y="1590" width="58" height="25"/>
+	<SubTexture name="purple hold piece0009" x="1967" y="1590" width="58" height="25"/>
+	<SubTexture name="purple hold piece0010" x="0" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0011" x="59" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0012" x="118" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0013" x="177" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0014" x="236" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0015" x="295" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0016" x="354" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0017" x="413" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0018" x="472" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0019" x="531" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0020" x="590" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0021" x="649" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0022" x="708" y="1612" width="58" height="25"/>
+	<SubTexture name="purple hold piece0023" x="767" y="1612" width="58" height="25"/>
+	<SubTexture name="purple0000" x="0" y="968" width="159" height="162"/>
+	<SubTexture name="purple0001" x="160" y="968" width="159" height="162"/>
+	<SubTexture name="purple0002" x="320" y="968" width="159" height="162"/>
+	<SubTexture name="purple0003" x="480" y="968" width="159" height="162"/>
+	<SubTexture name="purple0004" x="640" y="968" width="159" height="162"/>
+	<SubTexture name="purple0005" x="800" y="968" width="159" height="162"/>
+	<SubTexture name="purple0006" x="960" y="968" width="159" height="162"/>
+	<SubTexture name="purple0007" x="1120" y="968" width="159" height="162"/>
+	<SubTexture name="purple0008" x="1280" y="968" width="159" height="162"/>
+	<SubTexture name="purple0009" x="1440" y="968" width="159" height="162"/>
+	<SubTexture name="purple0010" x="1600" y="968" width="159" height="162"/>
+	<SubTexture name="purple0011" x="1760" y="968" width="159" height="162"/>
+	<SubTexture name="purple0012" x="0" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0013" x="160" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0014" x="320" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0015" x="480" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0016" x="640" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0017" x="800" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0018" x="960" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0019" x="1120" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0020" x="1280" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0021" x="1440" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0022" x="1600" y="1131" width="159" height="162"/>
+	<SubTexture name="purple0023" x="1760" y="1131" width="159" height="162"/>
+	<SubTexture name="red hold end0000" x="1956" y="672" width="58" height="27"/>
+	<SubTexture name="red hold end0001" x="1956" y="700" width="58" height="27"/>
+	<SubTexture name="red hold end0002" x="1956" y="728" width="58" height="27"/>
+	<SubTexture name="red hold end0003" x="1956" y="756" width="58" height="27"/>
+	<SubTexture name="red hold end0004" x="1956" y="784" width="58" height="27"/>
+	<SubTexture name="red hold end0005" x="1956" y="812" width="58" height="27"/>
+	<SubTexture name="red hold end0006" x="1956" y="840" width="58" height="27"/>
+	<SubTexture name="red hold end0007" x="1956" y="868" width="58" height="27"/>
+	<SubTexture name="red hold end0008" x="1956" y="896" width="58" height="27"/>
+	<SubTexture name="red hold end0009" x="1956" y="924" width="58" height="27"/>
+	<SubTexture name="red hold end0010" x="1956" y="952" width="58" height="27"/>
+	<SubTexture name="red hold end0011" x="1920" y="980" width="58" height="27"/>
+	<SubTexture name="red hold end0012" x="1979" y="980" width="58" height="27"/>
+	<SubTexture name="red hold end0013" x="1920" y="1008" width="58" height="27"/>
+	<SubTexture name="red hold end0014" x="1979" y="1008" width="58" height="27"/>
+	<SubTexture name="red hold end0015" x="1920" y="1036" width="58" height="27"/>
+	<SubTexture name="red hold end0016" x="1979" y="1036" width="58" height="27"/>
+	<SubTexture name="red hold end0017" x="1920" y="1064" width="58" height="27"/>
+	<SubTexture name="red hold end0018" x="1979" y="1064" width="58" height="27"/>
+	<SubTexture name="red hold end0019" x="1920" y="1092" width="58" height="27"/>
+	<SubTexture name="red hold end0020" x="1979" y="1092" width="58" height="27"/>
+	<SubTexture name="red hold end0021" x="1920" y="1120" width="58" height="27"/>
+	<SubTexture name="red hold end0022" x="1979" y="1120" width="58" height="27"/>
+	<SubTexture name="red hold end0023" x="1920" y="1148" width="58" height="27"/>
+	<SubTexture name="red hold piece0000" x="1908" y="1486" width="58" height="25"/>
+	<SubTexture name="red hold piece0001" x="1967" y="1486" width="58" height="25"/>
+	<SubTexture name="red hold piece0002" x="1908" y="1512" width="58" height="25"/>
+	<SubTexture name="red hold piece0003" x="1967" y="1512" width="58" height="25"/>
+	<SubTexture name="red hold piece0004" x="1908" y="1538" width="58" height="25"/>
+	<SubTexture name="red hold piece0005" x="1967" y="1538" width="58" height="25"/>
+	<SubTexture name="red hold piece0006" x="1908" y="1564" width="58" height="25"/>
+	<SubTexture name="red hold piece0007" x="1967" y="1564" width="58" height="25"/>
+	<SubTexture name="red hold piece0008" x="1908" y="1590" width="58" height="25"/>
+	<SubTexture name="red hold piece0009" x="1967" y="1590" width="58" height="25"/>
+	<SubTexture name="red hold piece0010" x="0" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0011" x="59" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0012" x="118" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0013" x="177" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0014" x="236" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0015" x="295" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0016" x="354" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0017" x="413" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0018" x="472" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0019" x="531" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0020" x="590" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0021" x="649" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0022" x="708" y="1612" width="58" height="25"/>
+	<SubTexture name="red hold piece0023" x="767" y="1612" width="58" height="25"/>
+	<SubTexture name="red0000" x="0" y="322" width="160" height="162"/>
+	<SubTexture name="red0001" x="161" y="322" width="160" height="162"/>
+	<SubTexture name="red0002" x="322" y="322" width="160" height="162"/>
+	<SubTexture name="red0003" x="483" y="322" width="160" height="162"/>
+	<SubTexture name="red0004" x="644" y="322" width="160" height="162"/>
+	<SubTexture name="red0005" x="805" y="322" width="160" height="162"/>
+	<SubTexture name="red0006" x="966" y="322" width="160" height="162"/>
+	<SubTexture name="red0007" x="1127" y="322" width="160" height="162"/>
+	<SubTexture name="red0008" x="1288" y="322" width="160" height="162"/>
+	<SubTexture name="red0009" x="1449" y="322" width="160" height="162"/>
+	<SubTexture name="red0010" x="1610" y="322" width="160" height="162"/>
+	<SubTexture name="red0011" x="1771" y="322" width="160" height="162"/>
+	<SubTexture name="red0012" x="0" y="485" width="160" height="162"/>
+	<SubTexture name="red0013" x="161" y="485" width="160" height="162"/>
+	<SubTexture name="red0014" x="322" y="485" width="160" height="162"/>
+	<SubTexture name="red0015" x="483" y="485" width="160" height="162"/>
+	<SubTexture name="red0016" x="644" y="485" width="160" height="162"/>
+	<SubTexture name="red0017" x="805" y="485" width="160" height="162"/>
+	<SubTexture name="red0018" x="966" y="485" width="160" height="162"/>
+	<SubTexture name="red0019" x="1127" y="485" width="160" height="162"/>
+	<SubTexture name="red0020" x="1288" y="485" width="160" height="162"/>
+	<SubTexture name="red0021" x="1449" y="485" width="160" height="162"/>
+	<SubTexture name="red0022" x="1610" y="485" width="160" height="162"/>
+	<SubTexture name="red0023" x="1771" y="485" width="160" height="162"/>
 </TextureAtlas>

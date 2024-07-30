@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': VS Char Revitalized" file="Char" packageName="com.chargcheese.vschar.revitalizedalpha1" package="com.chargcheese.vschar.revitalizedalpha1" main="Main" version="Funkin 0.2.8 | Psych 0.7.1h" company="CharGCheese" />
+	<app title="Friday Night Funkin': VS Char Revatalized" file="Char" packageName="com.chargcheese.vschar.revitalizedalpha1" package="com.chargcheese.vschar.revitalizedalpha1" main="Main" version="Funkin 0.2.8 | Psych 0.7.1h" company="CharGCheese" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
