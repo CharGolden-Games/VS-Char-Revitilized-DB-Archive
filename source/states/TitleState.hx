@@ -103,6 +103,17 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		// grab the UN
+		var user:String = CoolUtil.getUsername();
+		// do shit if the user is insert UN here.
+		switch (user.toLowerCase())
+		{
+			case 'cody':
+				trace('Here\'s your freak of a resolution');
+				FlxG.resizeGame(1900, 900);
+				FlxG.resizeWindow(1900, 900);
+		}
+		
 		camAnim = new FlxCamera();
 		camBaseTitle = new FlxCamera();
 		camAnim.bgColor.alpha = 0;

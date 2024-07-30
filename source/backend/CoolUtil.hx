@@ -13,6 +13,17 @@ import sys.FileSystem;
 
 class CoolUtil
 {
+	public static function getUsername():String
+		{
+				#if windows
+				return Sys.environment()["USERNAME"].trim();
+				#elseif (linux || macos)
+				return Sys.environment()["USER"].trim();
+				#else
+				return coolTextFile(Paths.txt('data/name'));
+				#end
+		}
+		
 	inline public static function quantize(f:Float, snap:Float){
 		// changed so this actually works lol
 		var m:Float = Math.fround(f * snap);
