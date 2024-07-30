@@ -1363,6 +1363,7 @@ class ChartingState extends MusicBeatState
 	var gameOverEndInputText:FlxUIInputText;
 	var noteSkinInputText:FlxUIInputText;
 	var noteSplashesInputText:FlxUIInputText;
+	var check_5key:FlxUICheckBox;
 	function addDataUI()
 	{
 		var tab_group_data = new FlxUI(null, UI_box);
@@ -1391,12 +1392,35 @@ class ChartingState extends MusicBeatState
 			//trace('CHECKED!');
 		};
 
-		var check_5key:FlxUICheckBox = new FlxUICheckBox(10, 210, null, null, "Is 5 Key", 100);
-		check_5key.checked = false;
+		check_5key = new FlxUICheckBox(10, 210, null, null, "Is 5 Key", 100);
+		check_5key.checked = _song.is5Key;
 		check_5key.callback = function()
 		{
 			trace('checked 5key shit lmao');
+			_song.is5Key = check_5key.checked;
+			Note.is5Key = check_5key.checked;
+			StrumNote.is5Key = check_5key.checked;
+			reloadGridLayer();
+			updateGrid();
 		};
+
+		var check_ring:FlxUICheckBox = new FlxUICheckBox(check_5key.x, check_5key.y + 30, null, null, "Uses Ring", 100);
+		check_ring.checked = _song.isRing;
+		check_ring.callback = function()
+		{
+			var reloadGrid:Bool = false;
+			trace('checked ring shit lmao');
+			_song.isRing = check_ring.checked;
+			if (check_ring.checked && check_5key.checked != check_ring.checked) {
+				check_5key.checked = true; 
+				_song.is5Key = true; 
+				reloadGrid = true;
+				Note.is5Key = true;
+				StrumNote.is5Key = true;
+			}
+			if (reloadGrid) reloadGridLayer(); updateGrid();
+		};
+
 
 		//
 		noteSkinInputText = new FlxUIInputText(10, 280, 150, _song.arrowSkin != null ? _song.arrowSkin : '', 8);
@@ -1418,6 +1442,7 @@ class ChartingState extends MusicBeatState
 
 		tab_group_data.add(check_disableNoteRGB);
 		tab_group_data.add(check_5key);
+		tab_group_data.add(check_ring);
 		
 		tab_group_data.add(reloadNotesButton);
 		tab_group_data.add(noteSkinInputText);
@@ -2315,6 +2340,7 @@ class ChartingState extends MusicBeatState
 	var lastSecBeatsNext:Float = 0;
 	var columns:Int = 9;
 	function reloadGridLayer() {
+		if (_song.is5Key) columns = 11; //GRID_SIZE = 60;
 		gridLayer.clear();
 		gridBG = FlxGridOverlay.create(1, 1, columns, Std.int(getSectionBeats() * 4 * zoomList[curZoom]));
 		gridBG.antialiasing = false;
@@ -2377,6 +2403,10 @@ class ChartingState extends MusicBeatState
 		lastSecBeats = getSectionBeats();
 		if(sectionStartTime(1) > FlxG.sound.music.length) lastSecBeatsNext = 0;
 		else getSectionBeats(curSec + 1);
+
+		/*for (sprite in gridLayer.members) {
+			if (_song.is5Key) sprite.x = sprite.x - 80;
+		}*/
 	}
 
 	function strumLineUpdateY()

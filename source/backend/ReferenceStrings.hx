@@ -4,6 +4,8 @@ import sys.io.File;
 import sys.FileSystem;
 import backend.StageData;
 
+using StringTools;
+
 /**
  * a class that helps turn multiple statements into one, while also holding static variables referenced in multiple places (similar to Funkin 0.4's Constants class)
  */
@@ -37,34 +39,40 @@ class ReferenceStrings
 
 	/**
 	 * so that i can reduce it to one function lmao.
-	 * @param _ So we're fine as long as nobody teleports any bread  
-	 * @param _ Question? 
-	 * @param _ Whats your question soldier?
-	 * @param _ I teleported bread 
-	 * @param _ What?
-	 * @param _ You told me to 
-	 * @param _ How. Much.
-	 * @param _ I have done nothing but teleport bread for 3 days
 	 */
 	public static var vsCharSongs:Array<String> = [ // why isnt pico 2 here? i don't own it lmao.
-		'triple-trouble',
-		'high-ground', // the og
-		'high-grounder', // the new version
-		'higher-ground', // planned mix
-		'junkyard', // planned cover
-		'defeat-odd-mix',
-		'defeat-char-mix',
-		'tutorial' // planned mix
+	// SORTING TIME GO!
+		// -- Main Songs --
+		'tutorial', 			// planned mix
+		'saloon-trouble', 		// planned song
+		'conflicting-views', 	// planned song
+		'ambush',	 			// planned song
+		// -- Bonus --
+		'high-ground', 			// The NEW version
+		'high-grounder', 		// the old new version
+		'blubber', 				// planned mix
+		'defeat-char-mix',		// Defeat ODD Mix old
+		'defeat-odd-mix',		// Defeat ODD Mix v2
+		// -- Covers --
+		'triple-trouble', 		// The Cover that started it all.
+		'junkyard', 			// planned cover
+		// -- Secret --
+		'origins', 				// Ft. Igni?
+		'obligatory-bonus-song' // Ft. Char and Trevor
 	];
 
+	/**
+	 * This Array contains the names of every old song i plan to add back into the mod at some point, with a desc in comments of where it'll go.
+	 */
 	public static var vsCharLegacySongs:Array<String> = [
-		'free-movies-free',
-		'3-problems',
-		'slow',
-		'you-can-walk',
-		'vesania',
-		'infinite',
-		'shenanigans'
+		'free-movies-free', // Iason Mason Cover - Part of the Legacy Expansion
+		'3-problems', 		// Triple Trouble OG - Part of the Legacy Expansion
+		'slow', 			// Too Slow Char Cover - Part of the Legacy Expansion
+		'you-can-walk', 	// You Can't Run Char Cover - Part of the Legacy Expansion
+		'vesania', 			// Vesania Char Cover - Part of the Legacy Expansion
+		'infinite', 		// Endless Char Cover - Part of the Legacy Expansion
+		'high-ground-old', 	// the og - Included in the Mod
+		'shenanigans' 		// Old song for an old ass collab that fell through - Part of the Legacy Expansion
 	];
 
 	public static var assetPathsToCache:Array<String> = ['null'];
@@ -73,6 +81,52 @@ class ReferenceStrings
 		'triple-trouble',
 		'3-problems'
 	];
+
+	/**
+	 * Basically this keeps it to 1 function | Load an array to another array by counting from 0 | I.E. high_groundArrowRGB[3] for MCBF Arrow Up RGB
+	 * @param [0/4]: ArrowLEFT[MCBF/Char]
+	 * @param [1/5]: ArrowDOWN[MCBF/Char]
+	 * @param [2/6]: ArrowUP[MCBF/Char]
+	 * @param [3/7]: ArrowRIGHT[MCBF/Char]
+	 */
+	public static var high_groundArrowRGB:Array<Array<FlxColor>> = [
+		[0xFF9708E8, 0xFFFFFFFF, 0xFF4B0374], // MCBF Side
+		[0xFF1D5DEC, 0xFFFFFFFF, 0xFF0E2F79], // MCBF Side
+		[0xFF87A3AD, 0xFFFFFFFF, 0xFF000000], // MCBF Side
+		[0xFFD15C50, 0xFFFFFFFF, 0xFF4B201C],  // MCBF Side
+		[0xFFFF9D00, 0xFFFFFFFF, 0xFF802B00], // Char Side
+		[0xFF6D4FDC, 0xFFFFFFFF, 0xFF27195B], // Char Side
+		[0xFF034300, 0xFFFFFFFF, 0xFF0A4447], // Char Side
+		[0xFFBE6081, 0xFFFFFFFF, 0xFF651038] // Char Side
+	];
+
+	/**
+	 * Gets a color from a specific SubArray of a given Array<Array<FlxColor> variable.
+	 * @param mainArray Which Color Array to look in
+	 * @param ACCEPTED_INPUTS: 4kcolor, 5kcolor, highground
+	 * @param isPixel (4 Key Colors only) Whether to grab the PixelRGB value
+	 * @param numArray Which array in the array do you want to use as the base for the value to get
+	 * @param numEntryOfSubArray the value to get out of the sub array chosen
+	 * @return FlxColor
+	 */
+	public static function getColorFromSubArray(mainArray:String, isPixel:Bool = false, numArray:Int, numEntryOfSubArray:Int):FlxColor
+	{
+		var tempArray:Array<FlxColor> = null;
+		switch (mainArray.toLowerCase()) {
+			case '4kcolor':
+				if (isPixel) tempArray = ClientPrefs.data.arrowRGBPixel[numArray];
+				if (!isPixel) tempArray = ClientPrefs.data.arrowRGB[numArray];
+			case '5kcolor':
+				if (isPixel) trace('Pixel Not Supported!');
+				tempArray = ClientPrefs.data.arrowRGB5Key[numArray];
+			case 'highground':
+				if (isPixel) trace('Pixel Not Supported!');
+				tempArray = high_groundArrowRGB[numArray];
+		}
+		var hexifiedColor:String = Std.string(StringTools.hex(tempArray[numEntryOfSubArray]));
+		trace('Final Color is: ' + hexifiedColor);
+		return tempArray[numEntryOfSubArray];
+	}
 
 	/**
 	 * Returns only the number of a given version as long as it fits this template with an exception, | 

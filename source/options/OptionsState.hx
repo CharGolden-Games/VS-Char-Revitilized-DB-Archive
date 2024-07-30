@@ -78,6 +78,9 @@ class OptionsState extends MusicBeatState
 	}
 
 	override function closeSubState() {
+		for (i in 0...ClientPrefs.data.arrowRGB.length) {
+			ClientPrefs.data.arrowRGB[i] = ClientPrefs.data.arrowRGB5Key[i];
+		}
 		super.closeSubState();
 		ClientPrefs.saveSettings();
 	}

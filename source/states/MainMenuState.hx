@@ -345,8 +345,7 @@ class MainMenuState extends MusicBeatState
 		#if desktop
 			if (controls.justPressed('debug_1'))
 			{
-				CursorChangerShit.showCursor(true);
-				openSubState(new DebugPrompt('HEY thats in TOOLBOX NOW', 0, goToEditorMenu, null, false, 'Take Me!', 'Ok'));
+				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			else if (controls.justPressed('debug_2'))
 				{

@@ -7,7 +7,6 @@ class VersionShit extends FlxText
 {
     var GIT_BRANCH:String = GitVer.getGitBranch();
     var GIT_HASH:String = GitVer.getGitComHash();
-    var GIT_HASCHANGED:Bool = GitVer.getGitHasLocalChanges();
 
     var versionString:String = '';
     var textString:String = '';
@@ -60,8 +59,7 @@ class VersionShit extends FlxText
     {
         var gitHasChanges:String = '';
         var gitText:String = '';
-        if (GIT_HASCHANGED) gitHasChanges = ': MODIFIED';
-        if (isGitCommit) gitText = #if IS_DEBUG ' {Branch: $GIT_BRANCH | CommitHash: $GIT_HASH $gitHasChanges}' #else '{Branch: $GIT_BRANCH}' #end;
+        if (isGitCommit) gitText = #if IS_DEBUG ' {Branch: $GIT_BRANCH | CommitHash: $GIT_HASH}' #else '{Branch: $GIT_BRANCH}' #end;
         text = textString + versionString + gitText;
         fieldWidth = textWidth;
         size = textSize;

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="charmongusnormal.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="imposter left instance 10000" x="0" y="0" width="655" height="353" frameX="0" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="imposter left instance 10001" x="0" y="0" width="655" height="353" frameX="0" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="imposter left instance 10002" x="655" y="0" width="653" height="354" frameX="-14" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="imposter left instance 10003" x="655" y="0" width="653" height="354" frameX="-14" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="imposter left instance 10004" x="1308" y="0" width="654" height="354" frameX="-13" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="imposter left instance 10005" x="1308" y="0" width="654" height="354" frameX="-13" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="imposter left instance 10006" x="1308" y="0" width="654" height="354" frameX="-13" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="imposter left instance 10007" x="1308" y="0" width="654" height="354" frameX="-13" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="imposter left instance 10008" x="1308" y="0" width="654" height="354" frameX="-13" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="imposter left instance 10009" x="1308" y="0" width="654" height="354" frameX="-13" frameY="0" frameWidth="667" frameHeight="354"/>
+	<SubTexture name="impostor down instance 10000" x="0" y="354" width="465" height="364" frameX="-43" frameY="-54" frameWidth="519" frameHeight="418"/>
+	<SubTexture name="impostor down instance 10001" x="0" y="354" width="465" height="364" frameX="-43" frameY="-54" frameWidth="519" frameHeight="418"/>
+	<SubTexture name="impostor down instance 10002" x="465" y="354" width="519" height="402" frameX="0" frameY="0" frameWidth="519" frameHeight="418"/>
+	<SubTexture name="impostor down instance 10003" x="465" y="354" width="519" height="402" frameX="0" frameY="0" frameWidth="519" frameHeight="418"/>
+	<SubTexture name="impostor down instance 10004" x="984" y="354" width="519" height="400" frameX="0" frameY="0" frameWidth="519" frameHeight="418"/>
+	<SubTexture name="impostor down instance 10005" x="984" y="354" width="519" height="400" frameX="0" frameY="0" frameWidth="519" frameHeight="418"/>
+	<SubTexture name="impostor idle instance 10000" x="1503" y="354" width="426" height="339" frameX="-3" frameY="-20" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10001" x="1503" y="354" width="426" height="339" frameX="-3" frameY="-20" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10002" x="0" y="756" width="416" height="342" frameX="-5" frameY="-17" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10003" x="0" y="756" width="416" height="342" frameX="-5" frameY="-17" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10004" x="416" y="756" width="409" height="350" frameX="-4" frameY="-9" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10005" x="416" y="756" width="409" height="350" frameX="-4" frameY="-9" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10006" x="825" y="756" width="395" height="357" frameX="-2" frameY="-2" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10007" x="825" y="756" width="395" height="357" frameX="-2" frameY="-2" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10008" x="1220" y="756" width="398" height="359" frameX="0" frameY="0" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10009" x="1220" y="756" width="398" height="359" frameX="0" frameY="0" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor idle instance 10010" x="1618" y="756" width="398" height="359" frameX="0" frameY="0" frameWidth="429" frameHeight="359"/>
+	<SubTexture name="impostor right instance 10000" x="0" y="1115" width="390" height="392" frameX="-27" frameY="0" frameWidth="422" frameHeight="392"/>
+	<SubTexture name="impostor right instance 10001" x="0" y="1115" width="390" height="392" frameX="-27" frameY="0" frameWidth="422" frameHeight="392"/>
+	<SubTexture name="impostor right instance 10002" x="390" y="1115" width="421" height="382" frameX="-1" frameY="0" frameWidth="422" frameHeight="392"/>
+	<SubTexture name="impostor right instance 10003" x="390" y="1115" width="421" height="382" frameX="-1" frameY="0" frameWidth="422" frameHeight="392"/>
+	<SubTexture name="impostor right instance 10004" x="811" y="1115" width="421" height="383" frameX="0" frameY="0" frameWidth="422" frameHeight="392"/>
+	<SubTexture name="impostor right instance 10005" x="811" y="1115" width="421" height="383" frameX="0" frameY="0" frameWidth="422" frameHeight="392"/>
+	<SubTexture name="impostor up2 instance 10000" x="1232" y="1115" width="394" height="405" frameX="0" frameY="0" frameWidth="403" frameHeight="405"/>
+	<SubTexture name="impostor up2 instance 10001" x="1232" y="1115" width="394" height="405" frameX="0" frameY="0" frameWidth="403" frameHeight="405"/>
+	<SubTexture name="impostor up2 instance 10002" x="1626" y="1115" width="390" height="364" frameX="-13" frameY="-39" frameWidth="403" frameHeight="405"/>
+	<SubTexture name="impostor up2 instance 10003" x="1626" y="1115" width="390" height="364" frameX="-13" frameY="-39" frameWidth="403" frameHeight="405"/>
+	<SubTexture name="impostor up2 instance 10004" x="0" y="1520" width="390" height="369" frameX="-13" frameY="-34" frameWidth="403" frameHeight="405"/>
+	<SubTexture name="impostor up2 instance 10005" x="0" y="1520" width="390" height="369" frameX="-13" frameY="-34" frameWidth="403" frameHeight="405"/>
+</TextureAtlas>

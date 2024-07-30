@@ -329,22 +329,25 @@ class PlayState extends MusicBeatState
 	var hadGhostTapping:Bool = false;
 
 	public static var doShowCredits:Bool = true;
-	var ringSound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('ring'));
+	var ringSound:FlxSound;
 	var blockInput:Bool = true;
+	var formattedSong:String;
 
 	override public function create()
 	{
+		formattedSong = Paths.formatToSongPath(SONG.song.toLowerCase()).trim();
 		isRing = SONG.isRing;
 		is5Key = SONG.is5Key;
-		if (!is5Key && Paths.formatToSongPath(SONG.song.toLowerCase()).trim() != 'triple-trouble' || !isRing && Paths.formatToSongPath(SONG.song.toLowerCase()).trim() != 'triple-trouble') {
-			StrumNote.is5Key = false;
-			Note.is5Key = false;
-		} else {
-			StrumNote.is5Key = true;
-			Note.is5Key = true;
-			if (!is5Key) {
-			is5Key = true;
-			}
+		StrumNote.is5Key = SONG.is5Key;
+		Note.is5Key = SONG.is5Key;
+		for (song in ReferenceStrings.songsThatForce5Key) { // basically manually set these if a song forces 5 key lmao
+			if (formattedSong == song) {
+				ringSound = new FlxSound().loadEmbedded(Paths.sound('ring'));
+				StrumNote.is5Key = true;
+				Note.is5Key = true;
+				SONG.is5Key = true; // to manually update charting state (hopefullyyyyyyyyy)
+				is5Key = true;
+			} 
 		}
 		doHealthDrain = false;
 		ringCount = 0;
@@ -399,6 +402,19 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 		CustomFadeTransition.nextCamera = camOther;
+
+		
+		black1 = new FlxSprite().makeGraphic(1280, 100, FlxColor.BLACK);
+		black1.screenCenter(X);
+		black1.y = 800;
+		black1.camera = camHUD;
+		add(black1);
+
+		black2 = new FlxSprite().makeGraphic(1280, 100, FlxColor.BLACK);
+		black2.screenCenter(X);
+		black2.y = -200;
+		black2.camera = camHUD;
+		add(black2);
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -571,17 +587,6 @@ class PlayState extends MusicBeatState
 				gf.visible = false;
 		}
 		stagesFunc(function(stage:BaseStage) stage.createPost());
-		black1 = new FlxSprite().makeGraphic(1280, 100, FlxColor.BLACK);
-		black1.screenCenter(X);
-		black1.y = 800;
-		black1.camera = camHUD;
-		add(black1);
-
-		black2 = new FlxSprite().makeGraphic(1280, 100, FlxColor.BLACK);
-		black2.screenCenter(X);
-		black2.y = -200;
-		black2.camera = camHUD;
-		add(black2);
 		
 		var isDisabled:Bool = false;
 		if (ClientPrefs.data.timeBarType == 'Disabled')
@@ -658,8 +663,6 @@ class PlayState extends MusicBeatState
 			healthBar.width = healthBar.width * 0.5;
 		}
 
-		if (!ClientPrefs.data.baseFNFHealthBar)
-		{
 			healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlay'));
 			healthBarOverlay.y = FlxG.height * 0.89;
 			healthBarOverlay.screenCenter(X);
@@ -672,7 +675,6 @@ class PlayState extends MusicBeatState
 			healthBarOverlay.alpha = 0;
 			if (ClientPrefs.data.downScroll)
 				healthBarOverlay.y = 0.11 * FlxG.height;
-		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true, boyfriend.hasAnimatedIcon, boyfriend.normalIcon, boyfriend.losingIcon, boyfriend.winningIcon);
 		iconP1.y = healthBar.y - 75;
@@ -1372,7 +1374,7 @@ class PlayState extends MusicBeatState
 
 		
 		FlxTween.tween(healthBar, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
-		FlxTween.tween(healthBarOverlay, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
+		if (!ClientPrefs.data.baseFNFHealthBar)FlxTween.tween(healthBarOverlay, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(iconP1, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(iconP2, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		//if(iconP3 != null) FlxTween.tween(iconP3, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
@@ -1409,24 +1411,63 @@ class PlayState extends MusicBeatState
 						if (!fixRingOffset) playerStrums.members[i].x = playerStrums.members[1].x + 105;
 						if (fixRingOffset) playerStrums.members[i].x = playerStrums.members[1].x + 80; playerStrums.members[i].y - 100;
 				}
-				} else {
-					playerStrums.members[4].x = 4000; // you got some hidden talent! keep it hidden!
-				}
+				playerStrums.members[i].x = playerStrums.members[i].x - 20;
+			}
 				setOnScripts('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnScripts('defaultPlayerStrumY' + i, playerStrums.members[i].y); // put this afterwards so that scripts still affect it!
+				if (SONG.song == 'high-ground') {
+				switch (i)
+			{
+				case 0:
+					playerStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 0, 0);
+					playerStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 0, 1);
+					playerStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 0, 2);
+				case 1:
+					playerStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 1, 0);
+					playerStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 1, 1);
+					playerStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 1, 2);
+				case 2:
+					playerStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 2, 0);
+					playerStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 2, 1);
+					playerStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 2, 2);
+				case 3:
+					playerStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 3, 0);
+					playerStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 3, 1);
+					playerStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 3, 2);
+			}
+			}
 			}
 			for (i in 0...opponentStrums.length)
 			{
 				setOnScripts('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
 				setOnScripts('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
 				// if(ClientPrefs.data.middleScroll) opponentStrums.members[i].visible = false;
-			}
-			for (i in 0...playerStrums.length) // why two?, this is to globally offset it lmao
+				switch (i) {
+					case 4:
+						if (Paths.formatToSongPath(SONG.song).toLowerCase() == 'triple-trouble') opponentStrums.members[4].x = 4000; // you got some hidden talent! keep it hidden!
+				}
+				if (SONG.song == 'high-ground') {
+				switch (i)
 			{
-				if (is5Key) {
-				playerStrums.members[i].x = playerStrums.members[i].x - 20;
+				case 0:
+					opponentStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 4, 0);
+					opponentStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 4, 1);
+					opponentStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 4, 2);
+				case 1:
+					opponentStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 5, 0);
+					opponentStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 5, 1);
+					opponentStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 5, 2);
+				case 2:
+					opponentStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 6, 0);
+					opponentStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 6, 1);
+					opponentStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 6, 2);
+				case 3:
+					opponentStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 7, 0);
+					opponentStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 7, 1);
+					opponentStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 7, 2);
 				}
 			}
+		}
 
 			startedCountdown = true;
 			Conductor.songPosition = -Conductor.crochet * 5;
@@ -1542,6 +1583,7 @@ class PlayState extends MusicBeatState
 		}
 		return true;
 	}
+	
 
 	inline private function createCountdownSprite(image:String, antialias:Bool):FlxSprite
 	{
@@ -1833,11 +1875,14 @@ class PlayState extends MusicBeatState
 		{
 			for (songNotes in section.sectionNotes)
 			{
+				var noteLength:Int = is5Key ? 5 : 4;
 				var daStrumTime:Float = songNotes[0];
-				var daNoteData:Int = Std.int(songNotes[1] % 4);
+				var daNoteData:Int = Std.int(songNotes[1] % noteLength);
 				var gottaHitNote:Bool = section.mustHitSection;
 
-				if (songNotes[1] > 3 && songNotes < 8)
+			  	var minimumOppLength:Int = is5Key ? 4 : 3;
+				var maxOppLength:Int = is5Key ? 9 : 8;
+				if (songNotes[1] > minimumOppLength && songNotes < maxOppLength)
 				{
 					gottaHitNote = !section.mustHitSection;
 				}
@@ -1849,9 +1894,10 @@ class PlayState extends MusicBeatState
 					oldNote = null;
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
 
+
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
-				swagNote.gfNote = (section.gfSection && (songNotes[1] < 4));
+				swagNote.gfNote = (section.gfSection && (songNotes[1] < 5));
 				swagNote.noteType = songNotes[3];
 				if (!Std.isOfType(songNotes[3], String))
 					swagNote.noteType = ChartingState.noteTypeList[songNotes[3]]; // Backward compatibility + compatibility with Week 7 charts
@@ -2016,13 +2062,7 @@ class PlayState extends MusicBeatState
 		var strumLineX:Float = ClientPrefs.data.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X;
 		var strumLineY:Float = ClientPrefs.data.downScroll ? (FlxG.height - 150) : 50;
 		var length:Int;
-		switch (player)
-		{
-			default:
-				if (is5Key) length = 5; else length = 5; //4;
-			case 0:
-				length = 4;
-		} 
+				if (is5Key) length = 5; else length = 4;
 		for (i in 0...length)
 		{
 			if (length == 4) {
@@ -2322,8 +2362,8 @@ class PlayState extends MusicBeatState
 		var iconOffset:Int = 26;
 		iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 		iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-		if (health > 2)
-			health = 2;
+		//if (health > 2)
+			//health = 2;
 
 		if (iconP1.animation.numFrames >= 3 && iconP1.animation.numFrames != 9)
 		{
@@ -2525,6 +2565,94 @@ class PlayState extends MusicBeatState
 						var fakeCrochet:Float = (60 / SONG.bpm) * 1000;
 						notes.forEachAlive(function(daNote:Note)
 						{
+							/*var mustHit:Bool = daNote.mustPress;
+							var num:Int = daNote.noteData;
+							if (mustHit) { // this is a LITTLE broken. FIGURE IT OUT
+								switch (daNote.noteData) {
+									case 0:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, num, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, num, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, num, 2);
+									case 1:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, num, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, num, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, num, 2);
+									case 2:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, num, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, num, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, num, 2);
+									case 3:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, num, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, num, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, num, 2);
+									case 4:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, num, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, num, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, num, 2);
+									case 5:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, num, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, num, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, num, 2);
+									case 6:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, num, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, num, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, num, 2);
+									case 7:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, num, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, num, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, num, 2);
+								}
+							} else {
+								switch (daNote.noteData) {
+									case 0:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 4, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 4, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 4, 2);
+									case 1:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 5, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 5, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 5, 2);
+									case 2:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 6, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 6, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 6, 2);
+									case 3:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 7, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 7, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 7, 2);
+									case 4:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 0, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 0, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 0, 2);
+									case 5:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 1, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 1, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 1, 2);
+									case 6:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 2, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 2, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 2, 2);
+									case 7:
+										daNote.rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 3, 0);
+										daNote.rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 3, 1);
+										daNote.rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 3, 2);
+								}
+							}*/
+							if (is5Key) {
+								var tempArray:Array<FlxColor> = [0xFFFFCC33, 0xFFFFFFFF, 0xFFCC6600]; // just in case
+								if (ClientPrefs.data.arrowRGB5Key != null) tempArray = ClientPrefs.data.arrowRGB5Key[4];
+								switch (daNote.noteData)
+								{
+									case 4:
+										daNote.rgbShader.r = tempArray[0];
+										daNote.rgbShader.g = tempArray[1];
+										daNote.rgbShader.b = tempArray[2];
+									case 9:
+										daNote.rgbShader.r = tempArray[0];
+										daNote.rgbShader.g = tempArray[1];
+										daNote.rgbShader.b = tempArray[2];
+								}
+							}
 							var strumGroup:FlxTypedGroup<StrumNote> = playerStrums;
 							if (!daNote.mustPress)
 								strumGroup = opponentStrums;
@@ -3493,6 +3621,12 @@ class PlayState extends MusicBeatState
 					uiPrefix == 'ratings/VSChar/';
 				}
 			}
+			for (song in ReferenceStrings.vsCharLegacySongs) // literally forgot this lmao
+			{
+				if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
+					uiPrefix == 'ratings/VSChar_Old/';
+				}
+			}
 		}
 
 		for (rating in ratingsData)
@@ -3555,11 +3689,20 @@ class PlayState extends MusicBeatState
 			{
 				for (song in ReferenceStrings.vsCharSongs)
 				{
+					//trace('cur Song checking: "$song"');
 					if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
-						uiPrefix = 'ratings/VSChar';
-						if (song == 'high-ground') uiPrefix += '_Old/'; else uiPrefix += '/';
+						uiPrefix == 'ratings/VSChar/';
 					}
 				}
+				for (song in ReferenceStrings.vsCharLegacySongs) // literally forgot this lmao
+				{
+					//trace('cur Song checking: "$song"');
+					if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
+						uiPrefix == 'ratings/VSChar_Old/';
+					}
+					curSong = Paths.formatToSongPath(SONG.song.toLowerCase());
+				}
+					//trace('got: "$curSong"');
 			}
 
 		if (FileSystem.exists(sharedPath + uiPrefix + daRating.image + uiSuffix + '.png')) rating.loadGraphic(Paths.image(uiPrefix + daRating.image + uiSuffix)); else rating.loadGraphic(Paths.image(daRating.image));

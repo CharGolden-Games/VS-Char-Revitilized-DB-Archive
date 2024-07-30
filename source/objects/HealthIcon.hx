@@ -35,7 +35,15 @@ class HealthIcon extends FlxSprite
 						winningIcon:String = '')
 	{
 		super();
-		charOldString = char + '-old';
+		var ranInt = FlxG.random.int(0,1);
+		var ranString:String = '';
+		switch (ranInt) {
+			case 0:
+				ranString = 'old';
+			case 1:
+				ranString = 'og';
+		}
+		if (char != 'char') charOldString = char + '-old'; else charOldString = char + ranString;
 		startingChar = char;
 		this.isPlayer = isPlayer;
 		this.hasAnimatedIcon = hasAnimatedIcon;
