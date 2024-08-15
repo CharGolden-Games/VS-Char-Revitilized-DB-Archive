@@ -69,6 +69,7 @@ class SaveVariables {
 	public var removePerfects:Bool = false;
 	public var dismissPico2Warning:Bool = false;
 	#if IS_LINUX public var dismissLinuxWarning:Bool = false; #end
+	public var showFC:Bool = true;
 	public var firstLegacyWarn:Bool = true;
 	public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -115,18 +116,17 @@ class ClientPrefs {
 	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
 		//Key Bind, Name for ControlsSubState
-		// cmon man everyone uses DFJK at this point lol
-		// note: this is different from options/ControlSubState.hx with the directions lol
-		'note_up'		=> [J, UP],
-		'note_left'		=> [D, LEFT],
-		'note_down'		=> [F, DOWN],
-		'note_right'	=> [K, RIGHT],
+		'note_up'		=> [W, UP],
+		'note_left'		=> [A, LEFT],
+		'note_down'		=> [S, DOWN],
+		'note_right'	=> [D, RIGHT],
 		'note_middle'	=> [SPACE], // Triple Trouble go brrrrrrrrr
 		
 		'ui_up'			=> [W, UP],
 		'ui_left'		=> [A, LEFT],
 		'ui_down'		=> [S, DOWN],
 		'ui_right'		=> [D, RIGHT],
+		'ui_switch'		=> [TAB],
 		
 		'accept'		=> [SPACE, ENTER],
 		'back'			=> [BACKSPACE, ESCAPE],
@@ -191,6 +191,23 @@ class ClientPrefs {
 	public static function loadDefaultKeys() {
 		defaultKeys = keyBinds.copy();
 		defaultButtons = gamepadBinds.copy();
+	}
+
+	public static function getKeys(identifier:String):Array<String> {
+		var keys:Array<FlxKey> = [A, A];
+		var keysToString:Array<String> = ['Null', 'Null'];
+		try {
+			keys = keyBinds.get(identifier);
+			for (key in keys) {
+				var keyString = key.toString();
+				keysToString = [];
+				keysToString.push(keyString);
+			}
+		trace('Keys got: $keys, $keysToString');
+		} catch(e:Dynamic) {
+			trace('Error getting key! $e');
+		}
+		return keysToString;
 	}
 
 	public static function saveSettings() {

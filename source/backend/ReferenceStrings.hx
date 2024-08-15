@@ -2,7 +2,11 @@ package backend;
 
 import sys.io.File;
 import sys.FileSystem;
+
+import flixel.addons.ui.U as FlxU;
+
 import backend.StageData;
+import backend.CreditsData;
 
 using StringTools;
 
@@ -59,6 +63,38 @@ class ReferenceStrings
 		// -- Secret --
 		'origins', 				// Ft. Igni?
 		'obligatory-bonus-song' // Ft. Char and Trevor
+	];
+
+	/**
+	 * Format goes: For each icon you want to assign to a song or multiple songs: Array[icon:Array<String>, songList:Array<String>]
+	 */
+	public static var songIcons:Array<Array<Array<String>>> = [
+		[['char'], ['tutorial', 'obligatory-bonus-song', 'triple-trouble']],
+		[['anny'], ['saloon-trouble']],
+		[['charold'], ['3-problems', 'slow', 'you-can-walk', 'infinite', 'shenanigans']],
+		[['charoldN'], ['free-movies-free']],
+		[['igni'], ['conflicting-views', 'ambush']],
+		[['zavi'], ['junkyard']],
+		[['micheal-blubber'], ['blubber']],
+		[['charmongusb'], ['defeat-char-mix', 'defeat-odd-mix']],
+		[['mcbf-new'], ['high-ground', 'high-grounder']],
+		[['mcbfv3'], ['high-ground-old']]
+	];
+
+	/**
+	 * What is this for? well each color HAS to corrospond to an entry in songIcons for CustomFreeplayMenuState!
+	 */
+	public static var songColors:Array<FlxColor> = [
+		0xFF9D00,
+		0xA000A8,
+		0xFF5100,
+		0xFF5100,
+		0x3D4249,
+		0xFFEC5B,
+		0xA7452C,
+		0xFF9D00,
+		0x2d2741,
+		0x31b0d1
 	];
 
 	/**
@@ -167,6 +203,65 @@ class ReferenceStrings
 	{
 		var cachedVersion:String = sys.io.File.getContent('./assets/$filePath.txt');
 		return cachedVersion;
+	}
+
+	inline public static function getHardCodedCredits(song:String):CreditsFile {
+		var credits:CreditsFile = {
+			songName: FlxU.FUL(song),
+			songArtist: 'NOT PROVIDED',
+			artist: 'NOT PROVIDED',
+			charter: 'NOT PROVIDED',
+			boxWidth: 350,
+			timeShown: 5,
+		};
+		switch (song) {
+			case 'tutorial':
+				credits = {
+				songName: 'Tutorial | Char\'s Mix',
+				songArtist: 'Char',
+				artist: 'Char',
+				charter: 'Char',
+				boxWidth: 350,
+				timeShown: 5,
+				};
+			case 'saloon-trouble':
+				credits = {
+					songName: 'Saloon Trouble',
+					songArtist: 'Char',
+					artist: 'Char',
+					charter: 'Char',
+					boxWidth: 350,
+					timeShown: 5,
+				};
+			case 'conflicting-views':
+				credits = {
+					songName: 'Conflicting Views',
+					songArtist: 'Char',
+					artist: 'Char',
+					charter: 'Char',
+					boxWidth: 350,
+					timeShown: 5,
+				};
+		 case 'ambush':
+			credits = {
+				songName: 'GET AMBUSHED SUCKA - Igni | Ambush',
+				songArtist: 'Char', //Make sure to do a funny and swap this with Igni on the fly!
+				artist: 'Char', //Make sure to do a funny and swap this with Igni on the fly!
+				charter: 'Char', //Make sure to do a funny and swap this with Igni on the fly!
+				boxWidth: 350,
+				timeShown: 5,
+			}
+		case 'triple-trouble':
+			credits = {
+				songName: 'Triple Trouble | Char Cover V3',
+				songArtist: 'MarStarBro',
+				artist: 'Char',
+				charter: '???/Char (Edited Chart)',
+				boxWidth: 350,
+				timeShown: 5,
+			}
+		}
+		return credits;
 	}
 
 	public static var totalAssetsToCache:Int = 0;

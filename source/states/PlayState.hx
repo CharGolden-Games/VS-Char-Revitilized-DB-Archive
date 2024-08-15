@@ -132,6 +132,7 @@ class PlayState extends MusicBeatState
 
 	var addStoryModeString:String;
 	var doHealthDrain:Bool = false;
+	var doHealthDrainEvent:Bool = false;
 	var addedDrain:Float = 0;
 
 	#if HSCRIPT_ALLOWED
@@ -332,6 +333,8 @@ class PlayState extends MusicBeatState
 	var ringSound:FlxSound;
 	var blockInput:Bool = true;
 	var formattedSong:String;
+	public static var songMenuStorage:Int = 0;
+	public static var sendToSongMenu:Bool = false;
 
 	override public function create()
 	{
@@ -1415,59 +1418,13 @@ class PlayState extends MusicBeatState
 			}
 				setOnScripts('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnScripts('defaultPlayerStrumY' + i, playerStrums.members[i].y); // put this afterwards so that scripts still affect it!
-				if (SONG.song == 'high-ground') {
-				switch (i)
-			{
-				case 0:
-					playerStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 0, 0);
-					playerStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 0, 1);
-					playerStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 0, 2);
-				case 1:
-					playerStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 1, 0);
-					playerStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 1, 1);
-					playerStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 1, 2);
-				case 2:
-					playerStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 2, 0);
-					playerStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 2, 1);
-					playerStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 2, 2);
-				case 3:
-					playerStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 3, 0);
-					playerStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 3, 1);
-					playerStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 3, 2);
-			}
-			}
 			}
 			for (i in 0...opponentStrums.length)
 			{
 				setOnScripts('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
 				setOnScripts('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
 				// if(ClientPrefs.data.middleScroll) opponentStrums.members[i].visible = false;
-				switch (i) {
-					case 4:
-						if (Paths.formatToSongPath(SONG.song).toLowerCase() == 'triple-trouble') opponentStrums.members[4].x = 4000; // you got some hidden talent! keep it hidden!
-				}
-				if (SONG.song == 'high-ground') {
-				switch (i)
-			{
-				case 0:
-					opponentStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 4, 0);
-					opponentStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 4, 1);
-					opponentStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 4, 2);
-				case 1:
-					opponentStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 5, 0);
-					opponentStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 5, 1);
-					opponentStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 5, 2);
-				case 2:
-					opponentStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 6, 0);
-					opponentStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 6, 1);
-					opponentStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 6, 2);
-				case 3:
-					opponentStrums.members[i].rgbShader.r = ReferenceStrings.getColorFromSubArray('highground', false, 7, 0);
-					opponentStrums.members[i].rgbShader.g = ReferenceStrings.getColorFromSubArray('highground', false, 7, 1);
-					opponentStrums.members[i].rgbShader.b = ReferenceStrings.getColorFromSubArray('highground', false, 7, 2);
-				}
 			}
-		}
 
 			startedCountdown = true;
 			Conductor.songPosition = -Conductor.crochet * 5;
@@ -1664,6 +1621,7 @@ class PlayState extends MusicBeatState
 	public function updateScore(miss:Bool = false)
 	{
 		var str:String = ratingName;
+		var scoreString:String = '';
 		if (!ClientPrefs.data.baseFNFHealthBar)
 		{
 			if (totalPlayed != 0)
@@ -1671,14 +1629,8 @@ class PlayState extends MusicBeatState
 				var percent:Float = CoolUtil.floorDecimal(ratingPercent * 100, 2);
 				str += ' ($percent%) - $ratingFC';
 			}
-			if (songMisses < 10)
-			{
-				scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + str;
-			}
-			else
-			{
-				scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' L + RATIO | Rating: ' + str;
-			}
+			scoreString = ClientPrefs.data.showFC ? 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + str : 'Score: ' + songScore + ' | Misses: ' + songMisses;
+			scoreTxt.text = scoreString;
 		}
 		else
 		{
@@ -2924,6 +2876,7 @@ class PlayState extends MusicBeatState
 	var isBolded:Bool = false;
 	var lyricSize:Int = 28;
 	var boldingShit:FlxTextBorderStyle;
+	var healthDrainEvent:Float = 0.02;
 
 	public function triggerEvent(eventName:String, value1:String, value2:String, strumTime:Float)
 	{
@@ -2946,6 +2899,18 @@ class PlayState extends MusicBeatState
 				else
 				{
 					allowOverHeal = false;
+				}
+			case 'Health Drain':
+				switch (value1.toLowerCase()) {
+					case 'true':
+						doHealthDrainEvent = true;
+					case 'false':
+						doHealthDrainEvent = false;
+				}
+				if (flValue2 == null) {
+					trace('NOT A FLOAT SUCKA DEFAULT VALUE USED.');
+				} else {
+					healthDrainEvent = flValue2;
 				}
 			case 'Hey!':
 				var value:Int = 2;
@@ -4203,10 +4168,14 @@ class PlayState extends MusicBeatState
 		healthDrain = (0.02 + addedDrain) * healthLoss;
 		//trace("Cur Health Drain: " + healthDrain);
 
-		if (doHealthDrain)
+		if (doHealthDrain && !note.noAnimation) // If a specifc anim is being played, but is also being charted with "No Animation" notes, don't do this check!
 		{
 			if (health > 0.2)
 				health = health - healthDrain;
+		} else if (doHealthDrainEvent && !note.noAnimation) {
+			
+			if (health > 0.2)
+				health = health - healthDrainEvent;
 		}
 		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
 			camZooming = true;

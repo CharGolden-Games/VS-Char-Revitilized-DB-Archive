@@ -4,6 +4,7 @@ import shaders.RGBPalette;
 import shaders.RGBPalette.RGBShaderReference;
 import backend.TracePassThrough as CustomTrace;
 import states.PlayState;
+import backend.ReferenceStrings;
 
 using StringTools;
 
@@ -212,21 +213,58 @@ class StrumNote extends FlxSprite
 			}
 			FlxG.log.warn('SHIT THAT "Static($direction)" DOESNT EXIST. the texture is: $texture, using default!!!');
 		}
-		if(useRGBShader) {
+		if(useRGBShader && is5Key) {
 		switch(Math.abs(noteData) % 5) {
 			case 4: // for some reason i have to manually initialize the RGB shader for notes after the originals
 				var ringColorArray:Array<FlxColor> = ClientPrefs.data.arrowRGB5Key[4];
 				rgbShader.r = (ringColorArray[0]);
 				rgbShader.g = (ringColorArray[1]);
 				rgbShader.b = (ringColorArray[2]);
+			}
 		}
-		}
+		if (PlayState.instance != null) {
+			var formattedSong:String = Paths.formatToSongPath(PlayState.SONG.song.toLowerCase()).trim();
+			if (formattedSong == 'high-ground' || formattedSong == 'high-grounder' || formattedSong == 'high-ground-old') {
+						rgbShader.b = 0xFFFFFF;
+						if (player == 1) {
+							switch(Math.abs(noteData) % 4) {
+								case 0:
+									rgbShader.r = ReferenceStrings.high_groundArrowRGB[0][0];
+									rgbShader.g = ReferenceStrings.high_groundArrowRGB[0][2];
+								case 1:
+									rgbShader.r = ReferenceStrings.high_groundArrowRGB[1][0];
+									rgbShader.g = ReferenceStrings.high_groundArrowRGB[1][2];
+								case 2:
+									rgbShader.r = ReferenceStrings.high_groundArrowRGB[2][0];
+									rgbShader.g = ReferenceStrings.high_groundArrowRGB[2][2];
+								case 3:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[3][0];
+								rgbShader.g = ReferenceStrings.high_groundArrowRGB[3][2];
+						}
+					} else {
+						switch(Math.abs(noteData) % 4) {
+							case 0:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[4][0];
+								rgbShader.g = ReferenceStrings.high_groundArrowRGB[4][2];
+							case 1:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[5][0];
+								rgbShader.g = ReferenceStrings.high_groundArrowRGB[5][2];
+							case 2:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[6][0];
+								rgbShader.g = ReferenceStrings.high_groundArrowRGB[6][2];
+							case 3:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[7][0];
+								rgbShader.g = ReferenceStrings.high_groundArrowRGB[7][2];
+					}
+			}
 
+	}
+}
 		if(lastAnim != null)
 		{
 			playAnim(lastAnim, true);
 		}
-	}
+}
 
 	public function postAddedToGroup() {
 		playAnim('static');

@@ -166,13 +166,17 @@ class Main extends Sprite
 			FileSystem.createDirectory("./crash/");
 
 		var randomTextAddition:String;
-		var random:Int = FlxG.random.int(1, 2);
+		var random:Int = FlxG.random.int(1, 4);
 		switch (random)
 		{
 			default:
 				randomTextAddition = 'You have unlocked an achievement:\n I FUCKING DIED :D';
 			case 2:
 				randomTextAddition = 'You have unlocked an achievement: "OH GOD THE PAIN THE PAIN AAAAAAAAAAAAAAAAAAAAAAAAAAA"';
+			case 3:
+				randomTextAddition = "Char was killed by [Unintentional Game Design]";
+			case 4:
+				randomTextAddition = "***Insert Hacker Code Here***";
 		}
 
 		File.saveContent(path, errMsg + "\n" + randomTextAddition);

@@ -1,1 +1,0 @@
-i borked the export of an icon and thought itd be funny to leave it like it is so thats why theres an icon that looks like a masking texture

@@ -29,6 +29,7 @@ class ControlsSubState extends MusicBeatSubstate
 		[true, 'Down', 'ui_down', 'UI Down'],
 		[true, 'Up', 'ui_up', 'UI Up'],
 		[true, 'Right', 'ui_right', 'UI Right'],
+		[false, 'Switch', 'ui_switch', 'UI Switch'], // FUCK YOU, YOU DONT GET THE LUXURY OF UI_SWITCH
 		[true],
 		[true, 'Reset', 'reset', 'Reset'],
 		[true, 'Accept', 'accept', 'Accept'],

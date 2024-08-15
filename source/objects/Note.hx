@@ -7,6 +7,7 @@ import backend.NoteTypesConfig;
 import shaders.RGBPalette;
 import shaders.RGBPalette.RGBShaderReference;
 import objects.StrumNote;
+import backend.ReferenceStrings;
 
 import flixel.math.FlxRect;
 
@@ -167,6 +168,69 @@ class Note extends FlxSprite
 		noteSplashData.texture = PlayState.SONG != null ? PlayState.SONG.splashSkin : 'noteSplashes';
 		defaultRGB();
 
+		if (PlayState.instance != null) {
+			var formattedSong:String = Paths.formatToSongPath(PlayState.SONG.song.toLowerCase()).trim();
+			if (formattedSong == 'high-ground' || formattedSong == 'high-grounder' || formattedSong == 'high-ground-old') {
+				rgbShader.g = 0xFFFFFF;
+				switch (mustPress) {
+					case true:
+						switch(noteData) {
+							case 0:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[0][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[0][2];
+							case 1:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[1][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[1][2];
+							case 2:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[2][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[2][2];
+							case 3:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[3][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[3][2];
+							case 4:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[0][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[0][2];
+							case 5:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[1][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[1][2];
+							case 6:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[2][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[2][2];
+							case 7:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[3][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[3][2];
+						}
+					case false:
+						switch(noteData) {
+							case 0:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[4][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[4][2];
+							case 1:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[5][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[5][2];
+							case 2:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[6][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[6][2];
+							case 3:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[7][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[7][2];
+							case 4:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[4][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[4][2];
+							case 5:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[5][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[5][2];
+							case 6:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[6][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[6][2];
+							case 7:
+								rgbShader.r = ReferenceStrings.high_groundArrowRGB[7][0];
+								rgbShader.b = ReferenceStrings.high_groundArrowRGB[7][2];
+						}
+				}
+			}
+		}
+
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
 				case 'Static Note':
@@ -193,6 +257,7 @@ class Note extends FlxSprite
 					noteSplashData.g = 0xFF101010;
 					noteSplashData.texture = 'noteSplashes/noteSplashes-electric';
 					hitCausesMiss = true;
+					alpha = 0.5;
 				case 'ring':
 					texture = 'noteSkins/NOTE_assets-ring';
 					ignoreNote = mustPress;

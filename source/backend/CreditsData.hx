@@ -10,6 +10,7 @@ import tjson.TJSON as Json;
 import states.PlayState;
 import flixel.addons.ui.U;
 import backend.TracePassThrough as CustomTrace;
+import backend.ReferenceStrings;
 
 typedef CreditsFile = 
 {
@@ -35,14 +36,7 @@ class CreditsData
 		/*if (!isFreeplay) {
         CustomTrace.trace('"credits.json" DOES NOT EXIST', 'err'); // don't need this, theres a very clear indicator lmao.
 		}*/
-                return {
-				songName: U.FUL(song),
-				songArtist: 'NOT PROVIDED',
-				artist: 'NOT PROVIDED',
-				charter: 'NOT PROVIDED',
-				boxWidth: 350,
-				timeShown: 5,
-                };
+                return ReferenceStrings.getHardCodedCredits(Paths.formatToSongPath(song.toLowerCase()).trim());
 	}
     
     // stolen from StageData lmao
