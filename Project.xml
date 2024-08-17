@@ -74,7 +74,7 @@
 	<assets path="assets/preload" rename="assets" exclude="*.mp3 || *.md"  unless="web"/>
 	<assets path="assets/fallbacks/images" library="image_backups" rename="assets/images/backups" />
 
-	<define name="CHECK_FOR_UPDATES"/> <!-- add if="isOfficialBuild" if you don't want your version to check for updates-->
+	<define name="CHECK_FOR_UPDATES" if="officialBuild"/> <!-- add if="isOfficialBuild" if you don't want your version to check for updates-->
 
 	<!-- Week Assets -->
 	<library name="videos"        preload="true" />
