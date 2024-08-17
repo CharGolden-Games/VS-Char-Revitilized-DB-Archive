@@ -26,7 +26,7 @@ import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.ui.U as UI_U;
+import flixel.addons.ui.U as FlxU;
 import flixel.math.FlxPoint;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
@@ -112,7 +112,7 @@ class PlayState extends MusicBeatState
 	var black1:FlxSprite;
 	var black2:FlxSprite;
 	var lyrics:FlxText;
-	var allowOverHeal:Bool = false;
+	public static var allowOverHeal:Bool = false;
 	var creditsBox:FlxSprite;
 	var creditsSongNameText:FlxText;
 	var creditsSongArtistText:FlxText;
@@ -220,6 +220,7 @@ class PlayState extends MusicBeatState
 
 	public var healthBar:HealthBar;
 	public var healthBarOverlay:FlxSprite;
+	var ogPos:Array<Float> = [0, 0];
 	public var timeBar:HealthBar;
 
 	var songPercent:Float = 0;
@@ -335,6 +336,7 @@ class PlayState extends MusicBeatState
 	var formattedSong:String;
 	public static var songMenuStorage:Int = 0;
 	public static var sendToSongMenu:Bool = false;
+	var deezNuts:FlxText;
 
 	override public function create()
 	{
@@ -665,6 +667,10 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.data.minimizedHealthbar) {
 			healthBar.width = healthBar.width * 0.5;
 		}
+		ogPos = [];
+		ogPos.push(healthBar.x);
+		ogPos.push(healthBar.y);
+		trace('ogPos: $ogPos');
 
 			healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlay'));
 			healthBarOverlay.y = FlxG.height * 0.89;
@@ -904,6 +910,13 @@ class PlayState extends MusicBeatState
 			ENGINE_WATERMARK.camera = camWatermark;
 			ENGINE_WATERMARK.alpha = 0.70;
 		}
+
+		deezNuts = new FlxText(0, healthBar.y, healthBar.width, "0%", 20);
+		deezNuts.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.ORANGE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		deezNuts.camera = camHUD;
+		//deezNuts.visible = false;
+		deezNuts.screenCenter();
+		add(deezNuts);
 		super.create();
 		if (!ClientPrefs.data.enableCaching) {
 			Paths.clearUnusedMemory();
@@ -2203,9 +2216,12 @@ class PlayState extends MusicBeatState
 	public var canReset:Bool = true;
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
+	var ranTrace:Bool = false;
 
 	override public function update(elapsed:Float)
 	{
+		deezNuts.text = Std.string(Math.min(Math.round(health * 50), 200)/**Because otherwise youll see like 69.696969696969 or some shit. and Math.min to prevent flicker!**/) + '%';
+		deezNuts.x = healthBar.barCenter;
 		/*if (iconP3 != null) {
 			iconP3.y = iconP1.y - 50;
 			iconP3.x = iconP1.x + 75;
@@ -2232,7 +2248,7 @@ class PlayState extends MusicBeatState
 			}
 			if (creditsData == null)
 			{
-				openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + UI_U.FUL(SONG.song) +
+				openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + FlxU.FUL(SONG.song) +
 					' - Not Provided';
 			}
 			else
@@ -2240,28 +2256,6 @@ class PlayState extends MusicBeatState
 				openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + creditsSongName.trim() + ' | '
 					+ creditsSongArtist.trim();
 			}
-			// finally made softmoddable, this code below is no longer needed.
-			/*switch (songName.toLowerCase())
-			{
-				case 'tutorial':
-					openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + 'Tutorial | Kawai Sprite'; // "Tutorial Char's Mix | Anny Char";
-					// yes this is planned bitch.
-				case 'high-ground':
-					openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + "High Ground | ODDBLUE";
-				case 'higher-ground':
-					openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + "High Ground Char's Mix | Anny (Char)";
-				case 'triple-trouble':
-					openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + "Triple Trouble Char Cover V3 | MarStarBro";
-				case 'defeat-char-mix':
-					openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + "Defeat Char Mix | ODDBLUE";
-				case 'defeat-odd-mix':
-					openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + "Defeat ODDBLUE Mix | ODDBLUE";
-				case 'pico2':
-					openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + "Pico 2 | Relgaoh | Chart by Anny (Char)";
-				case 'bopeebo':
-					openfl.Lib.application.window.title = "Friday Night Funkin': VS Char Revitalized" + addStoryModeString + 'Bopeebo | Kawai Sprite'; // "Bopeebo Char's Mix | Anny (Char)";
-					// yes this is planned bitch.
-		}*/
 		}
 		callOnScripts('onUpdate', [elapsed]);
 
@@ -2312,10 +2306,28 @@ class PlayState extends MusicBeatState
 		iconBop(elapsed);
 
 		var iconOffset:Int = 26;
+		//if (allowOverHeal) {
+			//trace('Overheal Enabled');
+			if (health > 2) {
+				//deezNuts.visible = true;
+				var offsetCalc = health >= 3.1 ? health - 2 : health - 1;
+				healthBar.x = Math.max(0, ogPos[0] - (100 * offsetCalc));
+				healthBarOverlay.x = healthBar.x;
+			 	iconOffset = Std.int(50 * offsetCalc);
+			} else if (health <= 2) {
+				healthBar.x = ogPos[0]; // just triple make sure yknow.
+				healthBarOverlay.x = healthBar.x;
+				iconOffset = 26;
+			}
+			if (health > 4)
+				health = 4;
+		/*} else {
+			if (health > 2)
+				health = 2;
+		}*/
+
 		iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 		iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-		//if (health > 2)
-			//health = 2;
 
 		if (iconP1.animation.numFrames >= 3 && iconP1.animation.numFrames != 9)
 		{
@@ -2889,16 +2901,24 @@ class PlayState extends MusicBeatState
 
 		switch (eventName)
 		{
+			case 'Force Show Rings':
+				switch ((value1.toLowerCase()).trim()) {
+					case 'true':
+						ringText.alpha = 1;
+					case 'false':
+						ringText.alpha = 0;
+				}
 			case 'Enable Overheal':
-				if (value1 != null && value1 == '1')
+				if (flValue1 != null && flValue1 == 1)
 				{
 					allowOverHeal = true;
-					var healthText:FlxText = new FlxText(healthBar.x, healthBar.y + 50, healthBar.width, Std.string(health));
-					add(healthText);
+					ranTrace = false;
 				}
 				else
 				{
+					trace('NOT ONE OR NOT A CORRECT VALUE.');
 					allowOverHeal = false;
+					ranTrace = false;
 				}
 			case 'Health Drain':
 				switch (value1.toLowerCase()) {

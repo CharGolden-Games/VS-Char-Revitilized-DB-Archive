@@ -109,7 +109,7 @@ class CustomFreeplayMenuState extends MusicBeatState
             var ogZoom = camMain.zoom;
             FlxTween.tween(camMain, {zoom: 2}, 1, {ease: FlxEase.elasticInOut, onComplete: function(twn:FlxTween){
                 MusicBeatState.switchState(new SongMenuState(catList[curSelection]));
-                camMain.zoom = ogZoom;
+                //camMain.zoom = ogZoom;
             }});
         }
         if (controls.UI_LEFT) {
@@ -380,7 +380,7 @@ class SongMenuState extends MusicBeatState {
         add(tempText);
         switchPages.destroy();
         var curTab:String = catList[curSongList];
-        switchPages = new FlxText(0, 0, FlxG.width, 'Press $uiSwitchButton to change tabs!\nCurrent Tab: $curTab', 24);
+        switchPages = new FlxText(0, 0, 0, 'Press $uiSwitchButton to change tabs!\nCurrent Tab: $curTab', 24);
         switchPages.setFormat(Paths.font('vcr.ttf'), 24, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BROWN);
         switchPages.x = 0; // it keeps moving to the center????
         add(switchPages);
@@ -389,7 +389,7 @@ class SongMenuState extends MusicBeatState {
         var image:FlxGraphic;
         if (songs[curSelected] == 'blubber') image = Paths.image('freeplay/coverArt/blubberSquare'); else image = Paths.image('missingImage');
         songIcon = new FlxSprite().loadGraphic(image);
-        songIcon.setGraphicSize(512);
+        songIcon.setGraphicSize(384);
         songIcon.updateHitbox();
         songIcon.screenCenter();
         songIcon.antialiasing = ClientPrefs.data.antialiasing;

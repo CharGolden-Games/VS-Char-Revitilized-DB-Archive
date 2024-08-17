@@ -195,12 +195,12 @@ class ClientPrefs {
 
 	public static function getKeys(identifier:String):Array<String> {
 		var keys:Array<FlxKey> = [A, A];
-		var keysToString:Array<String> = ['Null', 'Null'];
+		var keysToString:Array<String> = [];
 		try {
 			keys = keyBinds.get(identifier);
 			for (key in keys) {
+				trace ('cur key: $key');
 				var keyString = key.toString();
-				keysToString = [];
 				keysToString.push(keyString);
 			}
 		trace('Keys got: $keys, $keysToString');
