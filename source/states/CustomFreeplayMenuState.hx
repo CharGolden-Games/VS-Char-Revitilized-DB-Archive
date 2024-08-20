@@ -182,7 +182,7 @@ class SongMenuState extends MusicBeatState {
         // Secret
         ['origins', 'obligatory-bonus-song'],
         // Collabs
-        ['high-ground-old', 'high-ground', 'high-grounder'],
+        ['high-ground', 'high-ground-old',],
         // Legacy
         ['free-movies-free', '3-problems', 'slow', 'you-can-walk', 'vesania', 'infinite', 'shenanigans']
     ];

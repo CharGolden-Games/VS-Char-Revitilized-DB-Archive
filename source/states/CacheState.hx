@@ -443,7 +443,7 @@ class CacheState extends MusicBeatState
         }
         function preCache()
         {
-            startTimer(1);
+            /*startTimer(1);
             if (!cachingDone) {
                 isCached = true;
                 for (i in 0...assetsToCache.length){
@@ -486,11 +486,15 @@ class CacheState extends MusicBeatState
                                 
                             }
                         }
-                        secretSound = new FlxSound().loadEmbedded(Paths.sound('SecretSound'), true);
                         var timer:FlxTimer = new FlxTimer().start(2, function(tmr:FlxTimer){
                             checkCacheStatus(); // for good measures call it one final time!!!!
                         });
-                        }
+                        }*/
+                    
+                        secretSound = new FlxSound().loadEmbedded(Paths.sound('SecretSound'), true);
+                        var timer:FlxTimer = new FlxTimer().start(2, function(tmr:FlxTimer){
+                            backToMenu(tmr);
+                        });
         }
 
         inline function checkCacheStatus()

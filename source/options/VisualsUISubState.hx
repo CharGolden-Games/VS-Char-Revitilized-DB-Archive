@@ -146,9 +146,9 @@ class VisualsUISubState extends BaseOptionsMenu
 		'Enables showing the strings that say "Based on:" and "Char Engine v"',
 		'showBasedOnString',
 		'bool');
-		addOption(option)
+		addOption(option);
 		
-		#if CHECK_FOR_UPDATES;
+		#if CHECK_FOR_UPDATES
 		var option:Option = new Option('Check for Updates',
 			'On Non-Github builds, turn this on to check for updates when you start the game.',
 			'checkForUpdates',
