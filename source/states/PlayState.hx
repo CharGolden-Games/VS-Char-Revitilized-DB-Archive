@@ -2220,7 +2220,8 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		deezNuts.text = Std.string(Math.min(Math.round(health * 50), 200)/**Because otherwise youll see like 69.696969696969 or some shit. and Math.min to prevent flicker!**/) + '%';
+		var healthDeflicker = Math.min(health, 4);
+		deezNuts.text = Std.string(Math.round(healthDeflicker * 50)/**Because otherwise youll see like 69.696969696969 or some shit.**/) + '%';
 		deezNuts.x = healthBar.barCenter;
 		/*if (iconP3 != null) {
 			iconP3.y = iconP1.y - 50;
@@ -2310,7 +2311,7 @@ class PlayState extends MusicBeatState
 			//trace('Overheal Enabled');
 			if (health > 2) {
 				//deezNuts.visible = true;
-				var offsetCalc = health >= 3.1 ? health - 2 : health - 1;
+				var offsetCalc = healthDeflicker >= 3.1 ? healthDeflicker - 2 : healthDeflicker - 1;
 				healthBar.x = Math.max(0, ogPos[0] - (100 * offsetCalc));
 				healthBarOverlay.x = healthBar.x;
 			 	iconOffset = Std.int(50 * offsetCalc);
