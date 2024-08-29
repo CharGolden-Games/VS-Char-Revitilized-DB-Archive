@@ -2,10 +2,11 @@ package options;
 
 import states.MainMenuState;
 import backend.StageData;
+import new_options.CharOptions;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
+	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay', 'Test Options State'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -27,6 +28,8 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
 				MusicBeatState.switchState(new options.NoteOffsetState());
+			case 'Test Options State':
+				MusicBeatState.switchState(new CharOptions());
 		}
 	}
 
@@ -112,7 +115,7 @@ class OptionsState extends MusicBeatState
                 nEWMessageWindowlmao.screenCenter(XY);
                 nEWMessageWindowlmao.alpha = 0.75;
                 add(nEWMessageWindowlmao);
-                saveResetText = new FlxText(nEWMessageWindowlmao.x, nEWMessageWindowlmao.y, nEWMessageWindowlmao.width, 'ARE YOU ABSOLUTELY POSITIVELY SURE YOU WANNA DELETE YOUR SAVE?????
+                saveResetText = new FlxText(nEWMessageWindowlmao.x, nEWMessageWindowlmao.y, nEWMessageWindowlmao.width, 'ARE YOU ABSOLUTELY POSITIVELY SURE YOU WANNA DELETE YOUR SAVE? (This will close the game.)
                 \nENTER = YES, ESC = NO', 35);
                 saveResetText.setFormat('funkin.otf', 35, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
                 add(saveResetText);
@@ -141,8 +144,7 @@ class OptionsState extends MusicBeatState
 		}
 		else if (controls.ACCEPT && !resetWarningActive) openSelectedSubstate(options[curSelected]);
 		if (resetWarningActive && controls.ACCEPT) {
-            FlxG.save.erase();
-            FlxG.resetGame(); // because otherwise it might commit die lmao.
+            ClientPrefs.resetSavedata();
         } else if (resetWarningActive && controls.BACK) {
             saveResetText.destroy();
             nEWMessageWindowlmao.destroy();

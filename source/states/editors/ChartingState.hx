@@ -91,8 +91,8 @@ class ChartingState extends MusicBeatState
 		['BURN BABY', 'Triggers the BURN event in the CharTT stage.\nValue 1: \nBURN = set it to the burning forest state\nBURNT = set it to the burnt state, like trioStage\nUNBURNT = put it back to normal\nValue 2: Duration of Flash, Leave blank for no flash'],
 		['Black Bars', 'Cinematic ass bars lmao\n\n\nValue 1: 1 = Enable,\nliterally anything else = disable'], // converted LUA to source code.
 		['lyricals', 'ADD SOME LYRICS BENCH \n\n\nset the color with the "Lyrics Color" Event\n\n\nValue 1 = Text to display\nValue 2 = Text Size'], // converted LUA to source code.
-		['Lyrics Color', 'Changes the color of Lyrics for the event "lyricals"\n\n\nValue 1 = Text Color\nExample Color Codes: #FF0000, 0xFFFF0000, or #FFFF0000\n\n\nValue 2 = Text Bolding\nthe Bolding part is the me making this event have a\npurpose to exist.\n\nTrue = Enable, False = Disable'], // converted LUA to source code.
-		['Allow Overheal', 'pretty simple really,\nValue 1: 1 to enable anything else to disable.'],
+		['Lyrics Color', 'Changes the color of Lyrics for the event "lyricals"\n\n\nValue 1 = Text Color\nExample Color Codes: #FF0000,\n0xFFFF0000,\nor #FFFF0000\n\n\nValue 2 = Text Bolding\nthe Bolding part is the me making this event have a\npurpose to exist.\n\nTrue = Enable, False = Disable'], // converted LUA to source code.
+		['Allow Overheal', 'pretty simple really,\nValue 1: 1/True (Case insensitive) to enable anything else to disable.'],
 		['Set Cam Zoom', 'Set the Cam Zoom!\nValue 1: Cam Zoom,\nValue 2: Tween Time'],
 		['Health Drain', 'Sets Health Drain\nValue 1: True/False Enable/Disable Health Drain\nValue 2: How much healthdrain (as long as health > 0.2)'],
 		['Force Show Rings', 'Value 1: True/False\n unhides/hides the Ring count for non-ring songs.']

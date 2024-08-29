@@ -20,6 +20,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.addons.transition.FlxTransitionableState;
 
 import sys.FileSystem;
+import sys.io.File;
 
 class CustomFreeplayMenuState extends MusicBeatState
 {
@@ -144,7 +145,7 @@ class CustomFreeplayMenuState extends MusicBeatState
         trace('Cur Catagory: ' + catList[curSelection]);
         catImage.destroy();
         var catagoryImg:String = catList[curSelection];
-        switch (catList[curSelection]) {// ONLY ADD IF YOU WANT TO USE A SEPERATE FILE NAME.
+        switch (catList[curSelection]) {// ONLY ADD A CASE HERE IF YOU WANT TO USE A SEPERATE FILE NAME.
             case 'story':
                 catagoryImg = 'main';
         }
@@ -171,7 +172,7 @@ class CustomFreeplayMenuState extends MusicBeatState
 
 class SongMenuState extends MusicBeatState {
     // Generic Lists
-    var songs:Array<String> = [];
+    public static var songs:Array<String> = [];
     var catSongList:Array<Array<String>> = [
         // Story
         ['tutorial', 'saloon-trouble', 'conflicting-views', 'ambush'],
@@ -196,7 +197,7 @@ class SongMenuState extends MusicBeatState {
     ];
     var curSongList:Int = 0;
     var curIcon:HealthIcon;
-    var curSelected:Int = 0;
+    public static var curSelected:Int = 0;
     var tempText:FlxText;
     var missingText:FlxText;
     var missingTextBG:FlxSprite;
@@ -359,6 +360,67 @@ class SongMenuState extends MusicBeatState {
 			FlxTransitionableState.skipNextTransOut = true;
             switchPage();
         }
+        if (FlxG.keys.justPressed.F) {
+            openSubState(new SongWarnSubState());
+        }
+    }
+
+    override function closeSubState() {
+        trace('WARNING, THIS SHIT GOT A WARNING NOW?!');
+        var randomArray:Array<Int> = [
+            FlxG.random.int(0, 9),
+            FlxG.random.int(0, 19),
+            FlxG.random.int(0, 29),
+            FlxG.random.int(0, 39),
+            FlxG.random.int(0, 49)
+        ];
+        var randomFileName:String = '';
+        switch (FlxG.random.bool(50)) {
+            case false:
+                randomFileName = Std.string(randomArray[0] + '-' + randomArray[1] + '-' + randomArray[2] + '-' + randomArray[3] + '-' + randomArray[4]);
+            case true:
+                randomFileName = Std.string(randomArray[0] + randomArray[1] + randomArray[2] + randomArray[3] + randomArray[4]);
+        }
+        var randomNumber = Std.string(randomArray[0] + '-' + randomArray[1] + '-' + randomArray[2] + '-' + randomArray[3] + '-' + randomArray[4]);
+        
+        var fileName:String = 'freeplayWarn_$randomFileName.txt';
+        var err:String = SongWarnSubState.err;
+        try {
+            if (!FileSystem.exists('./assets/fuckYou/')) FileSystem.createDirectory('assets/fuckYou');
+        } catch(e:Dynamic) {
+            trace('Error! $e');
+        }
+        try {
+            var randomText:String = '';
+            switch (randomArray[0]) {
+                case 0:
+                    randomText = 'Did you know: I am 100 meters from your location, and approaching rapidly! Start running.';
+                case 1:
+                    randomText = 'Did you know: I am 100 meters from your location, and approaching rapidly! Start running.';
+                case 2:
+                    randomText = 'Did you know: I am 100 meters from your location, and approaching rapidly! Start running.';
+                case 3:
+                    randomText = 'Haha mongus.';
+                case 4:
+                    randomText = 'I am in your walls.';
+                case 5:
+                    randomText = '[REDACTED] you!';
+                case 6:
+                    randomText = '[REDACTED] you! You [REDACTED] [REDACTED]';
+                case 7:
+                    randomText = 'There would be cool generated ASCII art here, but it\'ll error out and prevent compilation. :shrug:';
+                case 8:
+                    randomText = 'Murder you.';
+                case 9:
+                    randomText = 'Im gonna Char the Kiler you.';
+            }
+            var number = StringTools.replace(randomNumber, '-', ' ');
+            var errString:String = err != 'default' ? err : '';
+            sys.io.File.saveContent('assets/warnLogs/$fileName', '[REDACTED] you!\n\nYour number this time was $number           Think of it like the world seed :)\n\n\n$randomText\n\n\n\n\n\nBtw there was an error, "$errString"');
+        } catch(e:Dynamic) {
+            trace('Error! $e');
+        }
+        super.closeSubState();
     }
 
     function changeSelection(change:Int = 0) {
@@ -441,5 +503,52 @@ class SongMenuState extends MusicBeatState {
         if (curSongList >= catSongList.length)
             newPage = 0;
         MusicBeatState.switchState(new SongMenuState('default', newPage));
+    }
+}
+
+class SongWarnSubState extends MusicBeatSubstate
+{
+    var sings = SongMenuState.songs;
+    var curSelected = SongMenuState.curSelected;
+    public static var songsWithWarning:Array<String> = [
+        'high-ground-old',
+        'defeat-char-mix',
+        'free-movies-free', 
+        '3-problems', 
+        'slow', 
+        'you-can-walk', 
+        'vesania', 
+        'infinite', 
+        'shenanigans',
+        'triple-trouble' // Remove when mechanic is finished!
+    ];
+    var warnText:FlxText;
+    var warnBG:FlxSprite;
+    var warnTimer:FlxTimer = new FlxTimer();
+    public static var err:String = 'default';
+
+    public function new() {
+        super();
+
+        trace('sings: "$sings"      curSelected: "$curSelected"');
+
+                warnBG = new FlxSprite().makeGraphic(FlxG.width + 200, FlxG.height + 200, FlxColor.BLACK);
+                warnBG.alpha = 0.6;
+                add(warnBG);
+
+        for (sing in songsWithWarning) {
+            if (sings[curSelected] == sing) {
+                err = 'Warning for "$sing"\nThis chart is HORRENDOUS. YOU HAVE BEEN WARNED.';
+                if (sing == 'triple-trouble') err = 'Triple Trouble\'s chart is EXTREMELY broken';
+                warnText = new FlxText(0,0,0,err,20);
+                warnText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+                warnText.screenCenter();
+                add(warnText);
+            }
+        }
+        warnTimer.start(5, function(tmr:FlxTimer){
+            FlxG.sound.play(Paths.sound('cancelMenu'));
+            close();
+        });
     }
 }

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="pauseMenuAssets.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Botplay Hover0000" x="707" y="1410" width="270" height="212"/>
+	<SubTexture name="Botplay Idle0000" x="0" y="1450" width="215" height="157"/>
+	<SubTexture name="Exit Hover0000" x="707" y="725" width="518" height="234"/>
+	<SubTexture name="Exit Idle0000" x="1199" y="1203" width="441" height="173"/>
+	<SubTexture name="PauseMenuBG0000" x="0" y="725" width="702" height="720" frameX="0" frameY="0" frameWidth="706" frameHeight="720"/>
+	<SubTexture name="PauseMenuBG0001" x="0" y="725" width="702" height="720" frameX="0" frameY="0" frameWidth="706" frameHeight="720"/>
+	<SubTexture name="PauseMenuBG0002" x="0" y="0" width="706" height="720"/>
+	<SubTexture name="PauseMenuBG0003" x="0" y="0" width="706" height="720"/>
+	<SubTexture name="PauseMenuBG0004" x="711" y="0" width="706" height="720"/>
+	<SubTexture name="PauseMenuBG0005" x="711" y="0" width="706" height="720"/>
+	<SubTexture name="Restart Hover0000" x="707" y="1203" width="487" height="202"/>
+	<SubTexture name="Restart Idle0000" x="1230" y="973" width="441" height="156"/>
+	<SubTexture name="Restart Small Hover0000" x="1230" y="725" width="296" height="243"/>
+	<SubTexture name="Restart Small Idle0000" x="220" y="1450" width="215" height="156"/>
+	<SubTexture name="Resume Hover0000" x="707" y="964" width="518" height="234"/>
+	<SubTexture name="Resume Idle0000" x="1199" y="1381" width="441" height="156"/>
+</TextureAtlas>

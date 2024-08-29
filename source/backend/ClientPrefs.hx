@@ -3,6 +3,7 @@ package backend;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
+import flash.system.System;
 
 import states.TitleState;
 
@@ -208,6 +209,20 @@ class ClientPrefs {
 			trace('Error getting key! $e');
 		}
 		return keysToString;
+	}
+
+	public static function resetSavedata() {
+		var save:FlxSave = new FlxSave();
+		save.bind('controls_v3', CoolUtil.getSavePath());
+		save.erase();
+		save.bind('controls_v3', CoolUtil.getSavePath());
+		save.flush();
+		save.bind('VS-Char-Revitalized', CoolUtil.getSavePath());
+		save.erase();
+		save.bind('VS-Char-Revitalized', CoolUtil.getSavePath());
+		save.flush();
+		Sys.sleep(2);
+		System.exit(0);
 	}
 
 	public static function saveSettings() {

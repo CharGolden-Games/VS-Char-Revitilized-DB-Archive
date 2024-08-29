@@ -272,7 +272,7 @@ class CacheState extends MusicBeatState
                     nEWMessageWindowlmao.updateHitbox();
                     nEWMessageWindowlmao.alpha = 0.75;
                     add(nEWMessageWindowlmao);
-                    saveResetText = new FlxText(nEWMessageWindowlmao.x, nEWMessageWindowlmao.y, nEWMessageWindowlmao.width, 'ARE YOU ABSOLUTELY POSITIVELY SURE YOU WANNA DELETE YOUR SAVE?????
+                    saveResetText = new FlxText(nEWMessageWindowlmao.x, nEWMessageWindowlmao.y, nEWMessageWindowlmao.width, 'ARE YOU ABSOLUTELY POSITIVELY SURE YOU WANNA DELETE YOUR SAVE? (This will close the game.)
                     \n\n\n\nENTER = YES, ESC = NO', 35);
                     saveResetText.setFormat('funkin.otf', 35, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
                     add(saveResetText);
@@ -408,8 +408,7 @@ class CacheState extends MusicBeatState
                                     timer.start(2, backToMenu);
                                 }
         } if (resetWarningActive && controls.ACCEPT) {
-            FlxG.save.erase();
-            FlxG.resetGame(); // because otherwise it might commit die lmao.
+            ClientPrefs.resetSavedata();
         } else if (resetWarningActive && controls.BACK) {
             saveResetText.destroy();
             nEWMessageWindowlmao.destroy();

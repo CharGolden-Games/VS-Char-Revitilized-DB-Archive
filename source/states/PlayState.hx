@@ -904,13 +904,6 @@ class PlayState extends MusicBeatState
 		}
 		// why is it done like this? so i can be lazy and not have to worry about null errors lmao
 
-		
-		if (ClientPrefs.data.showBasedOnString) {
-			blackWatermarkBG.camera = camWatermark;
-			ENGINE_WATERMARK.camera = camWatermark;
-			ENGINE_WATERMARK.alpha = 0.70;
-		}
-
 		deezNuts = new FlxText(0, healthBar.y, healthBar.width, "0%", 20);
 		deezNuts.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.ORANGE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		deezNuts.camera = camHUD;
@@ -1387,7 +1380,12 @@ class PlayState extends MusicBeatState
 			callOnScripts('onStartCountdown');
 			return false;
 		}
-
+		
+		if (ClientPrefs.data.showBasedOnString) {
+			spawnWatermark();
+			blackWatermarkBG.camera = camWatermark;
+			ENGINE_WATERMARK.camera = camWatermark;
+		}
 		
 		FlxTween.tween(healthBar, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		if (!ClientPrefs.data.baseFNFHealthBar)FlxTween.tween(healthBarOverlay, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
@@ -1395,9 +1393,6 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(iconP2, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		//if(iconP3 != null) FlxTween.tween(iconP3, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
 		//if(iconP4 != null) FlxTween.tween(iconP4, {alpha: ClientPrefs.data.healthBarAlpha}, 0.5, {ease: FlxEase.circOut});
-		if (ClientPrefs.data.showBasedOnString) {
-			spawnWatermark();
-		}
 
 		seenCutscene = true;
 		inCutscene = false;
@@ -2220,9 +2215,11 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		var healthDeflicker = Math.min(health, 4);
+		var healthCompare:Int = allowOverHeal ? 4 : 2;
+		var healthDeflicker = Math.min(health, healthCompare);
 		deezNuts.text = Std.string(Math.round(healthDeflicker * 50)/**Because otherwise youll see like 69.696969696969 or some shit.**/) + '%';
-		deezNuts.x = healthBar.barCenter;
+		deezNuts.x = healthBar.getGraphicMidpoint().x;
+		deezNuts.y = healthBar.getGraphicMidpoint().y;
 		/*if (iconP3 != null) {
 			iconP3.y = iconP1.y - 50;
 			iconP3.x = iconP1.x + 75;
@@ -2307,11 +2304,11 @@ class PlayState extends MusicBeatState
 		iconBop(elapsed);
 
 		var iconOffset:Int = 26;
-		//if (allowOverHeal) {
+		if (allowOverHeal) {
 			//trace('Overheal Enabled');
 			if (health > 2) {
-				//deezNuts.visible = true;
-				var offsetCalc = healthDeflicker >= 3.1 ? healthDeflicker - 2 : healthDeflicker - 1;
+				deezNuts.visible = true;
+				var offsetCalc = healthDeflicker - 1;
 				healthBar.x = Math.max(0, ogPos[0] - (100 * offsetCalc));
 				healthBarOverlay.x = healthBar.x;
 			 	iconOffset = Std.int(50 * offsetCalc);
@@ -2319,13 +2316,16 @@ class PlayState extends MusicBeatState
 				healthBar.x = ogPos[0]; // just triple make sure yknow.
 				healthBarOverlay.x = healthBar.x;
 				iconOffset = 26;
+				deezNuts.visible = false;
 			}
 			if (health > 4)
 				health = 4;
-		/*} else {
+		} else {
+			if (deezNuts.visible) 
+				deezNuts.visible = false;
 			if (health > 2)
 				health = 2;
-		}*/
+		}
 
 		iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 		iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
@@ -2909,17 +2909,14 @@ class PlayState extends MusicBeatState
 					case 'false':
 						ringText.alpha = 0;
 				}
-			case 'Enable Overheal':
-				if (flValue1 != null && flValue1 == 1)
-				{
-					allowOverHeal = true;
-					ranTrace = false;
-				}
-				else
-				{
-					trace('NOT ONE OR NOT A CORRECT VALUE.');
-					allowOverHeal = false;
-					ranTrace = false;
+			case 'Allow Overheal':
+				switch (value1.toLowerCase()) {
+					case 'true':
+						allowOverHeal = true;
+					case '1':
+						allowOverHeal = true;
+					default:
+						allowOverHeal = false;
 				}
 			case 'Health Drain':
 				switch (value1.toLowerCase()) {
@@ -3430,6 +3427,7 @@ class PlayState extends MusicBeatState
 		camZooming = false;
 		inCutscene = false;
 		updateTime = false;
+		allowOverHeal = false; //Mysteriously stays true unless something sets it back???
 
 		deathCounter = 0;
 		seenCutscene = false;

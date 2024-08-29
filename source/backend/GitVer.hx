@@ -4,6 +4,7 @@ package backend;
 using StringTools;
 
 #if !display
+#if debug
 class GitVer
 {
     // git commit shit :D
@@ -105,12 +106,30 @@ class GitVer
         if (output.length > 0) hasChanges = true;
         trace('Git Status Output: $hasChanges');
     
-        // Generates a string expression
-        return macro $v{output.length > 0};
+        // Returns a bool because why the actual fuck wouldnt it?
+        return macro $v{hasChanges};
         #else
         // `#if display` is used for code completion. In this case we just assume true.
         return macro $v{true};
         #end
       }
 }
+#else 
+class GitVer
+{
+  public static macro function getGitComHash():haxe.macro.Expr.ExprOf<String> {
+    var hash:String = 'N/A';
+    return macro $v{hash};
+  }
+
+  public static macro function getGitBranch():haxe.macro.Expr.ExprOf<String> {
+    var branch:String = 'N/A';
+    return macro $v{branch};
+  }
+  
+  public static macro function getGitHasLocalChanges():haxe.macro.Expr.ExprOf<Bool> {
+    return macro $v{false};
+  }
+}
+#end
 #end

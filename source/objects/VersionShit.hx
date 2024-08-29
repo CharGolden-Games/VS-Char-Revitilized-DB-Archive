@@ -5,65 +5,48 @@ import backend.GitVer;
 // yknow the text in main menu? thats what this is for :3
 class VersionShit extends FlxText
 {
-    var GIT_BRANCH:String = GitVer.getGitBranch();
-    var GIT_HASH:String = GitVer.getGitComHash();
-
-    var versionString:String = '';
-    var textString:String = '';
-    var textWidth:Int = 0;
-    var textSize:Int = 5;
-    var textFont:String= '';
-    var textColor:FlxColor = 0x000000;
-    var isGitCommit:Bool = false ;
+    var GIT_BRANCH:String = #if IS_DEBUG GitVer.getGitBranch() #else '' #end;
+    var GIT_HASH:String = #if IS_DEBUG GitVer.getGitComHash() #else '' #end;
+    var GIT_HAS_CHANGES:Bool = #if IS_DEBUG GitVer.getGitHasLocalChanges() #else false #end;
 
     /**
      * Spawns a text string with Version info
-     * @param versionString The actual version to use
-     * @param textString the text before the version string
-     * @param textWidth how wide the text is
-     * @param textSize how big the text is
-     * @param textFont what font to use if any
-     * @param textColor The color of the Text
-     * @param isGitCommit Whether to show GitCommit Info
-     * @param xPos The X Position
-     * @param yPos The Y Position
+     * @param versionString What version to display
+     * @param textString What text goes before the version
+     * @param textFont 
+     * @param textSize 
+     * @param textColor 
+     * @param textAlignment 
+     * @param textBorderStyle FlxTextBorderStyle
+     * @param textBorderColor 
+     * @param isGitCommit Whether to show Commit info (debug builds only)
+     * @param x 
+     * @param y 
+     * @param textWidth 
      */
-    public function new(
-        versionString:String,
-        textString:String,
-        textWidth:Int,
-        textSize:Int,
-        textFont:String,
-        textColor:FlxColor,
-        isGitCommit:Bool,
-        xPos:Int,
-        yPos:Int
-        )
+    public function new(versionString:String, textString:String, ?textFont:String, textSize:Int = 8, textWidth:Int, textColor:FlxColor = FlxColor.WHITE, ?textAlignment:FlxTextAlign, ?textBorderStyle:FlxTextBorderStyle, textBorderColor:FlxColor = FlxColor.TRANSPARENT, isGitCommit:Bool = false, x:Float, y:Float)
     {
         super();
-        this.versionString = versionString;
-        this.textString = textString;
-        this.textWidth = textWidth;
-        this.textSize = textSize;
-        this.textFont = textFont;
-        this.textColor = textColor;
-        this.isGitCommit = isGitCommit;
-        this.x = xPos;
-        this.y = yPos;
-        createText();
+        this.x = x;
+        this.y = y;
+        createText(versionString, textString, textFont, textSize, textColor, textAlignment, textBorderStyle, textBorderColor, isGitCommit, textWidth);
     }
+
+    //setFormat(?Font:String, Size:Int = 8, Color:FlxColor = FlxColor.WHITE, ?Alignment:FlxTextAlign, ?BorderStyle:FlxTextBorderStyle, BorderColor:FlxColor = FlxColor.TRANSPARENT, EmbeddedFont:Bool = true):FlxText
+
     /**
      * Creates text with variables from VersionShit
      */
-    private function createText()
+    private function createText(versionString:String, textString:String, ?textFont:String, textSize:Int = 8, textColor:FlxColor = FlxColor.WHITE, ?textAlignment:FlxTextAlign, ?textBorderStyle:FlxTextBorderStyle, textBorderColor:FlxColor = FlxColor.TRANSPARENT, isGitCommit:Bool = false, textWidth:Int)
     {
-        var gitHasChanges:String = '';
+        var gitHasChanges:String = 'Modified: False';
+        if (GIT_HAS_CHANGES) gitHasChanges = 'Modified: TRUE';
         var gitText:String = '';
-        if (isGitCommit) gitText = #if IS_DEBUG ' {Branch: $GIT_BRANCH | CommitHash: $GIT_HASH}' #else '{Branch: $GIT_BRANCH}' #end;
+        #if IS_DEBUG if (isGitCommit) gitText ='Branch: $GIT_BRANCH\nCommitHash: $GIT_HASH\n$gitHasChanges'; #end
         text = textString + versionString + gitText;
         fieldWidth = textWidth;
-        size = textSize;
-        font = textFont;
-        color = textColor;
+        setFormat(font, textSize, textColor, textAlignment, textBorderStyle, textBorderColor);
+        borderQuality = 2;
+        borderSize = 2;
     }
 }

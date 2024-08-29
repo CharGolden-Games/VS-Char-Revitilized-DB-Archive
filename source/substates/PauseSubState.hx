@@ -6,6 +6,7 @@ import backend.Song;
 
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.U;
+import flixel.graphics.FlxGraphic;
 
 import flixel.util.FlxStringUtil;
 
@@ -19,6 +20,7 @@ class PauseSubState extends MusicBeatSubstate
 
 	var menuItems:Array<String> = [];
 	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Options', 'Gameplay Modifiers', 'Toggle Botplay', 'Exit to menu'];
+	var newMenuItems:Array<String> = ['Resume', 'Restart Song', 'Toggle Botplay', 'Exit to menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
@@ -34,11 +36,20 @@ class PauseSubState extends MusicBeatSubstate
 	var missTxt:FlxText;
 	var blueballedTxt:FlxText;
 	var levelInfo:FlxText;
+	var pauseBG:FlxSprite;
+	var resumeButton:FlxSprite;
+	var restartButton:FlxSprite;
+	var botplayButton:FlxSprite;
+	var exitButton:FlxSprite;
+	var freeplayImage:FlxSprite;
 
 	public static var songName:String = '';
 
 	public function new(x:Float, y:Float)
 	{
+		Paths.image('pauseMenu/pauseMenuAssets');
+		Paths.image('pauseMenu/songImages/imageMissingPause');
+
 		var num:Int = 0;
 			if(!PlayState.instance.startingSong)
 			{
@@ -90,6 +101,10 @@ class PauseSubState extends MusicBeatSubstate
 		bg.alpha = 0;
 		bg.scrollFactor.set();
 		add(bg);
+		
+		//trace('spawning menu');
+		//spawnNewMenu();
+		//menuSpawned = true;
 
 		var songCredit:String;
 		/*switch (PlayState.SONG.song.toLowerCase())
@@ -248,11 +263,66 @@ class PauseSubState extends MusicBeatSubstate
 
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
+	var menuSpawned:Bool = false;
 	override function update(elapsed:Float)
 	{
 		cantUnpause -= elapsed;
 		if (pauseMusic.volume < 0.5)
 			pauseMusic.volume += 0.01 * elapsed;
+		
+		if (menuSpawned) {
+			if (resumeButton != null) {
+				if (menuItems[curSelected] == 'Resume') {
+					resumeButton.animation.play('hover');
+				} else {
+					resumeButton.animation.play('idle');
+				}
+			}
+
+			if (restartButton != null) {
+				if (menuItems[curSelected] == 'Restart Song') {
+					restartButton.animation.play('hover');
+				} else {
+					restartButton.animation.play('idle');
+				}
+			}
+
+			if (botplayButton != null) {
+				if (menuItems[curSelected] == 'Toggle Botplay') {
+					botplayButton.animation.play('hover');
+				} else {
+					botplayButton.animation.play('idle');
+				}
+			}
+
+			if (exitButton != null) {
+				if (menuItems[curSelected] == 'Exit to menu') {
+					exitButton.animation.play('hover');
+				} else {
+					exitButton.animation.play('idle');
+				}
+			}
+			if (resumeButton != null && restartButton != null && botplayButton != null && exitButton != null) {
+				//resumeButton.updateHitbox();
+				//restartButton.updateHitbox();
+				//botplayButton.updateHitbox();
+				//exitButton.updateHitbox();
+				var offsetX = resumeButton.animation.curAnim.name == 'hover' ? 20 : 0;
+				var offsetY = resumeButton.animation.curAnim.name == 'hover' ? 20 : 0;
+
+				resumeButton.x = 20 - offsetX;
+
+				restartButton.x = 20 - offsetX;
+				exitButton.x = 20 - offsetX;
+
+				resumeButton.y = 20 - offsetY;
+				restartButton.y = (resumeButton.y + resumeButton.height) + (20 - offsetY);
+				botplayButton.y = restartButton.y;
+				exitButton.y = (botplayButton.y + resumeButton.height) + (20 - offsetY);
+
+				botplayButton.x = restartButton.width + (20 - offsetX);
+			}
+		}
 
 		super.update(elapsed);
 		updateSkipTextStuff();
@@ -427,6 +497,70 @@ class PauseSubState extends MusicBeatSubstate
 			}
 		}
 	}
+
+		function spawnNewMenu() {
+			if (!menuSpawned) {
+				var image:String = 'pauseMenu/pauseMenuAssets';
+				var sourceImg:FlxGraphic = Paths.image(image);
+
+				pauseBG = new FlxSprite().loadGraphic(sourceImg);
+				resumeButton = new FlxSprite().loadGraphic(sourceImg);
+				restartButton = new FlxSprite().loadGraphic(sourceImg);
+				botplayButton = new FlxSprite().loadGraphic(sourceImg);
+				exitButton = new FlxSprite().loadGraphic(sourceImg);
+
+				sourceImg = Paths.image('pauseMenu/songImages/imageMissingPause');
+				
+				freeplayImage = new FlxSprite().loadGraphic(sourceImg);
+				freeplayImage.setGraphicSize(256);
+				freeplayImage.antialiasing = ClientPrefs.data.antialiasing;
+
+				pauseBG.frames = Paths.getSparrowAtlas(image);
+				resumeButton.frames = Paths.getSparrowAtlas(image);
+				restartButton.frames = Paths.getSparrowAtlas(image);
+				botplayButton.frames = Paths.getSparrowAtlas(image);
+				exitButton.frames = Paths.getSparrowAtlas(image);
+
+				pauseBG.animation.addByPrefix('anim', 'PauseMenuBG', 24);
+
+				resumeButton.animation.addByPrefix('idle', 'Resume Idle');
+				restartButton.animation.addByPrefix('idle', 'Restart Small Idle');
+				botplayButton.animation.addByPrefix('idle', 'Botplay Idle');
+				exitButton.animation.addByPrefix('idle', 'Exit Idle');
+
+				resumeButton.animation.addByPrefix('hover', 'Resume Hover');
+				restartButton.animation.addByPrefix('hover', 'Restart Small Hover');
+				botplayButton.animation.addByPrefix('hover', 'Botplay Hover');
+				exitButton.animation.addByPrefix('hover', 'Exit Hover');
+
+				pauseBG.animation.play('anim');
+				resumeButton.animation.play('idle');
+				restartButton.animation.play('idle');
+				botplayButton.animation.play('idle');
+				exitButton.animation.play('idle');
+
+				resumeButton.updateHitbox();
+				restartButton.updateHitbox();
+				botplayButton.updateHitbox();
+				exitButton.updateHitbox();
+
+				resumeButton.y = 20;
+				restartButton.y = resumeButton.y + resumeButton.height + 20;
+				botplayButton.y = restartButton.y;
+				exitButton.y = botplayButton.y + resumeButton.height + 20;
+
+				botplayButton.x = resumeButton.width + 20;
+
+				add(freeplayImage);
+				add(pauseBG);
+				add(resumeButton);
+				add(restartButton);
+				add(botplayButton);
+				add(exitButton);
+			} else {
+				trace('Already spawned the new menu!');
+			}
+		}
 
 	function deleteSkipTimeText()
 	{

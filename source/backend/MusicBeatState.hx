@@ -208,16 +208,36 @@ class MusicBeatState extends FlxUIState
 	 */
 	function spawnWatermark()
 	{
-		var charEngineVer:String = ReferenceStrings.versionNumOnly('char-engine');
-		ENGINE_WATERMARK = new VersionShit(charEngineVer, 'Char Engine v', 0, 16, Paths.font('vcr.ttf'), 0xFFFFFF, #if SHOW_GITCOMMIT true #else false #end, 0, 0);
+		var charEngineVer:String = ReferenceStrings.versionNumOnly('char-engine')#if IS_DEBUG +  '\n'#end;
+		/*
+		* ENGINE_WATERMARK = new VersionShit(charEngineVer, 'Char Engine v', 0, 16, Paths.font('vcr.ttf'), 0xFFFFFF, #if SHOW_GITCOMMIT true #else false #end, 0, 0);
+		* old VersionShit setup. NOT COMPATIBLE WITH CURRENT VER */
+
+		var isSaloon:Bool = false;
+		if (PlayState.SONG != null) {
+			if (PlayState.curStage == 'saloon') isSaloon = true;
+		}
+		var engineText = '';
+		switch(FlxG.random.int(0,2)) {
+			case 0:
+				engineText = 'Char Engine v';
+				if (isSaloon) engineText = 'Anny Engine v';
+			case 1:
+				engineText = 'Plexi Engine v';
+				if (isSaloon) engineText = 'Sear Engine v';
+			case 2:
+				engineText = 'Trevor Engine v';
+				if (isSaloon) engineText = 'Igni Engine v';
+		}
+		ENGINE_WATERMARK = new VersionShit(charEngineVer, engineText, Paths.font('vcr.ttf'), 12, 0, 0xFFFFFF, LEFT, OUTLINE, 0x000000, true, 0, 0);
 		ENGINE_WATERMARK.scrollFactor.set(0, 0);
-		ENGINE_WATERMARK.borderStyle = OUTLINE;
-		ENGINE_WATERMARK.borderColor = 0x000000;
-		ENGINE_WATERMARK.y = 20;
-		add(ENGINE_WATERMARK);
+		ENGINE_WATERMARK.y = FlxG.height - (ENGINE_WATERMARK.height + 5);
+
 		blackWatermarkBG = new FlxSprite().makeGraphic(Std.int(ENGINE_WATERMARK.width), Std.int(ENGINE_WATERMARK.height), 0xBA5C4D4D);
 		blackWatermarkBG.scrollFactor.set(0,0);
 		blackWatermarkBG.y = ENGINE_WATERMARK.y;
+
 		add(blackWatermarkBG);
+		add(ENGINE_WATERMARK);
 	}
 }
