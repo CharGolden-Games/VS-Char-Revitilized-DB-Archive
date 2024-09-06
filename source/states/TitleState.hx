@@ -108,7 +108,7 @@ class TitleState extends MusicBeatState
 		// do shit if the user is insert UN here.
 		switch (user.toLowerCase())
 		{
-			case 'cody':
+			case 'cdy':
 				trace('Here\'s your freak of a resolution');
 				FlxG.resizeGame(1900, 900);
 				FlxG.resizeWindow(1900, 900);

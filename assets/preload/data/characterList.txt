@@ -1,3 +1,5 @@
+mcbfc
+mcbf
 char
 charnerv
 char-opponent
@@ -15,6 +17,4 @@ trevorC
 trevorF
 anny
 igni
-mcbfc
-mcbf
 char-old
