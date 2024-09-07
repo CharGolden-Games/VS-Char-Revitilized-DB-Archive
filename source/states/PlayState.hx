@@ -3602,14 +3602,17 @@ class PlayState extends MusicBeatState
 			for (song in ReferenceStrings.vsCharSongs)
 			{
 				if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
-					uiPrefix == 'ratings/VSChar/';
+					uiPrefix = 'ratings/VSChar/';
 				}
 			}
 			for (song in ReferenceStrings.vsCharLegacySongs) // literally forgot this lmao
 			{
 				if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
-					uiPrefix == 'ratings/VSChar_Old/';
+					uiPrefix = 'ratings/VSChar_Old/';
 				}
+			}
+			if (formattedSong == 'high-ground' || formattedSong == 'high-ground-old') {
+				uiPrefix = 'ratings/MC/';
 			}
 		}
 
@@ -3673,20 +3676,19 @@ class PlayState extends MusicBeatState
 			{
 				for (song in ReferenceStrings.vsCharSongs)
 				{
-					//trace('cur Song checking: "$song"');
 					if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
-						uiPrefix == 'ratings/VSChar/';
+						uiPrefix = 'ratings/VSChar/';
 					}
 				}
 				for (song in ReferenceStrings.vsCharLegacySongs) // literally forgot this lmao
 				{
-					//trace('cur Song checking: "$song"');
 					if (Paths.formatToSongPath(SONG.song.toLowerCase()) == song) {
-						uiPrefix == 'ratings/VSChar_Old/';
+						uiPrefix = 'ratings/VSChar_Old/';
 					}
-					curSong = Paths.formatToSongPath(SONG.song.toLowerCase());
 				}
-					//trace('got: "$curSong"');
+				if (formattedSong == 'high-ground' || formattedSong == 'high-ground-old') {
+					uiPrefix = 'ratings/MC/';
+				}
 			}
 
 		if (FileSystem.exists(sharedPath + uiPrefix + daRating.image + uiSuffix + '.png')) rating.loadGraphic(Paths.image(uiPrefix + daRating.image + uiSuffix)); else rating.loadGraphic(Paths.image(daRating.image));
