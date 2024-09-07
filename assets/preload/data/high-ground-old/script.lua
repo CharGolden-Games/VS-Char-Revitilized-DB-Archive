@@ -49,3 +49,7 @@ if curBeat == 301 then
 
 end
 end
+
+function onCreatePost()
+	triggerEvent('noteskinchangeOPPT', 'NOTE_assets/charnotesold', ' ')
+end
