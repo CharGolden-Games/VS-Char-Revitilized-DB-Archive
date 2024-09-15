@@ -2,10 +2,6 @@ package states.editors;
 
 import backend.WeekData;
 
-#if MODS_ALLOWED
-import sys.FileSystem;
-#end
-
 import objects.Character;
 
 import states.MainMenuState;
@@ -16,12 +12,12 @@ class MasterEditorMenu extends MusicBeatState
 	var options:Array<String> = [
 		'Chart Editor',
 		'Character Editor',
+		'Stage Editor',
 		'Week Editor',
-		// 'Stage Editor (Alpha from OS Engine Port)',
 		'Menu Character Editor',
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
-		'Note Splash Debug'
+		'Note Splash Editor'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -33,7 +29,7 @@ class MasterEditorMenu extends MusicBeatState
 	override function create()
 	{
 		FlxG.camera.bgColor = FlxColor.BLACK;
-		#if desktop
+		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Editors Main Menu", null);
 		#end
@@ -113,39 +109,29 @@ class MasterEditorMenu extends MusicBeatState
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
 				case 'Character Editor':
 					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+				case 'Stage Editor':
+					LoadingState.loadAndSwitchState(new StageEditorState());
 				case 'Week Editor':
 					MusicBeatState.switchState(new WeekEditorState());
-				// case 'Stage Editor (Beta from OS Engine Port)': // Fun fact this is coded for a pretty old Psych Version im literally looking it up rn and will update you when i know which one :Smiley:
-				// 	LoadingState.loadAndSwitchState(new StageEditorState(), false); // Update: Idunno but its definitely Pre 0.7 :smiley: its being a b and i dont feel like figuring it out >:(
 				case 'Menu Character Editor':
 					MusicBeatState.switchState(new MenuCharacterEditorState());
 				case 'Dialogue Editor':
 					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
 				case 'Dialogue Portrait Editor':
 					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
-				case 'Note Splash Debug':
-					LoadingState.loadAndSwitchState(new NoteSplashDebugState());
+				case 'Note Splash Editor':
+					MusicBeatState.switchState(new NoteSplashEditorState());
 			}
 			FlxG.sound.music.volume = 0;
-			#if PRELOAD_ALL
 			FreeplayState.destroyFreeplayVocals();
-			#end
 		}
 		
-		var bullShit:Int = 0;
-		for (item in grpTexts.members)
+		for (num => item in grpTexts.members)
 		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
-
+			item.targetY = num - curSelected;
 			item.alpha = 0.6;
-			// item.setGraphicSize(Std.int(item.width * 0.8));
-
 			if (item.targetY == 0)
-			{
 				item.alpha = 1;
-				// item.setGraphicSize(Std.int(item.width));
-			}
 		}
 		super.update(elapsed);
 	}
@@ -153,13 +139,7 @@ class MasterEditorMenu extends MusicBeatState
 	function changeSelection(change:Int = 0)
 	{
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-
-		curSelected += change;
-
-		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
-			curSelected = 0;
+		curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
 	}
 
 	#if MODS_ALLOWED
