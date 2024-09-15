@@ -1876,19 +1876,19 @@ class PlayState extends MusicBeatState
 				iconP2.animation.curAnim.curFrame = 0; // If for some reason you have an icon thats only one fucking frame. (why would you?!)
 
 			case 2:
-				iconP2.animation.curAnim.curFrame = (healthBar.percent < 20) ? 1 : 0; //If health is under 20%, change player icon to frame 1 (losing icon), otherwise, frame 0 (normal)
+				iconP2.animation.curAnim.curFrame = (healthBar.percent > 80) ? 1 : 0; //If health is over 80%, change opponent icon to frame 1 (losing icon), otherwise, frame 0 (normal)
 
 			case 3:
 				/**
-				 * If health is 20% or below, lose icon
-				 * If health is 80% or above, win icon
+				 * If health is 20% or below, win icon
+				 * If health is 80% or above, lose icon
 				 * else, normal icon.
 				 */
 				if (healthBar.percent <= 20)
-					iconP2.animation.curAnim.curFrame = 1;
+					iconP2.animation.curAnim.curFrame = 2;
 
 				if (healthBar.percent >= 80)
-					iconP2.animation.curAnim.curFrame = 2;
+					iconP2.animation.curAnim.curFrame = 1;
 
 				if (healthBar.percent < 80 && healthBar.percent > 20)
 					iconP2.animation.curAnim.curFrame = 0;
