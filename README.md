@@ -1,3 +1,5 @@
+# THIS BRANCH OUTDATED
+
 # VS Char Revitalized Alpha 2 Dev Branch
 ![](https://vscharimagefiles.neocities.org/imgs/NEWimages/idk%20man%20this%20looks%20cool.png) 
 (IMG by [WHYEthan](https://www.youtube.com/channel/UC9lI9voKG3IHdtWIm6TC08Q))
