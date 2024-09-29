@@ -1,9 +1,3 @@
-function songNameToTrigger(songName:String):String //  This converts a song name to 'Triggers <Song Name>' to match the original Marios Madness trigger system
-{
-    if (songName == 'dad-battle') {
-        return 'Triggers Dad Battle';
-    }
-}
 
 function doTrigger(songTrigger:String, strumTime:Float, value1:Float, value2:Dynamic):Bool // Actually triggers the.. trigger.
 {
@@ -11,12 +5,15 @@ function doTrigger(songTrigger:String, strumTime:Float, value1:Float, value2:Dyn
         case 'Triggers Dad Battle':
             switch(value1) {
                 case 0:
-                    debugPrint('Dad Battle!');
+                    debugPrint('Dad Battle! Hscript');
+                    return true;
             }
-        case 'Triggers philly-nice':
+        case 'Triggers Philly Nice':
             switch(value1) {
                 case 0:
-                    debugPrint('Philly Nice!');
+                    debugPrint('Philly Nice! Hscript');
+                    return true;
             }
     }
+    return false;
 }

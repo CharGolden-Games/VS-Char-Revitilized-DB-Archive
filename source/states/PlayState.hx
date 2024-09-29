@@ -1457,7 +1457,7 @@ class PlayState extends MusicBeatState
 	function eventPushedUnique(event:EventNote) {
 		switch(event.event) {
 			case "Universal Triggers":
-				switch (songNameToTrigger(SONG.song)) {
+				switch (songNameToTrigger(SONG.song, true)) {
 					case 'Triggers High Ground': // lag prevention.
 						addCharacterToList('charNew', 1);
 						addCharacterToList('mcbf', 0);
@@ -2138,7 +2138,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-    public function songNameToTrigger(songName:String):String
+    public function songNameToTrigger(songName:String, isEventPushed:Bool = false):String
     {
         switch (Paths.formatToSongPath(songName.toLowerCase()).trim()) {
             case 'high-ground':
@@ -2151,27 +2151,8 @@ class PlayState extends MusicBeatState
                 return 'Triggers Defeat ODDBLUE Mix';
             case 'defeat-char-mix':
                 return 'Triggers Defeat Char Mix';
-        }
-        trace ('INVALID SONG $songName. Calling on luas/scripts for setting the songName!');
-
-		var result:String = Std.string(callOnLuas('songNameToTrigger', [Paths.formatToSongPath(songName.toLowerCase()).trim()])); // For softmodding purposes
-		var result2:String = Std.string(callOnScripts('songNameToTrigger', [Paths.formatToSongPath(songName.toLowerCase()).trim()]));
-
-		var finalResult:String = '';
-
-		if (result == '' || result == null) {
-			if (result2 == '' || result2 == null){
-				finalResult = 'Triggers ' + Paths.formatToSongPath(songName.toLowerCase()).trim();
-			}
-			if (result != '' && result != null) {
-				finalResult = result2;
-			}
 		}
-		if (result != '' && result != null) {
-			finalResult = result;
-		}
-
-        return finalResult;
+        return 'Triggers $songName';
     }
     
 	public var titleTimer:FlxTimer;
@@ -2276,7 +2257,7 @@ class PlayState extends MusicBeatState
 				
 			// MARIOS MADNESS REFERENCE?! HOLY SHIT
 			case 'Universal Triggers':
-				doTrigger(songNameToTrigger(Paths.formatToSongPath(SONG.song.toLowerCase()).trim()), strumTime, flValue1, value2);
+				doTrigger(songNameToTrigger(SONG.song), strumTime, flValue1, value2);
 			case 'Hey!':
 				var value:Int = 2;
 				switch(value1.toLowerCase().trim()) {
