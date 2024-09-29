@@ -31,7 +31,7 @@ class HealthIcon extends FlxSprite
 			
 			var graphic = Paths.image(name, allowGPU);
 			var numOfFrames:Int = Math.round(graphic.width / graphic.height);
-			trace('Got $numOfFrames for frame count!');
+			//trace('Got $numOfFrames for frame count!');
 			loadGraphic(graphic, true, Math.floor(graphic.width / numOfFrames), Math.floor(graphic.height));
 			var frameArray:Array<Int> = [];
 			switch (numOfFrames) {

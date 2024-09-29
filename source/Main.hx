@@ -112,7 +112,7 @@ class Main extends Sprite
 		#end
 		Mods.loadTopMod();
 
-		FlxG.save.bind('funkin', CoolUtil.getSavePath());
+		FlxG.save.bind(CoolUtil.saveFile, CoolUtil.getSavePath());
 
 		Highscore.load();
 
@@ -188,7 +188,7 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = "./crash/" + "PsychEngine_" + dateNow + ".txt";
+		path = "./crash/" + Constants.TITLE + "_" + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{

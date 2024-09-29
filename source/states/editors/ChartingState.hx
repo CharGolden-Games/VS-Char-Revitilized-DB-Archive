@@ -66,7 +66,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 {
 	public static final defaultEvents:Array<Array<String>> =
 	[
-		['', "Nothing. Yep, that's right."], //Always leave this one empty pls
+		['', "Nothing. Yep, that's right.\nWhat, you want a 'Value 1: Nothing, Value 2: Nothing'?"], //Always leave this one empty pls
 		['Dadbattle Spotlight', "Used in Dad Battle,\nValue 1: 0/1 = ON/OFF,\n2 = Target Dad\n3 = Target BF"],
 		['Hey!', "Plays the \"Hey!\" animation from Bopeebo,\nValue 1: BF = Only Boyfriend, GF = Only Girlfriend,\nSomething else = Both.\nValue 2: Custom animation duration,\nleave it blank for 0.6s"],
 		['Set GF Speed', "Sets GF head bopping speed,\nValue 1: 1 = Normal speed,\n2 = 1/2 speed, 4 = 1/4 speed etc.\nUsed on Fresh during the beatbox parts.\n\nWarning: Value must be integer!"],
@@ -82,7 +82,9 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
 		['Set Property', "Value 1: Variable name\nValue 2: New value"],
-		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"]
+		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"],
+		['Universal Triggers', 'Based on Mario\'s Madness\' same event structure, triggers an event from a preset list of events for a song.\nValue 1: The actual event to trigger\nValue 2: If the trigger has a second value\nits looking for, it goes here'],
+		['Lyrics', "LYRICS, LYRICS, GETCHER LYRICS HERE!\nValue 1: The text you want to show"]
 	];
 	
 	public static var keysArray:Array<String> = [ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT]; //Used for Vortex Editor

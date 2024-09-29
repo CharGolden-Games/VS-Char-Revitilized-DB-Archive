@@ -15,7 +15,7 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Options', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', #if IS_DEVBRANCH 'Toggle Botplay', #end 'Options', 'Exit to menu' ];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
@@ -34,19 +34,29 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		if(Difficulty.list.length < 2) menuItemsOG.remove('Change Difficulty'); //No need to change difficulty if there is only one!
 
+		#if IS_DEVBRANCH
+		if (!PlayState.instance.startingSong) {
+				menuItemsOG.insert(3, 'Skip Time');
+		}
+		#end
+
 		if(PlayState.chartingMode)
 		{
 			menuItemsOG.insert(2, 'Leave Charting Mode');
 			
 			var num:Int = 0;
+			#if !IS_DEVBRANCH //Because i want to make it easier to develop/chart for songs, but also this shouldn't be changed in the final release
 			if(!PlayState.instance.startingSong)
 			{
 				num = 1;
 				menuItemsOG.insert(3, 'Skip Time');
 			}
+			#end
 			menuItemsOG.insert(3 + num, 'End Song');
 			menuItemsOG.insert(4 + num, 'Toggle Practice Mode');
+			#if !IS_DEVBRANCH //Because i want to make it easier to develop/chart for songs, but also this shouldn't be changed in the final release
 			menuItemsOG.insert(5 + num, 'Toggle Botplay');
+			#end
 		}
 		menuItems = menuItemsOG;
 

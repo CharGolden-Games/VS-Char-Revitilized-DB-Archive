@@ -14,6 +14,7 @@ import flixel.util.FlxStringUtil;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.animation.FlxAnimationController;
+import flixel.group.FlxGroup;
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.events.KeyboardEvent;
@@ -171,6 +172,24 @@ class PlayState extends MusicBeatState
 	private var updateTime:Bool = true;
 	public static var changedDifficulty:Bool = false;
 	public static var chartingMode:Bool = false;
+	public var lyrics:FlxText;
+
+	/* 
+	 * Sprite Group for white flashes from doWhiteFlash
+	 */
+	public var flashGroup:FlxSpriteGroup;
+	/*
+	 *  Object Group for High Ground/High Ground Legacy Events
+	 */
+	public var highGroundGroup:FlxGroup;
+	/*
+	 * Object Group for Defeat Char Mix/Defeat ODDBLUE Mix Events
+	 */
+	public var defeatGroup:FlxGroup;
+	/*
+	 * Object Group for Triple Trouble Char Mix/Triple Trouble Legacy (TT Char Cover) Events
+	 */
+	public var tripleTroubleGroup:FlxGroup;
 
 	//Gameplay settings
 	public var healthGain:Float = 1;
@@ -363,6 +382,7 @@ class PlayState extends MusicBeatState
 			case 'tank': new Tank();					//Week 7 - Ugh, Guns, Stress
 			case 'phillyStreets': new PhillyStreets(); 	//Weekend 1 - Darnell, Lit Up, 2Hot
 			case 'phillyBlazin': new PhillyBlazin();	//Weekend 1 - Blazin
+			case 'white': new WhiteStage(); 			//High Ground Stage.
 		}
 		if(isPixelStage) introSoundsSuffix = '-pixel';
 
@@ -538,6 +558,13 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.data.downScroll)
 			botplayTxt.y = healthBar.y + 70;
 
+		var yOffset = ClientPrefs.data.downScroll ? 40 : -40;
+		lyrics = new FlxText(0, botplayTxt.y + yOffset, 0, '', 32);
+		lyrics.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		lyrics.scrollFactor.set();
+		lyrics.borderSize = 1.25;
+		uiGroup.add(lyrics);
+
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
 		comboGroup.cameras = [camHUD];
@@ -607,6 +634,9 @@ class PlayState extends MusicBeatState
 		var splash:NoteSplash = new NoteSplash();
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.000001; //cant make it invisible or it won't allow precaching
+		
+		flashGroup = new FlxSpriteGroup();
+		add(flashGroup);
 
 		super.create();
 		Paths.clearUnusedMemory();
@@ -1426,6 +1456,12 @@ class PlayState extends MusicBeatState
 	// called by every event with the same name
 	function eventPushedUnique(event:EventNote) {
 		switch(event.event) {
+			case "Universal Triggers":
+				switch (songNameToTrigger(SONG.song)) {
+					case 'Triggers High Ground': // lag prevention.
+						addCharacterToList('charNew', 1);
+						addCharacterToList('mcbf', 0);
+				}
 			case "Change Character":
 				var charType:Int = 0;
 				switch(event.value1.toLowerCase()) {
@@ -2040,6 +2076,188 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	var songTitle:FlxText;
+	public function doSongTitle(title:String) {
+		songTitle = new FlxText(FlxG.width * 0.4, FlxG.height * 0.4, 0, title, 50);
+		songTitle.setFormat(Paths.font('vcr.ttf'), 50, 0xFFCE5200, CENTER, OUTLINE, 0xFFFF9100);
+		songTitle.borderSize = 4;
+		songTitle.cameras = [camOther];
+		songTitle.scrollFactor.set();
+		songTitle.alpha = 0;
+		add(songTitle);
+		FlxTween.tween(songTitle, {alpha: 1}, 0.5, {ease: FlxEase.quadIn});
+	}
+
+	public function destroyTitle() {
+		if (songTitle != null)
+			FlxTween.tween(songTitle, {alpha: 0}, 0.5, {ease: FlxEase.quadIn, onComplete: function(twn:FlxTween){
+				songTitle.destroy();
+			}});
+	}
+
+	public function doWhiteFlash(startingAlpha:Float = 1, endingAlpha:Float = 0) {
+		if (endingAlpha == 0) { // Flash em, then destroy it when its no longer visible.
+			var whiteFlash:FlxSprite = new FlxSprite().makeGraphic(10000, 10000, FlxColor.WHITE);
+			whiteFlash.x = -5000;
+			whiteFlash.y = -5000;
+			whiteFlash.alpha = startingAlpha;
+			add(whiteFlash);
+			FlxTween.tween(whiteFlash, {alpha: 0}, 0.5, {ease: FlxEase.quadIn, onComplete: function(twn:FlxTween){
+				whiteFlash.destroy();
+			}});
+		}
+		if (endingAlpha != 0) { 
+			//Add it to a group to be manually destroyed later. just be sure to keep track of the add order! 
+			//not my fault if you change where an event does a flash and end up with an error about nonexistant shit.
+			var whiteFlash:FlxSprite = new FlxSprite().makeGraphic(10000, 10000, FlxColor.WHITE);
+			whiteFlash.x = -5000;
+			whiteFlash.y = -5000;
+			whiteFlash.alpha = startingAlpha;
+			flashGroup.add(whiteFlash);
+			FlxTween.tween(whiteFlash, {alpha: endingAlpha}, 0.5, {ease: FlxEase.quadIn});
+		}
+	}
+
+	/**
+	 * From the flash group, which should be destroyed
+	 * @param all whether to start over with a clean slate or not
+	 * @param int if not, which added flash
+	 */
+	public function destroyFlash(all:Bool = false, int:Null<Int> = null) {
+		switch (all) {
+			case true:
+				flashGroup.destroy();
+				flashGroup = new FlxSpriteGroup();
+				add(flashGroup);
+			case false:
+				try {
+					flashGroup.members[int].destroy();
+				} catch (e:Dynamic) {
+					trace('Couldn\'t Delete Flash#$int! [$e]');
+				}
+		}
+	}
+
+    public function songNameToTrigger(songName:String):String
+    {
+        switch (Paths.formatToSongPath(songName.toLowerCase()).trim()) {
+            case 'high-ground':
+                return 'Triggers High Ground';
+            case 'triple-trouble':
+                return 'Triggers Triple Trouble';
+            case 'high-ground-old':
+                return 'Triggers High Ground Legacy';
+            case 'defeat-odd-mix':
+                return 'Triggers Defeat ODDBLUE Mix';
+            case 'defeat-char-mix':
+                return 'Triggers Defeat Char Mix';
+        }
+        trace ('INVALID SONG $songName. Calling on luas/scripts for setting the songName!');
+
+		var result:String = Std.string(callOnLuas('songNameToTrigger', [Paths.formatToSongPath(songName.toLowerCase()).trim()])); // For softmodding purposes
+		var result2:String = Std.string(callOnScripts('songNameToTrigger', [Paths.formatToSongPath(songName.toLowerCase()).trim()]));
+
+		var finalResult:String = '';
+
+		if (result == '' || result == null) {
+			if (result2 == '' || result2 == null){
+				finalResult = 'Triggers ' + Paths.formatToSongPath(songName.toLowerCase()).trim();
+			}
+			if (result != '' && result != null) {
+				finalResult = result2;
+			}
+		}
+		if (result != '' && result != null) {
+			finalResult = result;
+		}
+
+        return finalResult;
+    }
+    
+	public var titleTimer:FlxTimer;
+    /**
+     * MARIOS MADNESS REFERENCE?! HOLY SHIT
+     * @param songTrigger Which song the triggers belong to
+     * @param value1 The trigger
+     * @param value2 The value of the trigger if required
+	 * @return bool
+     */
+    public function doTrigger(songTrigger:String, strumTime:Float, value1:Float, value2:Dynamic):Bool
+	{
+		var flValue2:Null<Float> = Std.parseFloat(value2);
+		if(Math.isNaN(flValue2)) flValue2 = null;
+
+        switch (songTrigger) {
+			default:
+				callOnLuas('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
+				callOnScripts('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
+				return true;
+            case 'Triggers High Ground':
+                switch (value1) {
+                    case 0:
+						trace('Title Function');
+                        if (titleTimer != null)
+                            titleTimer.cancel();
+                            doSongTitle('High Ground\n-----------\nWHYEthan');
+                        titleTimer = new FlxTimer().start(3, function(tmr:FlxTimer) {
+                        	destroyTitle();
+                        });
+
+					case 1:
+						trace('Peanut Butter Jelly Time function here!');
+
+					case 2:
+						trace('Change Character/White Flash');
+						if (lyrics.text != '')
+							lyrics.text = '';
+						triggerEvent('Change Character', 'bf', 'mcbf', strumTime);
+						triggerEvent('Change Character', 'dad', 'charNew', strumTime);
+						if (ClientPrefs.data.flashing) {
+							doWhiteFlash();
+						}
+
+					case 3:
+						trace('Peanut Butter Jelly Time removal function here!');
+
+					case 4:
+						trace('Vignette/White Flash function here!');
+						if (ClientPrefs.data.flashing) {
+							doWhiteFlash(0.7, 0.3);
+						}
+
+					case 5:
+						trace('Vignette removal/White Flash function here!');
+						if (ClientPrefs.data.flashing) {
+							destroyFlash(true);
+							doWhiteFlash();
+						}
+
+					case 6:
+						trace('End of song tween');
+						FlxTween.tween(camGame, {alpha: 0}, 5, {ease: FlxEase.quadOut});
+
+					case 7:
+						trace('Lyrics');
+						if (Std.string(value2) != null) {
+							trace('Making lyrics: "$value2"');
+							lyrics.text = Std.string(value2);
+							lyrics.screenCenter(X);
+						}
+						if (Std.string(value2) == null)
+							trace('Invalid lyrics! got "$value2"');
+                }
+				callOnLuas('doTrigger', [songTrigger, strumTime, value1, value2]);
+				callOnScripts('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
+				return true;
+
+        }
+		// Just in case i get a missing return error \/ |:/
+		trace('Invalid trigger got [$songTrigger, $strumTime, $value1, $value2]');
+		callOnLuas('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
+		callOnScripts('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
+		return false;
+    }
+
 	public function triggerEvent(eventName:String, value1:String, value2:String, strumTime:Float) {
 		var flValue1:Null<Float> = Std.parseFloat(value1);
 		var flValue2:Null<Float> = Std.parseFloat(value2);
@@ -2047,6 +2265,18 @@ class PlayState extends MusicBeatState
 		if(Math.isNaN(flValue2)) flValue2 = null;
 
 		switch(eventName) {
+			case 'lyrics':
+				if (value1 != null) {
+					trace('Making lyrics: "$value1"');
+					lyrics.text = value1;
+					lyrics.screenCenter(X);
+				}
+				if (value1 == null)
+					trace('Invalid lyrics! got "$value1"');
+				
+			// MARIOS MADNESS REFERENCE?! HOLY SHIT
+			case 'Universal Triggers':
+				doTrigger(songNameToTrigger(Paths.formatToSongPath(SONG.song.toLowerCase()).trim()), strumTime, flValue1, value2);
 			case 'Hey!':
 				var value:Int = 2;
 				switch(value1.toLowerCase().trim()) {

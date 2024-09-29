@@ -13,7 +13,7 @@ import flixel.util.FlxStringUtil;
 class DiscordClient
 {
 	public static var isInitialized:Bool = false;
-	private inline static final _defaultID:String = "863222024192262205";
+	private inline static final _defaultID:String = "1274071752926036120";
 	public static var clientID(default, set):String = _defaultID;
 	private static var presence:DiscordPresence = new DiscordPresence();
 	// hides this field from scripts and reflection in general
@@ -105,10 +105,10 @@ class DiscordClient
 		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
 
 		presence.state = state;
-		presence.details = details;
+		presence.details = details + ' | Psych 1.0 Pre-Release ver.';
 		presence.smallImageKey = smallImageKey;
 		presence.largeImageKey = largeImageKey;
-		presence.largeImageText = "Engine Version: " + states.MainMenuState.psychEngineVersion;
+		presence.largeImageText = "Char Engine Version: " + states.MainMenuState.charEngineVersion;
 		// Obtained times are in milliseconds so they are divided so Discord can use it
 		presence.startTimestamp = Std.int(startTimestamp / 1000);
 		presence.endTimestamp = Std.int(endTimestamp / 1000);

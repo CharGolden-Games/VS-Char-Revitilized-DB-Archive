@@ -130,9 +130,9 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 		
-		#if CHECK_FOR_UPDATES
+		#if (CHECK_FOR_UPDATES || CHECK_FOR_UPDATES_MINIMAL)
 		var option:Option = new Option('Check for Updates',
-			'On Release builds, turn this on to check for updates when you start the game.',
+			'Turn this on to check for updates when you start the game.\n(If minimal is specified in project.xml,\nwill skip the update screen, but leave a trace.)',
 			'checkForUpdates',
 			BOOL);
 		addOption(option);

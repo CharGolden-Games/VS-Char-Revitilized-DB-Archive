@@ -68,6 +68,7 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		openfl.Lib.application.window.title = Constants.TITLE;
 		Paths.clearStoredMemory();
 		ClientPrefs.loadPrefs();
 		Language.reloadPhrases();
@@ -89,6 +90,29 @@ class TitleState extends MusicBeatState
 				if(updateVersion != curVersion) {
 					trace('versions arent matching!');
 					mustUpdate = true;
+				}
+			}
+
+			http.onError = function (error) {
+				trace('error: $error');
+			}
+
+			http.request();
+		}
+		#end
+		#if CHECK_FOR_UPDATES_MINIMAL
+		// Dont slow the guy down with the update screen if he developing shit.
+		if(ClientPrefs.data.checkForUpdates && !closedState) {
+			trace('checking for update');
+			var http = new haxe.Http("https://raw.githubusercontent.com/ShadowMario/FNF-PsychEngine/main/gitVersion.txt"); // Remember to set when full release comes out.
+
+			http.onData = function (data:String)
+			{
+				updateVersion = data.split('\n')[0].trim();
+				var curVersion:String = Constants.charEngineVersion.trim();
+				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
+				if(updateVersion != curVersion) {
+					trace('versions arent matching!');
 				}
 			}
 

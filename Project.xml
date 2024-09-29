@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- i've added extra shit because SOMEONE keeps fucking with the resolution..... MC07 seriously. -->
 <project>
+
+	<define name="IS_DEVBRANCH" />
+
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': Psych Engine" file="PsychEngine" packageName="com.shadowmario.psychengine" package="com.shadowmario.psychengine" main="Main" version="0.2.8" company="ShadowMario" />
+	<section if="IS_DEVBRANCH">
+		<app title="VS Char: Revitalized (Developer Branch)" file="Chars_DevBranch" packageName="com.char.chargolden" package="com.char.chargolden" main="Main" version="0.2.8" company="CharGolden" />
+	</section>
+
+	<section unless="IS_DEVBRANCH">
+		<app title="VS Char: Revitalized" file="Chars_Gonna_Getcha" packageName="com.char.chargolden" package="com.char.chargolden" main="Main" version="0.2.8" company="CharGolden" />
+	</section>
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
@@ -24,7 +34,7 @@
 	<define name="HSCRIPT_ALLOWED" if="desktop" />
 	<define name="LUA_ALLOWED" if="desktop" />
 	<define name="ACHIEVEMENTS_ALLOWED" />
-	<define name="DISCORD_ALLOWED" />
+	<!-- <define name="DISCORD_ALLOWED" /> --> <!-- Getting an annoying fatal error UGH! -->
 	<define name="TRANSLATIONS_ALLOWED" />
 	<define name="IRIS_DEBUG"/>
 	
@@ -58,6 +68,7 @@
 	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
 
 	<classpath name="source" />
+	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
 
 	<!-- __________________________ Game Assets & Etc. __________________________ -->
 	
@@ -73,8 +84,14 @@
 	<assets path="assets/videos"        if="VIDEOS_ALLOWED"/>
 	<assets path="assets/songs"         exclude="*.ogg" if="web"/>
 	<assets path="assets/songs"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week_assets"   rename="assets" exclude="*.ogg" if="web"/>
-	<assets path="assets/week_assets"   rename="assets" exclude="*.mp3" unless="web"/>
+	<!--
+		Not needed by VS Char
+		<!-- <assets path="assets/week_assets"   rename="assets" exclude="*.ogg" if="web"/> -->
+		<!-- <assets path="assets/week_assets"   rename="assets" exclude="*.mp3" unless="web"/> -->
+	-->
+	<assets path="assets/vs_char" rename="assets" exclude="*.ogg" if="web"/>
+	<assets path="assets/vs_char" rename="assets" exclude="*.mp3" unless="web"/>
+
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets/shared" exclude="*.ogg" if="web"/>
 		<assets path="assets/secrets" rename="assets/shared" exclude="*.mp3"  unless="web"/>
@@ -92,12 +109,14 @@
 		<haxelib name="funkin.vis" if="BASE_GAME_FILES"/>
 	</section>
 
-	<define name="CHECK_FOR_UPDATES" if="desktop officialBuild"/>
+	<define name="CHECK_FOR_UPDATES" if="desktop" unless="IS_DEVBRANCH"/>
+	<define name="CHECK_FOR_UPDATES_MINIMAL" if="desktop || IS_DEVBRANCH"/>
 
 	<section if="MODS_ALLOWED">
 		<assets path='example_mods' rename='mods' embed='false' type='template'/>
 	</section>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
+	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -120,6 +139,7 @@
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
+	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
 	
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
@@ -171,6 +191,7 @@
 	<!--Macro fixes-->
 	<haxeflag name="--macro" value="allowPackage('flash')" />
 	<haxeflag name="--macro" value="include('my.pack')" />
+	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 
@@ -180,4 +201,6 @@
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>
 	<icon path="art/iconOG.png" />
+	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" /> <!-- DONT THINK YOU'RE SAFE MC07 -->
+
 </project>
