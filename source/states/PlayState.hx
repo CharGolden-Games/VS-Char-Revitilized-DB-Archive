@@ -2077,15 +2077,35 @@ class PlayState extends MusicBeatState
 	}
 
 	var songTitle:FlxText;
-	public function doSongTitle(title:String) {
-		songTitle = new FlxText(FlxG.width * 0.4, FlxG.height * 0.4, 0, title, 50);
-		songTitle.setFormat(Paths.font('vcr.ttf'), 50, 0xFFCE5200, CENTER, OUTLINE, 0xFFFF9100);
+	public var titleTimer:FlxTimer;
+	public function doSongTitle(title:String, author:String, ?overrideColor:FlxColor, ?overrideOutlineColor:FlxColor) {
+		if (titleTimer != null)
+			titleTimer.cancel();
+		var finalTitle:String = title + '\n';
+
+		for(i in 0...title.length+2) {
+			finalTitle += '-';
+		}
+
+		if (overrideColor == null) {
+			overrideColor = 0xFFCE5200;
+		}
+		if (overrideOutlineColor == null) {
+			overrideOutlineColor = 0xFFFF9100;
+		}
+		
+		finalTitle += '\n' + author;
+		songTitle = new FlxText(FlxG.width * 0.4, FlxG.height * 0.4, 0, finalTitle, 50);
+		songTitle.setFormat(Paths.font('vcr.ttf'), 50, overrideColor, CENTER, OUTLINE, overrideOutlineColor);
 		songTitle.borderSize = 4;
 		songTitle.cameras = [camOther];
 		songTitle.scrollFactor.set();
 		songTitle.alpha = 0;
 		add(songTitle);
 		FlxTween.tween(songTitle, {alpha: 1}, 0.5, {ease: FlxEase.quadIn});
+		titleTimer = new FlxTimer().start(3, function(tmr:FlxTimer) {
+			destroyTitle();
+		});
 	}
 
 	public function destroyTitle() {
@@ -2155,7 +2175,6 @@ class PlayState extends MusicBeatState
         return 'Triggers $songName';
     }
     
-	public var titleTimer:FlxTimer;
     /**
      * MARIOS MADNESS REFERENCE?! HOLY SHIT
      * @param songTrigger Which song the triggers belong to
@@ -2170,19 +2189,13 @@ class PlayState extends MusicBeatState
 
         switch (songTrigger) {
 			default:
-				callOnLuas('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
 				callOnScripts('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
 				return true;
             case 'Triggers High Ground':
                 switch (value1) {
                     case 0:
 						trace('Title Function');
-                        if (titleTimer != null)
-                            titleTimer.cancel();
-                            doSongTitle('High Ground\n-----------\nWHYEthan');
-                        titleTimer = new FlxTimer().start(3, function(tmr:FlxTimer) {
-                        	destroyTitle();
-                        });
+                            doSongTitle('High Ground', 'WHYEthan');
 
 					case 1:
 						trace('Peanut Butter Jelly Time function here!');
@@ -2216,28 +2229,23 @@ class PlayState extends MusicBeatState
 					case 6:
 						trace('End of song tween');
 						FlxTween.tween(camGame, {alpha: 0}, 5, {ease: FlxEase.quadOut});
-
-					case 7:
-						trace('Lyrics');
-						if (Std.string(value2) != null) {
-							trace('Making lyrics: "$value2"');
-							lyrics.text = Std.string(value2);
-							lyrics.screenCenter(X);
-						}
-						if (Std.string(value2) == null)
-							trace('Invalid lyrics! got "$value2"');
                 }
-				callOnLuas('doTrigger', [songTrigger, strumTime, value1, value2]);
 				callOnScripts('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
 				return true;
 
         }
-		// Just in case i get a missing return error \/ |:/
+		// Just in case i get a missing return error \/ Cause flixels a shithead sometimes
 		trace('Invalid trigger got [$songTrigger, $strumTime, $value1, $value2]');
-		callOnLuas('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
 		callOnScripts('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
 		return false;
     }
+
+	function genericTriggers(trigger:Float, value2:Dynamic, strumTime:Float) { // Triggers shared by songs if they dont require extra variables/configuration
+		switch (trigger) {
+			case 0:
+				doSongTitle(SONG.song, Std.string(value2));
+		}
+	}
 
 	public function triggerEvent(eventName:String, value1:String, value2:String, strumTime:Float) {
 		var flValue1:Null<Float> = Std.parseFloat(value1);
@@ -2247,17 +2255,17 @@ class PlayState extends MusicBeatState
 
 		switch(eventName) {
 			case 'lyrics':
-				if (value1 != null) {
 					trace('Making lyrics: "$value1"');
 					lyrics.text = value1;
 					lyrics.screenCenter(X);
-				}
-				if (value1 == null)
-					trace('Invalid lyrics! got "$value1"');
 				
 			// MARIOS MADNESS REFERENCE?! HOLY SHIT
 			case 'Universal Triggers':
 				doTrigger(songNameToTrigger(SONG.song), strumTime, flValue1, value2);
+
+			case 'Generic Triggers':
+				genericTriggers(flValue1, value2, strumTime);
+
 			case 'Hey!':
 				var value:Int = 2;
 				switch(value1.toLowerCase().trim()) {
