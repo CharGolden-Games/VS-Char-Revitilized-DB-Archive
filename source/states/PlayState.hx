@@ -2183,6 +2183,11 @@ class PlayState extends MusicBeatState
             case 'defeat-char-mix':
                 return 'Triggers Defeat Char Mix';
 		}
+		var result = callOnScripts('songNameToTrigger', [Paths.formatToSongPath(songName.toLowerCase()).trim()], false, null, [LuaUtils.Function_Continue]);
+
+		if (result != null || result != '')
+			return result;
+
         return 'Triggers $songName';
     }
     
