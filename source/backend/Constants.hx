@@ -11,6 +11,8 @@ class Constants
 {
     /**
      * The title of the game. Used for resetting the window title, and crash logs
+	 * 
+	 * The power of 2 BUILD OPTIONS HAHAHAHAHAHAHA
      */
 	public static final TITLE:String = 'VS Char Revitalized'#if IS_DEVBRANCH + ' (Developer Branch)'#end #if BETA_BUILD + ' - Beta' #end;
     /**
@@ -27,11 +29,6 @@ class Constants
 	 * Used for updating
 	 */
 	public static final vsCharVersion:String = 'Indev 1: Psych 1.0 Pre-Release';
-
-	/**
-	 * You can see its use in the function "versionNumOnly"
-	 */
-	public static var splitString:Array<String>;
 
 	/**
 	 * so that i can reduce it to one function lmao.
@@ -58,35 +55,32 @@ class Constants
 	];
 
 	/**
-	 * Format goes: For each icon you want to assign to a song or multiple songs: Array[icon:Array<String>, songList:Array<String>]
+	 * Format goes: For each icon you want to assign to a song or multiple songs: `Array[icon:Array<String>, songList:Array<String>, color:Array<String<FlxColorHex>>]`
+	 * 
+	 * By `FlxColorHex` i mean the format of #RRGGBB
 	 */
 	public static final songIcons:Array<Array<Array<String>>> = [
-		[['char'], ['tutorial', 'obligatory-bonus-song', 'triple-trouble']],
-		[['anny'], ['saloon-trouble']],
-		[['charold'], ['3-problems', 'slow', 'you-can-walk', 'infinite', 'shenanigans']],
-		[['charoldN'], ['free-movies-free']],
-		[['igni'], ['conflicting-views', 'ambush']],
-		[['zavi'], ['junkyard']],
-		[['micheal-blubber'], ['blubber']],
-		[['charmongusb'], ['defeat-char-mix', 'defeat-odd-mix']],
-		[['mcbf-new'], ['high-ground', 'high-grounder']],
-		[['mcbfv3'], ['high-ground-old']]
-	];
 
-	/**
-	 * What is this for? well each color HAS to corrospond to an entry in songIcons for CustomFreeplayMenuState!
-	 */
-	public static final songColors:Array<FlxColor> = [
-		0xFF9D00,
-		0xA000A8,
-		0xFF5100,
-		0xFF5100,
-		0x3D4249,
-		0xFFEC5B,
-		0xA7452C,
-		0xFF9D00,
-		0x2d2741,
-		0x31b0d1
+		[['char'], ['tutorial', 'obligatory-bonus-song', 'triple-trouble'], ['#FF7700']],
+
+		[['anny'], ['saloon-trouble'], ['#CCAAFF']],
+
+		[['charold'], ['3-problems', 'slow', 'you-can-walk', 'infinite', 'shenanigans'], ['#FF6700']],
+
+		[['charoldN'], ['free-movies-free'], ['#FF6700']],
+
+		[['igni'], ['conflicting-views', 'ambush'], ['#575788']],
+
+		[['zavi'], ['junkyard'], ['#EEA555']],
+
+		[['micheal-blubber'], ['blubber'], ['#8C470F']],
+
+		[['charmongusb'], ['defeat-char-mix', 'defeat-odd-mix'], ['#FF7700']],
+
+		[['mcbf-new'], ['high-ground', 'high-grounder'], ['#2D2741']],
+
+		[['mcbfv3'], ['high-ground-old'], ['#31B0D1']]
+
 	];
 
 	/**
@@ -101,7 +95,6 @@ class Constants
 		'infinite', 		// Endless Char Cover - Part of the Legacy Expansion
 		'high-ground-old', 	// the og - Included in the Mod
 		'shenanigans' 		// Old song for an old ass collab that fell through - Part of the Legacy Expansion
-        //'v${Application.current.meta.get('version')}'
 	];
 
     public static function numOnly(versionToGet:String):String
@@ -123,6 +116,6 @@ class Constants
                 return vsCharString;
         }
         trace('Non-Valid Version! check ur speling! got $versionToGet');
-        return 'null';
+        return '';
     }
 }
