@@ -371,6 +371,7 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+			#if BASE_GAME_FILES
 			case 'stage': new StageWeek1(); 			//Week 1
 			case 'spooky': new Spooky();				//Week 2
 			case 'philly': new Philly();				//Week 3
@@ -382,7 +383,17 @@ class PlayState extends MusicBeatState
 			case 'tank': new Tank();					//Week 7 - Ugh, Guns, Stress
 			case 'phillyStreets': new PhillyStreets(); 	//Weekend 1 - Darnell, Lit Up, 2Hot
 			case 'phillyBlazin': new PhillyBlazin();	//Weekend 1 - Blazin
+			#end
+
 			case 'white': new WhiteStage(); 			//High Ground Stage.
+			case 'chair': new WhiteStage(); 			//High Ground Stage. as a backup for not having to rename stages in old charts
+
+			case 'chartt': new Chartt(); 				// Triple Trouble and Related songs
+			case 'preforestburn': new Chartt(); 		// Triple Trouble and Related songs
+			case 'postforestburn': new Chartt(); 		// Triple Trouble and Related songs
+			case 'burningforest': new Chartt(); 		// Triple Trouble and Related songs
+			case 'triostagenew': new Chartt(); 			// backwards compatibility from before the implementation of "CharTT"
+			case 'triostage': new Chartt(); 			// backwards compatibility from before the implementation of "CharTT"
 		}
 		if(isPixelStage) introSoundsSuffix = '-pixel';
 
@@ -2232,6 +2243,30 @@ class PlayState extends MusicBeatState
                 }
 				callOnScripts('doTrigger', [songTrigger, strumTime, value1, value2]); // For softmodding
 				return true;
+
+				case 'Triggers Defeat ODDBLUE Mix':
+					switch(value1) {
+						case 0:
+                            doSongTitle('Defeat ODDBLUE Mix', 'WHYEthan', null, 0xFFAA6900);
+					}
+
+				case 'Triggers Triple Trouble':
+					switch (value1) {
+						case 0:
+							doSongTitle('Triple Trouble (Char Cover)', 'MarStarBro');
+					}
+
+				case 'Triggers Defeat Char Mix':
+					switch (value1) {
+						case 0:
+							doSongTitle('Defeat Char Mix', 'WHYEthan');
+					}
+
+				case 'Triggers High Ground Old':
+					switch (value1) {
+						case 0:
+							doSongTitle('High Ground (Old)', 'WHYEthan');
+					}
 
         }
 		// Just in case i get a missing return error \/ Cause flixels a shithead sometimes
