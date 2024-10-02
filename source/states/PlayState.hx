@@ -2172,16 +2172,47 @@ class PlayState extends MusicBeatState
     public function songNameToTrigger(songName:String, isEventPushed:Bool = false):String
     {
         switch (Paths.formatToSongPath(songName.toLowerCase()).trim()) {
+			// Current Songs
+				// Unique to Revitalized
             case 'high-ground':
                 return 'Triggers High Ground';
             case 'triple-trouble':
                 return 'Triggers Triple Trouble';
-            case 'high-ground-old':
-                return 'Triggers High Ground Legacy';
+			case 'saloon-trouble':
+				return 'Triggers Saloon Troubles';
+			case 'conflicting-views':
+				return 'Triggers Conflicting Views';
+			case 'ambush':
+				return 'Triggers Ambush';
+			case 'origins':
+				return 'Triggers Origins';
+			case 'obligatory-bonus-song':
+				return "Triggers Char's Bonus Song";
+				// Mixes
+			case 'blubber':
+				return 'Triggers Blubber Micheal Mix';
+			case 'junkyard':
+				return 'Triggers Junkyard Zavi Mix';
             case 'defeat-odd-mix':
                 return 'Triggers Defeat ODDBLUE Mix';
             case 'defeat-char-mix':
                 return 'Triggers Defeat Char Mix';
+
+			// Old Songs
+            case 'high-ground-old':
+                return 'Triggers High Ground Legacy';
+			case 'free-movies-free':
+				return 'Triggers Wega';
+			case '3-problems':
+				return 'Triggers Triple Trouble Cover Old';
+			case 'slow':
+				return 'Triggers Too Slow Cover';
+			case 'you-can-walk':
+				return "Triggers You Can't Run Cover";
+			case 'vesania':
+				return 'Triggers Vesania Cover';
+			case 'shenanigans':
+				return 'Triggers Shenanigans';
 		}
 		var result = callOnScripts('songNameToTrigger', [Paths.formatToSongPath(songName.toLowerCase()).trim()], false, null, [LuaUtils.Function_Continue]);
 

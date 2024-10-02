@@ -42,7 +42,6 @@ class Constants
 		'ambush',	 			// planned song
 		// -- Bonus --
 		'high-ground', 			// The NEW version
-		'high-grounder', 		// the old new version
 		'blubber', 				// planned mix
 		'defeat-char-mix',		// Defeat ODD Mix old
 		'defeat-odd-mix',		// Defeat ODD Mix v2
@@ -97,6 +96,12 @@ class Constants
 		'shenanigans' 		// Old song for an old ass collab that fell through - Part of the Legacy Expansion
 	];
 
+	static final validVersions:Array<String> = [
+		"psych",
+		"funkin",
+		"charengine",
+		"vschar"
+	];
     public static function numOnly(versionToGet:String):String
     {
         var psychString = psychEngineVersion.split('v')[1];
@@ -115,7 +120,14 @@ class Constants
             case 'vschar':
                 return vsCharString;
         }
-        trace('Non-Valid Version! check ur speling! got $versionToGet');
+		var message = 'Non-Valid Version! check ur speling! got $versionToGet, Valid ones are ';
+		for (i in 0...validVersions.length) {
+			if (i != validVersions.length - 1)
+				message += validVersions[i] + ', ';
+			else
+				message += validVersions[i];
+		}
+        trace(message);
         return '';
     }
 }
