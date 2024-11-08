@@ -1,0 +1,45 @@
+{
+	"songs": [
+		[
+			"saloon-troubles",
+			"anny",
+			[
+				166,
+				0,
+				255
+			]
+		],
+		[
+			"conflicting-views",
+			"igni",
+			[
+				46,
+				46,
+				73
+			]
+		],
+		[
+			"ambush",
+			"igni",
+			[
+				46,
+				46,
+				73
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "saloon",
+	"difficulties": "",
+	"weekCharacters": [
+		"igni",
+		"anny",
+		"sear"
+	],
+	"storyName": "When the saloon has troubles",
+	"weekName": "Saloon Troubles",
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

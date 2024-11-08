@@ -1,0 +1,8 @@
+{
+	"name": "VS Char Legacy Songs",
+	"description": "This modpack contains all legacy songs for VS Char Revitalized!",
+	"restart":false,
+	"runsGlobally": false,
+	"color": [170, 0, 255],
+	"iconFramerate": 10
+}

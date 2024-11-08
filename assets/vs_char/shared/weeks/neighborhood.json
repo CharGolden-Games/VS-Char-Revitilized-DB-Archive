@@ -1,0 +1,27 @@
+{
+	"songs": [
+		[
+			"neighborhood-brawl",
+			"lebeau",
+			[
+				209,
+				128,
+				84
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "neighborhood",
+	"difficulties": "",
+	"weekCharacters": [
+		"micheal",
+		"char",
+		"lebeau"
+	],
+	"storyName": "Petty squabbles",
+	"weekName": "Neighborhood Brawl",
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

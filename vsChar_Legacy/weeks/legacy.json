@@ -1,0 +1,90 @@
+{
+	"songs": [
+		[
+			"free-movies-free",
+			"char-fmf",
+			[
+				255,
+				174,
+				0
+			]
+		],
+		[
+			"3-problems",
+			"char-old",
+			[
+				255,
+				174,
+				0
+			]
+		],
+		[
+			"slow",
+			"char-old",
+			[
+				255,
+				174,
+				0
+			]
+		],
+		[
+			"you-can-walk",
+			"char-old",
+			[
+				255,
+				174,
+				0
+			]
+		],
+		[
+			"vesania",
+			"char-retro",
+			[
+				255,
+				174,
+				0
+			]
+		],
+		[
+			"infinite",
+			"plexi-old",
+			[
+				255,
+				174,
+				0
+			]
+		],
+		[
+			"high-ground-old",
+			"char-old",
+			[
+				255,
+				174,
+				0
+			]
+		],
+		[
+			"shenanigans",
+			"char-old",
+			[
+				255,
+				174,
+				0
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"difficulties": "",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "Legacy Songs!",
+	"weekName": "Legacy Songs",
+	"hideStoryMode": true,
+	"weekBefore": "weekWestern",
+	"startUnlocked": false
+}

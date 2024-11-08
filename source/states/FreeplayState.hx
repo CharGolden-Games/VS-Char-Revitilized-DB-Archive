@@ -329,12 +329,33 @@ class FreeplayState extends MusicBeatState
 		{
 			if(instPlaying != curSelected && !player.playingMusic)
 			{
-				destroyFreeplayVocals();
-				FlxG.sound.music.volume = 0;
-
 				Mods.currentModDirectory = songs[curSelected].folder;
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
-				Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+				// ShadowMario forgot to include error checking for this, again.... WHY
+				try 
+				{
+					Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+				}
+				catch(e:haxe.Exception)
+				{
+					trace('ERROR! ${e.message}');
+	
+					var errorStr:String = e.message;
+					if(errorStr.contains('There is no TEXT asset with an ID of')) errorStr = 'Missing file: ' + errorStr.substring(errorStr.indexOf(songs[curSelected].songName.toLowerCase()), errorStr.length-1); //Missing chart
+					else errorStr += '\n\n' + e.stack;
+	
+					missingText.text = 'ERROR WHILE LOADING CHART:\n$errorStr';
+					missingText.screenCenter(Y);
+					missingText.visible = true;
+					missingTextBG.visible = true;
+					FlxG.sound.play(Paths.sound('cancelMenu'));
+	
+					updateTexts(elapsed);
+					super.update(elapsed);
+					return;
+				}
+				destroyFreeplayVocals();
+				FlxG.sound.music.volume = 0;
 				if (PlayState.SONG.needsVoices)
 				{
 					vocals = new FlxSound();

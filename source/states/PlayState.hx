@@ -2188,6 +2188,8 @@ class PlayState extends MusicBeatState
 				return 'Triggers Origins';
 			case 'obligatory-bonus-song':
 				return "Triggers Char's Bonus Song";
+            case 'neighborhood-brawl':
+                return 'Triggers Neighborhood Brawl';
 				// Mixes
 			case 'blubber':
 				return 'Triggers Blubber Micheal Mix';

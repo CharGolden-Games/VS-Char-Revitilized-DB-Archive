@@ -1,0 +1,54 @@
+{
+	"songs": [
+		[
+			"high-ground",
+			"char",
+			[
+				255,
+				174,
+				0
+			]
+		],
+		[
+			"blubber",
+			"micheal-blubber",
+			[
+				66,
+				0,
+				0
+			]
+		],
+		[
+			"defeat-char-mix",
+			"charsus",
+			[
+				66,
+				0,
+				0
+			]
+		],
+		[
+			"defeat-odd-mix",
+			"charsusb",
+			[
+				66,
+				0,
+				0
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"difficulties": "",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "Bonus Week",
+	"weekName": "BonusWeek",
+	"hideStoryMode": true,
+	"weekBefore": "weekWestern",
+	"startUnlocked": false
+}

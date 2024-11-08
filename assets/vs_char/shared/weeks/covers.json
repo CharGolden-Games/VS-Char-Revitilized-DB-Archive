@@ -1,0 +1,36 @@
+{
+	"songs": [
+		[
+			"triple-trouble",
+			"zavi",
+			[
+				255,
+				194,
+				80
+			]
+		],
+		[
+			"junkyard",
+			"zavi-p",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"difficulties": "",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "Covers",
+	"weekName": "Covers",
+	"hideStoryMode": true,
+	"weekBefore": "weekWestern",
+	"startUnlocked": false
+}

@@ -40,6 +40,7 @@ class Constants
 		'saloon-trouble', 		// planned song
 		'conflicting-views', 	// planned song
 		'ambush',	 			// planned song
+		'neighborhood-brawl',	// planned song
 		// -- Bonus --
 		'high-ground', 			// The NEW version
 		'blubber', 				// planned mix
@@ -78,8 +79,9 @@ class Constants
 
 		[['mcbf-new'], ['high-ground', 'high-grounder'], ['#2D2741']],
 
-		[['mcbfv3'], ['high-ground-old'], ['#31B0D1']]
+		[['mcbfv3'], ['high-ground-old'], ['#31B0D1']],
 
+		[['lebeau-pissed'], ['neighborhood-brawl'], ['#D18054']]
 	];
 
 	/**
@@ -114,7 +116,7 @@ class Constants
             case 'psych':
                 return psychString;
             case 'funkin':
-                return '2.8.0';
+                return '0.2.8';
             case 'charengine':
                 return engineString;
             case 'vschar':
