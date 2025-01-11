@@ -14,7 +14,9 @@ haxelib set openfl 9.2.1 --always
 haxelib set haxeui-core 1.7.0 --always
 haxelib set haxeui-flixel 1.7.0 --always
 haxelib set tjson 1.4.0 --always
-haxelib git SScript https://github.com/CharGoldenYT/SScript-for-VS-Char.git
+curl -# -L -O "https://github.com/CobaltBar/SScript-Archive/raw/refs/heads/main/archives/SScript-7,7,0.zip"
+haxelib install "SScript-7,7,0.zip"
+del "SScript-7,7,0.zip
 @echo off
 set /p answer=Are you planning on compiling with the debug flag? E.G. "lime test windows -debug" (Y/N)?
 if /i "%answer:~,1%" EQU "Y" echo haxelib install hxcpp-debug-server & haxelib set hxcpp-debug-server 1.2.4 --always
